@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo - Alpine with Zag</title>
+  <style>
+    #app {
+      max-width: 60%;
+      margin: 0 auto;
+    }
+
+    [x-cloak] {
+      display: none !important;
+    }
+  </style>
+  <script defer src="../dist/index.js"></script>
+  <script type="module">
+    import * as accordion from "https://esm.sh/@zag-js/accordion";
+    import * as collapsible from "https://esm.sh/@zag-js/collapsible";
+
+    document.addEventListener('alpine:init', () => {
+      Alpine.plugin(AlpineZag.zag)
+      Alpine.data("accordion", AlpineZag.createComponent(accordion.connect, accordion.machine))
+      Alpine.data("collapsible", AlpineZag.createComponent(collapsible.connect, collapsible.machine))
+    })
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <h1>Collapsible</h1>
+    <div x-data="{disabled: true}">
+      <div x-data="collapsible" x-props="api.rootProps" x-effect="setContext({ disabled: disabled })">
+        <div>
+          <span x-props="api.triggerProps">foobar</span>
+          <button type="button" x-props="api.triggerProps">Toggle Content</button>
+          <input id="collapsible-disabled" type="checkbox" x-model="disabled" />
+          <label for="collapsible-disabled">disabled</label>
+        </div>
+
+        <div x-cloak x-props="api.contentProps">
+          <p>
+            Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem
+            pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud
+            nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia
+            pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem
+            duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt
+            duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris
+            sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <h1>Accordion</h1>
+    <div x-data="{ 
+        collapsible: true, 
+        multiple: false, 
+        items: [
+            {
+                'name': 'Apple',
+                'description': 'Apples are crisp, juicy fruits with a sweet or tart flavor. They come in various colors such as red, green, and yellow.'
+            },
+            {
+                'name': 'Banana',
+                'description': 'Bananas are elongated, curved fruits with a creamy flesh inside. They are rich in potassium and are commonly eaten as a healthy snack.'
+            },
+            {
+                'name': 'Orange',
+                'description': 'Oranges are round citrus fruits with a bright orange skin and juicy flesh. They are known for their high vitamin C content and refreshing taste.'
+            }
+        ]
+    }">
+      <div x-data="accordion({collapsible, multiple})" x-effect="setContext({ collapsible, multiple })">
+        <div>
+          <input id="accordion-collapsible" type="checkbox" x-model="collapsible">
+          <label for="accordion-collapsible">collapsible</label>
+
+          <input id="accordion-multiple" type="checkbox" x-model="multiple">
+          <label for="accordion-multiple">multiple</label>
+        </div>
+
+        <div x-cloak x-props="api.rootProps">
+          <ul>
+            <template x-for="item in items">
+              <li x-props="api.getItemProps({ value: item.name })">
+                <h3>
+                  <button type="button" x-props="api.getItemTriggerProps({ value: item.name })"
+                    x-text="item.name"></button>
+                </h3>
+                <div x-props="api.getItemContentProps({ value: item.name })">
+                  <p x-text="item.description"></p>
+                </div>
+              </li>
+            </template>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

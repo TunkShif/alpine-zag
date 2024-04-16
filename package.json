@@ -1,0 +1,22 @@
+{
+  "name": "alpine-zag",
+  "version": "0.1.0",
+  "description": "Alpine integration for Zag.",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "esbuild src/index.js --bundle --global-name=AlpineZag --outfile=dist/index.js"
+  },
+  "keywords": [
+    "Alpine",
+    "Zag"
+  ],
+  "author": "Tristan Yang <tunkshif@foxmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@biomejs/biome": "^1.7.0",
+    "esbuild": "^0.20.2"
+  },
+  "dependencies": {
+    "@zag-js/types": "^0.46.0"
+  }
+}
