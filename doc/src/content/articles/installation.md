@@ -1,10 +1,4 @@
-# Alpine-Zag
-
-Use [Zag][zag-homepage] with [Alpine][alpine-homepage]. Check the [website](website).
-
-## Installation
-
-### From CDN
+## From CDN
 
 Import `alpine-zag` from CDN like [jsdelivr](https://www.jsdelivr.com/) or [unpkg](https://www.unpkg.com/).
 
@@ -12,12 +6,15 @@ Be **aware** that the plugin should be imported before the Alpine itself.
 
 ```html
 <head>
-  <script defer src="https://cdn.jsdelivr.net/npm/@tunkshif/alpine-zag@0.1.x/dist/cdn.min.js"></script>
+  <script
+    defer
+    src="https://cdn.jsdelivr.net/npm/@tunkshif/alpine-zag@0.1.x/dist/cdn.min.js"
+  ></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 ```
 
-### From NPM
+## From NPM
 
 Use your favorite package manager to install `alpine-zag` and import it to your project.
 
@@ -38,9 +35,10 @@ Alpine.plugin(zag)
 Alpine.start()
 ```
 
-## Usage
+# Usage
 
-### Create Component
+## Create Component
+
 Use `createComponent` function to create a Zag component for Alpine.
 
 ```js
@@ -56,7 +54,7 @@ If you're using `alpine-zag` form CDN, you can access `createComponent` from a g
 Alpine.data("collapsible", Zag.createComponent(collapsible.connect, collapsible.machine))
 ```
 
-### Use Component
+## Use Component
 
 Use `x-data` directive to initialize your previously created zag component.
 
@@ -82,8 +80,3 @@ Use `x-props` directive to bind props from the machine api to a DOM element.
 ```
 
 You can check the full code example [here](https://github.com/TunkShif/alpine-zag/blob/main/examples/index.html).
-
-
-[website]: https://alpine-zag.tunkshif.com/
-[zag-homepage]: https://zagjs.com/
-[alpine-homepage]: https://alpinejs.dev/

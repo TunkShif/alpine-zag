@@ -1,0 +1,79 @@
+---
+import { Image } from "astro:assets"
+import Layout from "../layouts/Layout.astro"
+import GitHubIcon from "../components/icons/GitHubIcon.astro"
+import image from "../assets/images/lightning-and-pine-trees.png"
+import { Content as Installation } from "../content/articles/installation.md"
+import { button } from "../styles"
+import BoxIcon from "../components/icons/BoxIcon.astro"
+import Demo from "../components/Demo.astro"
+---
+
+<Layout title="Alpine Zag">
+  <main>
+    <section
+      class="mx-auto px-6 my-24 max-w-4xl grid grid-cols-1 place-items-center gap-6 lg:grid-cols-2"
+    >
+      <div class="flex flex-col items-center lg:items-start my-auto gap-8">
+        <div class="flex flex-col gap-4">
+          <h1 class="text-center lg:text-left text-5xl text-slate-800 font-bold text-balance">
+            Alpine Zag
+          </h1>
+          <h2 class="text-center lg:text-left text-4xl text-slate-700 font-semibold text-balance">
+            use <a
+              class="text-emerald-700 hover:underline"
+              href="https://zagjs.com/"
+              target="_blank">Zag</a
+            > components with
+            <a class="text-sky-700 hover:underline" href="https://alpinejs.dev/" target="_blank"
+              >Alpine</a
+            >
+          </h2>
+        </div>
+        <div x-data class="flex justify-center flex-wrap gap-4">
+          <button
+            x-on:click="document.querySelector('#installation').scrollIntoView({ behavior: 'smooth' })"
+            type="button"
+            class={button("bg-slate-700 text-white hover:bg-slate-800")}
+          >
+            Get Started
+          </button>
+          <button
+            x-on:click="document.querySelector('#demo').scrollIntoView({ behavior: 'smooth' })"
+            type="button"
+            class={button()}
+          >
+            <BoxIcon class="w-5 h-5" /> Demo
+          </button>
+          <a class={button()} href="https://github.com/TunkShif/alpine-zag" target="_blank">
+            <GitHubIcon class="w-5 h-5" /> GitHub
+          </a>
+        </div>
+      </div>
+      <div
+        class="-order-1 lg:order-1 lg:place-self-end aspect-square max-w-72 max-h-72 lg:max-w-96 lg:max-h-96"
+      >
+        <Image
+          class="aspect-square w-72 h-72 lg:w-96 lg:h-96 drop-shadow-lg"
+          src={image}
+          loading="lazy"
+          alt="lightning and pine trees"
+        />
+      </div>
+    </section>
+
+    <section class="mx-auto px-6 mt-28 max-w-4xl">
+      <h1 id="installation" class="text-4xl text-slate-800 font-bold">Installation</h1>
+      <div class="prose prose-slate prose-h1:mb-6 prose-h2:my-4 prose-h2:text-slate-700 max-w-4xl">
+        <Installation />
+      </div>
+    </section>
+
+    <section class="mx-auto px-6 my-12 max-w-4xl">
+      <h1 id="demo" class="text-4xl text-slate-800 font-bold">Demo</h1>
+      <div class="my-6">
+        <Demo />
+      </div>
+    </section>
+  </main>
+</Layout>

@@ -1,0 +1,48 @@
+---
+import { button } from "../../styles"
+import { input } from "../../styles"
+import DemoCard from "../DemoCard.astro"
+import ClipboardCheckIcon from "../icons/ClipboardCheckIcon.astro"
+import ClipboardInIcon from "../icons/ClipboardInIcon.astro"
+---
+
+<DemoCard
+  name="clipboard"
+  title="Clipboard"
+  controls={{ value: "https://example.com", timeout: 1500 }}
+>
+  <div
+    slot="content"
+    x-data="clipboard"
+    x-props="api.rootProps"
+    x-effect="setContext(controls)"
+    class="flex flex-col gap-1"
+  >
+    <label x-props="api.labelProps" class="font-medium">Copy your subscription link</label>
+    <div x-props="api.controlProps" class="flex items-center gap-2">
+      <input x-props="api.inputProps" class={input("h-10")} />
+      <button
+        x-props="api.triggerProps"
+        class={button(
+          "shrink-0 w-10 h-10 p-0 justify-center items-center shadow-sm border-slate-300"
+        )}
+      >
+        <ClipboardInIcon x-show="!api.isCopied" class="w-4 h-4" />
+        <ClipboardCheckIcon x-show="api.isCopied" class="w-4 h-4" />
+      </button>
+    </div>
+  </div>
+
+  <div slot="control" class="w-full flex flex-col gap-2">
+    <div class="flex flex-col gap-2 text-sm">
+      <label class="flex flex-col gap-1.5">
+        <span>Value</span>
+        <input type="text" x-model="controls.value" class={input()} />
+      </label>
+      <label class="flex justify-between items-center text-sm">
+        <span>Timeout</span>
+        <input type="number" min="1" x-model="controls.timeout" class={input("max-w-24")} />
+      </label>
+    </div>
+  </div>
+</DemoCard>

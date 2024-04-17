@@ -1,0 +1,49 @@
+---
+
+---
+
+<div x-data="popover({ positioning: { shift: true } })">
+  <div x-props="api.triggerProps" class="flex">
+    <slot name="trigger" />
+  </div>
+  <div x-props="api.positionerProps">
+    <div
+      x-cloak
+      x-props="api.contentProps"
+      class="popover-content relative z-[1400] min-w-64 bg-white border border-slate-200/40 p-4 rounded-md shadow-md"
+    >
+      <h3 class="font-medium mb-2">
+        <slot name="title" />
+      </h3>
+      <slot name="content" />
+      <button
+        class="absolute p-1 top-2.5 right-2.5 hover:bg-slate-200/60 text-slate-500 rounded-md"
+        type="button"
+        x-props="api.closeTriggerProps"
+        aria-label="close popover"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="w-4 h-4"
+        >
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .popover-content[data-state="open"] {
+    animation: slide-in 200ms ease-in-out;
+  }
+</style>

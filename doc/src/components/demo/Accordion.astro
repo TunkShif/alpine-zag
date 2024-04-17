@@ -1,0 +1,84 @@
+---
+import DemoCard from "../DemoCard.astro"
+import { checkbox } from "../../styles"
+
+const items = [
+  {
+    name: "Apple",
+    description:
+      "Apples are crisp, juicy fruits with a sweet or tart flavor. They come in various colors such as red, green, and yellow."
+  },
+  {
+    name: "Banana",
+    description:
+      "Bananas are elongated, curved fruits with a creamy flesh inside. They are rich in potassium and are commonly eaten as a healthy snack."
+  },
+  {
+    name: "Orange",
+    description:
+      "Oranges are round citrus fruits with a bright orange skin and juicy flesh. They are known for their high vitamin C content and refreshing taste."
+  }
+]
+---
+
+<DemoCard name="accordion" title="Accordion" controls={{ collapsible: true, multiple: false }}>
+  <div
+    slot="content"
+    class="w-72 md:w-96 bg-white rounded-md shadow-sm"
+    x-data="accordion({ value: ['Apple'] })"
+    x-props="api.rootProps"
+    x-effect="setContext(controls)"
+  >
+    <ul>
+      {
+        items.map(({ name, description }) => (
+          <li class="accordion-item" x-props={`api.getItemProps({ value: '${name}' })`}>
+            <div>
+              <button
+                class="flex items-center border-b border-slate-200/60 justify-between w-full p-4 font-medium text-slate-700 text-left"
+                x-props={`api.getItemTriggerProps({ value: '${name}' })`}
+              >
+                <h3>{name}</h3>
+              </button>
+              <div
+                x-cloak
+                x-props={`api.getItemContentProps({ value: '${name}' })`}
+                class="accordion-content grid"
+              >
+                <div class="overflow-hidden">
+                  <p class="text-sm py-2 px-4 leading-relaxed">{description}</p>
+                </div>
+              </div>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div slot="control" class="w-full flex flex-col gap-2">
+    <label class="flex justify-between items-center text-sm">
+      <span>Collapsible</span>
+      <input type="checkbox" x-model="controls.collapsible" class={checkbox()} />
+    </label>
+    <label class="flex justify-between items-center text-sm">
+      <span>Multiple</span>
+      <input type="checkbox" x-model="controls.multiple" class={checkbox()} />
+    </label>
+  </div>
+</DemoCard>
+
+<style>
+  .accordion-item[data-state="open"] + .accordion-item [data-part="item-trigger"] {
+    @apply border-t;
+  }
+
+  .accordion-content {
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 250ms ease-in-out;
+  }
+
+  .accordion-content[data-state="open"] {
+    grid-template-rows: 1fr;
+  }
+</style>

@@ -1,0 +1,23 @@
+---
+
+---
+
+<div x-data="tooltip({ openDelay: 500, closeDelay: 250 })">
+  <div x-props="api.triggerProps" class="flex">
+    <slot name="trigger" data-test />
+  </div>
+  <div x-cloak x-show="api.isOpen" x-props="api.positionerProps">
+    <div
+      x-props="api.contentProps"
+      class="tooltip-content relative z-[1500] bg-slate-50 px-2.5 py-2 font-medium text-sm rounded-md shadow-md"
+    >
+      <slot name="content" />
+    </div>
+  </div>
+</div>
+
+<style>
+  .tooltip-content[data-state="open"] {
+    animation: slide-in 250ms ease-in-out;
+  }
+</style>

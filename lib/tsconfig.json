@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "Node16",
+    "lib": [
+      "ES6",
+      "DOM"
+    ],
+    "noEmit": true,
+    "strict": true,
+    "allowJs": true,
+    "skipLibCheck": true
+  },
+  "files": [
+    "src/index.d.ts"
+  ]
+}
