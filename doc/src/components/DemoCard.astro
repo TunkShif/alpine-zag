@@ -7,13 +7,14 @@ import Popover from "./ui/Popover.astro"
 
 interface Props {
   name: string
+  file: string
   title: string
   controls?: Record<string, string | number | boolean>
 }
 
-const { name, title, controls } = Astro.props
+const { name, file, title, controls } = Astro.props
 const zagUrl = `https://zagjs.com/components/react/${name}`
-const codeUrl = `https://github.com/TunkShif/alpine-zag/blob/main/doc/src/components/demo/${name}.astro`
+const codeUrl = `https://github.com/TunkShif/alpine-zag/blob/main/doc/src/components/demo/${file}.astro`
 
 const initialContext = controls ? JSON.stringify({ controls }) : ""
 
