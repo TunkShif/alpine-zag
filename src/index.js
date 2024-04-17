@@ -1,22 +1,21 @@
 import { createNormalizer } from "@zag-js/types"
 
-export function zag(Alpine) {
+export const zag = (Alpine) => {
   Alpine.directive("props", (el, { expression }, { evaluate }) => {
     const props = evaluate(expression)
-    Alpine.bind(el, createBinds(el, expression, props))
+    Alpine.bind(el, createBinds(expression, props))
   })
 }
 
 export const createComponent =
   (connect, machine) =>
-  (context = {}) => {
+  (initialContext = {}) => {
     let instance
     let unsubscribe
-
     const config = {
       api: {},
       init() {
-        instance = machine({ id: this.$id("z"), ...context })
+        instance = machine({ id: this.$id("z"), ...initialContext })
         instance._created()
         instance.start()
         unsubscribe = instance.subscribe((state) => {
@@ -45,7 +44,7 @@ const propMap = {
   defaultChecked: "checked"
 }
 
-const toProp = (prop) => {
+const toHTMLProp = (prop) => {
   if (prop in propMap) return propMap[prop]
   return prop.toLowerCase()
 }
@@ -61,28 +60,23 @@ const normalizeProps = createNormalizer((props) => {
         console.warn("[Zag Normalize Prop] : avoid passing non-primitive value as `children`")
       }
     } else {
-      normalized[toProp(key)] = props[key]
+      normalized[toHTMLProp(key)] = props[key]
     }
   }
   return normalized
 })
 
-const memoProp = "_z_binds"
-const createBinds = (el, expression, props) => {
-  const memo = el[memoProp]
-  if (memo) return memo
-
+const createBinds = (expression, props) => {
   const binds = {}
   for (const key in props) {
+    let name
     if (key.startsWith("on")) {
       const event = key.substring(2)
-      binds[`x-on:${event}`] = `${expression}['${key}']`
+      name = `x-on:${event}`
     } else {
-      binds[`x-bind:${key}`] = `${expression}['${key}']`
+      name = `x-bind:${key}`
     }
+    binds[name] = `${expression}['${key}']`
   }
-
-  el[memoProp] = binds
-
   return binds
 }

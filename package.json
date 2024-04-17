@@ -1,17 +1,31 @@
 {
-  "name": "alpine-zag",
+  "name": "@tunkshif/alpine-zag",
   "version": "0.1.0",
-  "description": "Alpine integration for Zag.",
-  "main": "src/index.js",
-  "scripts": {
-    "build": "esbuild src/index.js --bundle --global-name=AlpineZag --outfile=dist/index.js"
-  },
-  "keywords": [
-    "Alpine",
-    "Zag"
-  ],
+  "description": "Use Zag components with AlpineJS.",
   "author": "Tristan Yang <tunkshif@foxmail.com>",
   "license": "MIT",
+  "homepage": "https://github.com/TunkShif/alpine-zag",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TunkShif/alpine-zag"
+  },
+  "keywords": [
+    "AlpineJS",
+    "Zag",
+    "Component"
+  ],
+  "main": "dist/module.cjs.js",
+  "module": "dist/module.esm.js",
+  "unpkg": "dist/cdn.min.js",
+  "jsdelivr": "dist/cdn.min.js",
+  "files": [
+    "src/",
+    "builds/",
+    "dist/"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  },
   "devDependencies": {
     "@biomejs/biome": "^1.7.0",
     "esbuild": "^0.20.2"

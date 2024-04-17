@@ -15,17 +15,16 @@
       display: none !important;
     }
   </style>
-  <script defer src="../dist/index.js"></script>
   <script type="module">
     import * as accordion from "https://esm.sh/@zag-js/accordion";
     import * as collapsible from "https://esm.sh/@zag-js/collapsible";
 
     document.addEventListener('alpine:init', () => {
-      Alpine.plugin(AlpineZag.zag)
-      Alpine.data("accordion", AlpineZag.createComponent(accordion.connect, accordion.machine))
-      Alpine.data("collapsible", AlpineZag.createComponent(collapsible.connect, collapsible.machine))
+      Alpine.data("accordion", Zag.createComponent(accordion.connect, accordion.machine))
+      Alpine.data("collapsible", Zag.createComponent(collapsible.connect, collapsible.machine))
     })
   </script>
+  <script defer src="../dist/cdn.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
@@ -35,7 +34,6 @@
     <div x-data="{disabled: true}">
       <div x-data="collapsible" x-props="api.rootProps" x-effect="setContext({ disabled: disabled })">
         <div>
-          <span x-props="api.triggerProps">foobar</span>
           <button type="button" x-props="api.triggerProps">Toggle Content</button>
           <input id="collapsible-disabled" type="checkbox" x-model="disabled" />
           <label for="collapsible-disabled">disabled</label>
