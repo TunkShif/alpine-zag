@@ -1,33 +1,7 @@
 ---
-import { checkbox } from "../../styles"
+import { checkbox, input } from "../../styles"
 import DemoCard from "../DemoCard.astro"
-
-const artists = [
-  "Lana Del Rey",
-  "Kali Uchis",
-  "Tame Impala",
-  "Rihanna",
-  "Caroline Polachek",
-  "Adele",
-  "Drake",
-  "Shakira",
-  "Lady Gaga",
-  "Beyoncé",
-  "Pablo Alborán",
-  "Bilie Eilish",
-  "Rosalía",
-  "Björk",
-  "The Weeknd",
-  "Coldplay",
-  "Jolin Tsai",
-  "Tori Amos",
-  "Konstantinos Argiros",
-  "Post Malone",
-  "Ricky Martin",
-  "SZA",
-  "Nick Jonas",
-  "Kate Bush"
-]
+import ChevronDownIcon from "../icons/ChevronDownIcon.astro"
 ---
 
 <DemoCard
@@ -38,8 +12,67 @@ const artists = [
 >
   <div
     slot="content"
-    x-data={`combobox({ items: ${JSON.stringify(artists)}, itemToValue: (x) => x, itemToString: (x) => x })`}
+    class="contents"
+    x-data={`
+    {
+      items: JSON.parse(document.querySelector("[data-artist-list]").content.textContent.replaceAll("\\n", ""))
+    }
+  `}
   >
+    <template data-artist-list>
+      ["Lana Del Rey", "Kali Uchis", "Tame Impala", "Rihanna", "Caroline Polachek", "Adele",
+      "Drake", "Shakira", "Lady Gaga", "Beyoncé", "Pablo Alborán", "Bilie Eilish", "Rosalía",
+      "Björk", "The Weeknd", "Coldplay", "Jolin Tsai", "Tori Amos", "Konstantinos Argiros", "Post
+      Malone", "Ricky Martin", "SZA", "Nick Jonas", "Kate Bush"]
+    </template>
+    <div
+      x-data={`
+      Combobox({
+        collection: $collection.Combobox({
+          items,
+          itemToValue: (item) => item,
+          itemToString: (item) => item
+        }),
+        placeholder: "type or select an artist",
+        positioning: {
+          flip: true,
+          sameWidth: true,
+        },
+        onInputValueChange: ({ value }) => {
+          const artists = JSON.parse(document.querySelector("[data-artist-list]").content.textContent.replaceAll("\\n", ""))
+          const filtered = artists.filter((item) => item.toLowerCase().includes(value.toLowerCase()))
+          items = filtered.length > 0 ? filtered : artists
+        }
+      })
+    `}
+      x-effect="setContext(controls)"
+    >
+      <div x-props="api.rootProps" class="combobox-root">
+        <label x-props="api.labelProps" class="font-medium">Pick your favorite artist</label>
+        <div x-props="api.controlProps" class="relative">
+          <input
+            x-props="api.inputProps"
+            class={input("min-w-28 placeholder:text-slate-500 placeholder:italic text-slate-700")}
+          />
+          <button x-props="api.triggerProps" type="button" class="absolute inset-y-0 right-2">
+            <ChevronDownIcon class="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+      <template x-teleport="body">
+        <div x-cloak x-props="api.positionerProps">
+          <div x-show="items.length > 0" x-props="api.contentProps" class="combobox-content">
+            <ul class="flex flex-col">
+              <template x-for="item in items">
+                <li x-props="api.getItemProps({ item })" class="combobox-item">
+                  <button type="button" x-text="item" class="w-full text-left"></button>
+                </li>
+              </template>
+            </ul>
+          </div>
+        </div>
+      </template>
+    </div>
   </div>
 
   <div slot="control" class="w-full flex flex-col gap-2">
@@ -48,7 +81,7 @@ const artists = [
       <input type="checkbox" x-model="controls.disabled" class={checkbox()} />
     </label>
     <label class="flex justify-between items-center text-sm">
-      <span>Allow Select Only</span>
+      <span>Input Read Only</span>
       <input type="checkbox" x-model="controls.readOnly" class={checkbox()} />
     </label>
     <label class="flex justify-between items-center text-sm">
@@ -57,3 +90,25 @@ const artists = [
     </label>
   </div>
 </DemoCard>
+
+<style>
+  .combobox-content {
+    @apply relative z-[1400] max-h-48 bg-white border border-slate-200/40 p-1 rounded-md shadow-md overflow-auto;
+  }
+
+  .combobox-item {
+    @apply inline-flex p-1.5 text-sm font-medium rounded-md;
+  }
+
+  .combobox-item[aria-selected="true"] {
+    @apply bg-gray-50;
+  }
+
+  /** need to issue with undefined property binding in Alpine */
+  /* .combobox-item[data-highlighted] {
+    @apply bg-gray-50;
+  } */
+  /* .combobox-root[data-disabled] {
+    @apply opacity-60;
+  } */
+</style>
