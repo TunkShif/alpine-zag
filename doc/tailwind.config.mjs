@@ -8,7 +8,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["'Figtree Variable'", ...defaultTheme.fontFamily.sans]
+        sans: ["'Figtree Variable'", ...defaultTheme.fontFamily.sans],
+        mono: ["'DM Mono'", ...defaultTheme.fontFamily.mono]
       }
     }
   },

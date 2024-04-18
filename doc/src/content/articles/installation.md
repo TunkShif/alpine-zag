@@ -79,4 +79,4 @@ Use `x-props` directive to bind props from the machine api to a DOM element.
 </div>
 ```
 
-You can check the full code example [here](https://github.com/TunkShif/alpine-zag/blob/main/examples/index.html).
+You can check the full code example [here](https://github.com/TunkShif/alpine-zag/blob/main/lib/examples/index.html).

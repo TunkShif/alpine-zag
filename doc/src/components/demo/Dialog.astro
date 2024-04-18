@@ -1,0 +1,87 @@
+---
+import { button, checkbox } from "../../styles"
+import DemoCard from "../DemoCard.astro"
+import DownloadIcon from "../icons/DownloadIcon.astro"
+import XIcon from "../icons/XIcon.astro"
+---
+
+<DemoCard
+  name="dialog"
+  file="Dialog"
+  title="Dialog"
+  controls={{ preventScroll: true, closeOnInteractOutside: true, closeOnEscapeKeyDown: true }}
+>
+  <div slot="content" x-data="dialog" x-effect="setContext(controls)">
+    <button x-props="api.triggerProps" class={button()}>
+      <DownloadIcon class="w-5 h-5" /> Download</button
+    >
+    <template x-teleport="body">
+      <div x-show="api.isOpen" class="contents">
+        <div x-props="api.backdropProps" class="dialog-backdrop"></div>
+        <div x-props="api.positionerProps" class="dialog-positioner">
+          <div x-props="api.contentProps" class="dialog-content flex flex-col gap-4">
+            <div class="flex flex-col gap-2">
+              <h2 x-props="api.titleProps" class="text-lg font-semibold">Confirm Download</h2>
+              <p x-props="api.descriptionProps" class="text-sm">
+                The file <code class="text-slate-700">exports.zip</code> will be saved to your disk.
+              </p>
+            </div>
+            <div class="flex gap-2 justify-end items-center">
+              <button x-props="api.closeTriggerProps" type="button" class={button("h-8 px-2.5")}>
+                Cancel
+              </button>
+              <button
+                type="button"
+                class={button("h-8 px-2.5 bg-slate-700 text-white hover:bg-slate-800")}
+              >
+                Download
+              </button>
+            </div>
+            <button
+              class="absolute p-1 top-2.5 right-2.5 hover:bg-slate-200/60 text-slate-500 rounded-md"
+              type="button"
+              x-props="api.closeTriggerProps"
+              aria-label="close dialog"
+            >
+              <XIcon class="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </template>
+  </div>
+
+  <div slot="control" class="w-full flex flex-col gap-2">
+    <label class="flex justify-between items-center text-sm">
+      <span>Prevent Document Scroll</span>
+      <input type="checkbox" x-model="controls.preventScroll" class={checkbox()} />
+    </label>
+    <label class="flex justify-between items-center text-sm">
+      <span>Close When Click Outside</span>
+      <input type="checkbox" x-model="controls.closeOnInteractOutside" class={checkbox()} />
+    </label>
+    <label class="flex justify-between items-center text-sm">
+      <span>Close When Press Escape Key</span>
+      <input type="checkbox" x-model="controls.closeOnEscapeKeyDown" class={checkbox()} />
+    </label>
+  </div>
+</DemoCard>
+
+<style>
+  .dialog-backdrop {
+    @apply fixed inset-0 bg-slate-900/40 backdrop-blur-sm;
+  }
+
+  .dialog-positioner {
+    @apply fixed inset-0 flex justify-center items-center;
+  }
+
+  .dialog-content {
+    @apply relative px-6 py-4 max-w-80 md:max-w-lg bg-white border border-slate-200/40 rounded-md shadow-md;
+  }
+
+  .dialog-content[data-state="open"],
+  .dialog-backdrop[data-state="open"] {
+    animation: fade-in 200ms ease-in-out;
+  }
+</style>

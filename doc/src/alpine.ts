@@ -4,6 +4,7 @@ import * as tooltip from "@zag-js/tooltip"
 import * as popover from "@zag-js/popover"
 import * as accordion from "@zag-js/accordion"
 import * as clipboard from "@zag-js/clipboard"
+import * as dialog from "@zag-js/dialog"
 import * as combobox from "@zag-js/combobox"
 
 export default (Alpine: Alpine) => {
@@ -13,6 +14,7 @@ export default (Alpine: Alpine) => {
   Alpine.data("popover", createComponent(popover.connect, popover.machine))
   Alpine.data("accordion", createComponent(accordion.connect, accordion.machine))
   Alpine.data("clipboard", createComponent(clipboard.connect, clipboard.machine))
+  Alpine.data("dialog", createComponent(dialog.connect, dialog.machine))
   Alpine.data("combobox", createComponent(combobox.connect, combobox.machine))
 }
 

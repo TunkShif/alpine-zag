@@ -17,6 +17,9 @@ importers:
       '@fontsource-variable/figtree':
         specifier: ^5.0.20
         version: 5.0.20
+      '@fontsource/dm-mono':
+        specifier: ^5.0.19
+        version: 5.0.19
       '@tunkshif/alpine-zag':
         specifier: workspace:*
         version: link:../lib
@@ -949,6 +952,10 @@ packages:
 
   /@fontsource-variable/figtree@5.0.20:
     resolution: {integrity: sha512-FVRPeUfhtIPElJ41kdXXDdVpRglH+ek/U7efU5Hnfi7u17sYuUJiujtTkltCThtl5ALrvvj2yYziHWW5HCQvzw==}
+    dev: false
+
+  /@fontsource/dm-mono@5.0.19:
+    resolution: {integrity: sha512-he/hWl/7JwMgVDnWeuw0a4xh/06tozTXwhvb+/LzdrMlj3bqvrMs4Up4CbYBg7HlQcUtWUL6lPOUKHXWjq8Z/g==}
     dev: false
 
   /@img/sharp-darwin-arm64@0.33.3:

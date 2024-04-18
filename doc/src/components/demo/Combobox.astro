@@ -1,0 +1,59 @@
+---
+import { checkbox } from "../../styles"
+import DemoCard from "../DemoCard.astro"
+
+const artists = [
+  "Lana Del Rey",
+  "Kali Uchis",
+  "Tame Impala",
+  "Rihanna",
+  "Caroline Polachek",
+  "Adele",
+  "Drake",
+  "Shakira",
+  "Lady Gaga",
+  "Beyoncé",
+  "Pablo Alborán",
+  "Bilie Eilish",
+  "Rosalía",
+  "Björk",
+  "The Weeknd",
+  "Coldplay",
+  "Jolin Tsai",
+  "Tori Amos",
+  "Konstantinos Argiros",
+  "Post Malone",
+  "Ricky Martin",
+  "SZA",
+  "Nick Jonas",
+  "Kate Bush"
+]
+---
+
+<DemoCard
+  name="combobox"
+  file="Combobox"
+  title="Combobox"
+  controls={{ disabled: false, readOnly: false, loop: true }}
+>
+  <div
+    slot="content"
+    x-data={`combobox({ items: ${JSON.stringify(artists)}, itemToValue: (x) => x, itemToString: (x) => x })`}
+  >
+  </div>
+
+  <div slot="control" class="w-full flex flex-col gap-2">
+    <label class="flex justify-between items-center text-sm">
+      <span>Disabled</span>
+      <input type="checkbox" x-model="controls.disabled" class={checkbox()} />
+    </label>
+    <label class="flex justify-between items-center text-sm">
+      <span>Allow Select Only</span>
+      <input type="checkbox" x-model="controls.readOnly" class={checkbox()} />
+    </label>
+    <label class="flex justify-between items-center text-sm">
+      <span>Loop Keyboard Navigation</span>
+      <input type="checkbox" x-model="controls.loop" class={checkbox()} />
+    </label>
+  </div>
+</DemoCard>

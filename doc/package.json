@@ -14,6 +14,7 @@
     "@astrojs/alpinejs": "^0.4.0",
     "@astrojs/tailwind": "^5.1.0",
     "@fontsource-variable/figtree": "^5.0.20",
+    "@fontsource/dm-mono": "^5.0.19",
     "@tunkshif/alpine-zag": "workspace:*",
     "@types/alpinejs": "^3.13.10",
     "@zag-js/accordion": "^0.47.0",
