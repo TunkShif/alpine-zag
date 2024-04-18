@@ -11,7 +11,7 @@ import XIcon from "../icons/XIcon.astro"
   title="Dialog"
   controls={{ preventScroll: true, closeOnInteractOutside: true, closeOnEscapeKeyDown: true }}
 >
-  <div slot="content" x-data="dialog" x-effect="setContext(controls)">
+  <div slot="content" x-data="Dialog" x-effect="setContext(controls)">
     <button x-props="api.triggerProps" class={button()}>
       <DownloadIcon class="w-5 h-5" /> Download</button
     >

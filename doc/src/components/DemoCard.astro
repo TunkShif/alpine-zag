@@ -29,14 +29,26 @@ const icon = "bg-slate-50/20 hover:bg-slate-50/25 p-2 text-slate-100 rounded-md"
       </button>
       <div class="flex items-center gap-2.5">
         <Tooltip>
-          <a slot="trigger" class={icon} href={codeUrl} target="_blank">
+          <a
+            slot="trigger"
+            class={icon}
+            href={codeUrl}
+            target="_blank"
+            aria-label="view source code"
+          >
             <CodeIcon class="w-5 h-5" />
           </a>
           <span slot="content">View Code</span>
         </Tooltip>
 
         <Tooltip>
-          <a slot="trigger" class={icon} href={zagUrl} target="_blank">
+          <a
+            slot="trigger"
+            class={icon}
+            href={zagUrl}
+            target="_blank"
+            aria-label="view API references"
+          >
             <FileIcon class="w-5 h-5" />
           </a>
           <span slot="content">View Zag References</span>
@@ -44,7 +56,7 @@ const icon = "bg-slate-50/20 hover:bg-slate-50/25 p-2 text-slate-100 rounded-md"
 
         <Popover>
           <Tooltip slot="trigger">
-            <button slot="trigger" class={icon} type="button">
+            <button slot="trigger" class={icon} type="button" aria-label="view component options">
               <SlidersIcon class="w-5 h-5" />
             </button>
             <span slot="content">View Component Properties</span>

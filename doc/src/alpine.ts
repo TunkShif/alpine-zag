@@ -10,12 +10,12 @@ import * as combobox from "@zag-js/combobox"
 export default (Alpine: Alpine) => {
   Alpine.plugin(
     zag.register([
-      ["tooltip", tooltip.connect, tooltip.machine],
-      ["popover", popover.connect, popover.machine],
-      ["accordion", accordion.connect, accordion.machine],
-      ["clipboard", clipboard.connect, clipboard.machine],
-      ["dialog", dialog.connect, dialog.machine],
-      ["combobox", combobox.connect, combobox.machine, combobox.collection]
+      ["Tooltip", tooltip.connect, tooltip.machine],
+      ["Popover", popover.connect, popover.machine],
+      ["Accordion", accordion.connect, accordion.machine],
+      ["Clipboard", clipboard.connect, clipboard.machine],
+      ["Dialog", dialog.connect, dialog.machine],
+      ["Combobox", combobox.connect, combobox.machine, combobox.collection]
     ])
   )
 }

@@ -109,6 +109,9 @@ importers:
       '@types/node':
         specifier: ^20.12.7
         version: 20.12.7
+      '@zag-js/collection':
+        specifier: ^0.47.0
+        version: 0.47.0
       esbuild:
         specifier: ^0.20.2
         version: 0.20.2
@@ -1497,7 +1500,6 @@ packages:
 
   /@zag-js/collection@0.47.0:
     resolution: {integrity: sha512-RRY34ia8mifG4iv+ZW02Rqbx1MQFA4HMJTMPuhhhbp2G6qe1tHVaZd7+BBs92DtJtXJBVPZtejyrUVG6JEZoEw==}
-    dev: false
 
   /@zag-js/combobox@0.47.0:
     resolution: {integrity: sha512-LIH5agkDnzR8I8xQtK7ykxgmczmLbfZFxMBIkzu6iogm9Lnpub1pvWVrYwC+meAmAKQIoctmna7a3DrwPP1myQ==}
