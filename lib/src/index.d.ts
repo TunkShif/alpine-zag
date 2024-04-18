@@ -1,11 +1,11 @@
-import type { PluginCallback, AlpineComponent } from "alpinejs"
-import Alpine from "alpinejs"
+import type { PluginCallback } from "alpinejs"
 
-declare const zag: PluginCallback
+type ComponentRegistry = [name: string, connect: unknown, machine: unknown, collection?: unknown]
 
-declare const createComponent =
-  <T = unknown>(connect: unknown, machine: unknown) =>
-  (initialContext?: unknown) =>
-    AlpineComponent<T>
+interface ZagPlugin extends PluginCallback {
+  register(components: ComponentRegistry[]): ZagPlugin
+}
 
-export { zag, createComponent }
+declare const zag: ZagPlugin
+
+export { zag }

@@ -1,6 +1,6 @@
 {
   "name": "@tunkshif/alpine-zag",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Use Zag components with AlpineJS.",
   "author": "Tristan Yang <tunkshif@foxmail.com>",
   "license": "MIT",
@@ -30,6 +30,7 @@
   "devDependencies": {
     "@biomejs/biome": "^1.7.0",
     "@types/alpinejs": "^3.13.10",
+    "@types/node": "^20.12.7",
     "esbuild": "^0.20.2",
     "typescript": "^5.4.5"
   },
