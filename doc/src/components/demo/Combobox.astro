@@ -34,11 +34,15 @@ import ChevronDownIcon from "../icons/ChevronDownIcon.astro"
           itemToString: (item) => item
         }),
         placeholder: "type or select an artist",
+        inputBehavior: "autohighlight",
         positioning: {
           flip: true,
           sameWidth: true,
         },
-        onInputValueChange: ({ value }) => {
+        onOpenChange() {
+          items = JSON.parse(document.querySelector("[data-artist-list]").content.textContent.replaceAll("\\n", ""))
+        },
+        onInputValueChange({ value }) {
           const artists = JSON.parse(document.querySelector("[data-artist-list]").content.textContent.replaceAll("\\n", ""))
           const filtered = artists.filter((item) => item.toLowerCase().includes(value.toLowerCase()))
           items = filtered.length > 0 ? filtered : artists
@@ -46,32 +50,42 @@ import ChevronDownIcon from "../icons/ChevronDownIcon.astro"
       })
     `}
       x-effect="setContext(controls)"
+      x-init={`
+      $watch('items', () => {
+        setContext({
+          collection: $collection.Combobox({
+            items: items,
+            itemToValue: (item) => item,
+            itemToString: (item) => item
+          })
+        })
+      })
+      `}
     >
-      <div x-props="api.rootProps" class="combobox-root">
-        <label x-props="api.labelProps" class="font-medium">Pick your favorite artist</label>
-        <div x-props="api.controlProps" class="relative">
+      <div x-props="api['rootProps']" class="combobox-root">
+        <label x-props="api['labelProps']" class="font-medium">Pick your favorite artist</label>
+        <div x-props="api['controlProps']" class="relative">
           <input
-            x-props="api.inputProps"
+            x-props="api['inputProps']"
             class={input("min-w-28 placeholder:text-slate-500 placeholder:italic text-slate-700")}
           />
-          <button x-props="api.triggerProps" type="button" class="absolute inset-y-0 right-2">
+          <button x-props="api['triggerProps']" type="button" class="absolute inset-y-0 right-2">
             <ChevronDownIcon class="w-4 h-4" />
           </button>
         </div>
       </div>
-      <template x-teleport="body">
-        <div x-cloak x-props="api.positionerProps">
-          <div x-show="items.length > 0" x-props="api.contentProps" class="combobox-content">
-            <ul class="flex flex-col">
-              <template x-for="item in items">
-                <li x-props="api.getItemProps({ item })" class="combobox-item">
-                  <button type="button" x-text="item" class="w-full text-left"></button>
-                </li>
-              </template>
-            </ul>
-          </div>
+
+      <div x-cloak x-props="api['positionerProps']">
+        <div x-show="items.length > 0" x-props="api['contentProps']" class="combobox-content">
+          <ul class="flex flex-col">
+            <template x-for="item in items">
+              <li x-props="api['getItemProps']({ item })" class="combobox-item">
+                <button type="button" x-text="item" class="w-full text-left"></button>
+              </li>
+            </template>
+          </ul>
         </div>
-      </template>
+      </div>
     </div>
   </div>
 
@@ -100,15 +114,18 @@ import ChevronDownIcon from "../icons/ChevronDownIcon.astro"
     @apply inline-flex p-1.5 text-sm font-medium rounded-md;
   }
 
-  .combobox-item[aria-selected="true"] {
+  .combobox-item:hover {
     @apply bg-gray-50;
   }
 
-  /** need to issue with undefined property binding in Alpine */
-  /* .combobox-item[data-highlighted] {
+  .combobox-item[data-highlighted] {
     @apply bg-gray-50;
-  } */
-  /* .combobox-root[data-disabled] {
+  }
+
+  .combobox-root [data-part="label"][data-disabled] {
     @apply opacity-60;
-  } */
+  }
+  .combobox-root [data-part="control"][data-disabled] {
+    @apply opacity-60;
+  }
 </style>
