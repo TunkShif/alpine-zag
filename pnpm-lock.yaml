@@ -96,6 +96,9 @@ importers:
 
   lib:
     dependencies:
+      '@vue/reactivity':
+        specifier: ^3.4.23
+        version: 3.4.23
       '@zag-js/types':
         specifier: ^0.46.0
         version: 0.46.0
@@ -1457,8 +1460,18 @@ packages:
       '@vue/shared': 3.1.5
     dev: false
 
+  /@vue/reactivity@3.4.23:
+    resolution: {integrity: sha512-GlXR9PL+23fQ3IqnbSQ8OQKLodjqCyoCrmdLKZk3BP7jN6prWheAfU7a3mrltewTkoBm+N7qMEb372VHIkQRMQ==}
+    dependencies:
+      '@vue/shared': 3.4.23
+    dev: false
+
   /@vue/shared@3.1.5:
     resolution: {integrity: sha512-oJ4F3TnvpXaQwZJNF3ZK+kLPHKarDmJjJ6jyzVNDKH9md1dptjC7lWR//jrGuLdek/U6iltWxqAnYOu8gCiOvA==}
+    dev: false
+
+  /@vue/shared@3.4.23:
+    resolution: {integrity: sha512-wBQ0gvf+SMwsCQOyusNw/GoXPV47WGd1xB5A1Pgzy0sQ3Bi5r5xm3n+92y3gCnB3MWqnRDdvfkRGxhKtbBRNgg==}
     dev: false
 
   /@zag-js/accordion@0.47.0:

@@ -14,9 +14,8 @@ import ClipboardInIcon from "../icons/ClipboardInIcon.astro"
 >
   <div
     slot="content"
-    x-data="Clipboard"
+    x-component="['Clipboard', {}, controls]"
     x-props="api.rootProps"
-    x-effect="setContext(controls)"
     class="flex flex-col gap-1"
   >
     <label x-props="api.labelProps" class="font-medium">Copy your subscription link</label>

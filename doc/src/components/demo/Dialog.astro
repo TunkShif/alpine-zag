@@ -11,7 +11,7 @@ import XIcon from "../icons/XIcon.astro"
   title="Dialog"
   controls={{ preventScroll: true, closeOnInteractOutside: true, closeOnEscapeKeyDown: true }}
 >
-  <div slot="content" x-data="Dialog" x-effect="setContext(controls)">
+  <div slot="content" x-component="['Dialog', {}, controls]">
     <button x-props="api.triggerProps" class={button()}>
       <DownloadIcon class="w-5 h-5" /> Download</button
     >
@@ -68,20 +68,20 @@ import XIcon from "../icons/XIcon.astro"
 </DemoCard>
 
 <style>
-  .dialog-backdrop {
+  [data-part="backdrop"] {
     @apply fixed inset-0 bg-slate-900/40 backdrop-blur-sm;
   }
 
-  .dialog-positioner {
+  [data-part="positioner"] {
     @apply fixed inset-0 flex justify-center items-center;
   }
 
-  .dialog-content {
+  [data-part="content"] {
     @apply relative px-6 py-4 max-w-80 md:max-w-lg bg-white border border-slate-200/40 rounded-md shadow-md;
   }
 
-  .dialog-content[data-state="open"],
-  .dialog-backdrop[data-state="open"] {
+  [data-part="content"][data-state="open"],
+  [data-part="content"][data-state="open"] {
     animation: fade-in 200ms ease-in-out;
   }
 </style>

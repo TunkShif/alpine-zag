@@ -4,6 +4,101 @@ import DemoCard from "../DemoCard.astro"
 import ChevronDownIcon from "../icons/ChevronDownIcon.astro"
 ---
 
+<script>
+  import Alpine from "alpinejs"
+  import { getCollection, getComponent } from "@tunkshif/alpine-zag"
+
+  const artists = [
+    "Lana Del Rey",
+    "Kali Uchis",
+    "Tame Impala",
+    "Rihanna",
+    "Caroline Polachek",
+    "Adele",
+    "Drake",
+    "Shakira",
+    "Lady Gaga",
+    "Beyoncé",
+    "Pablo Alborán",
+    "Bilie Eilish",
+    "Rosalía",
+    "Björk",
+    "The Weeknd",
+    "Coldplay",
+    "Jolin Tsai",
+    "Tori Amos",
+    "Konstantinos Argiros",
+    "Post Malone",
+    "Ricky Martin",
+    "SZA",
+    "Nick Jonas",
+    "Kate Bush",
+    "Luke Bryan",
+    "Keith Urban"
+  ]
+
+  document.addEventListener("alpine:init", () => {
+    const Combobox = getComponent("Combobox")
+    const Collection = getCollection("Combobox")
+
+    const createCollection = (items) =>
+      Collection({
+        items: Alpine.raw(items),
+        itemToValue: (item) => item,
+        itemToString: (item) => item
+      })
+
+    Alpine.data("ArtistCombobox", (controls) => {
+      const items = Alpine.reactive({ value: [] })
+      const machine = Combobox(
+        {
+          collection: createCollection(items.value),
+          placeholder: "type or select an artist",
+          inputBehavior: "autohighlight",
+          positioning: {
+            flip: true,
+            sameWidth: true
+          },
+          onOpenChange: () => {
+            items.value = artists
+          },
+          onInputValueChange: ({ value }) => {
+            const filtered = artists.filter((item) =>
+              item.toLowerCase().includes(value.toLowerCase())
+            )
+            items.value = filtered.length > 0 ? filtered : artists
+          }
+        },
+        controls
+      )
+
+      let unwatch
+      return {
+        init() {
+          this.machine.start()
+          unwatch = Alpine.watch(
+            () => items.value,
+            (items) => {
+              this.machine.setContext({ collection: createCollection(items) })
+            }
+          )
+        },
+        destroy() {
+          unwatch()
+          this.machine.stop()
+        },
+        machine,
+        get api() {
+          return this.machine.api
+        },
+        get items() {
+          return items.value
+        }
+      }
+    })
+  })
+</script>
+
 <DemoCard
   name="combobox"
   file="Combobox"
@@ -12,81 +107,34 @@ import ChevronDownIcon from "../icons/ChevronDownIcon.astro"
 >
   <div
     slot="content"
-    class="contents"
-    x-data={`
-    {
-      items: JSON.parse(document.querySelector("[data-artist-list]").content.textContent.replaceAll("\\n", ""))
-    }
-  `}
+    x-data="ArtistCombobox(controls)"
+    x-props="api.rootProps"
+    class="combobox-root"
   >
-    <template data-artist-list>
-      ["Lana Del Rey", "Kali Uchis", "Tame Impala", "Rihanna", "Caroline Polachek", "Adele",
-      "Drake", "Shakira", "Lady Gaga", "Beyoncé", "Pablo Alborán", "Bilie Eilish", "Rosalía",
-      "Björk", "The Weeknd", "Coldplay", "Jolin Tsai", "Tori Amos", "Konstantinos Argiros", "Post
-      Malone", "Ricky Martin", "SZA", "Nick Jonas", "Kate Bush"]
-    </template>
-    <div
-      x-data={`
-      Combobox({
-        collection: $collection.Combobox({
-          items,
-          itemToValue: (item) => item,
-          itemToString: (item) => item
-        }),
-        placeholder: "type or select an artist",
-        inputBehavior: "autohighlight",
-        positioning: {
-          flip: true,
-          sameWidth: true,
-        },
-        onOpenChange() {
-          items = JSON.parse(document.querySelector("[data-artist-list]").content.textContent.replaceAll("\\n", ""))
-        },
-        onInputValueChange({ value }) {
-          const artists = JSON.parse(document.querySelector("[data-artist-list]").content.textContent.replaceAll("\\n", ""))
-          const filtered = artists.filter((item) => item.toLowerCase().includes(value.toLowerCase()))
-          items = filtered.length > 0 ? filtered : artists
-        }
-      })
-    `}
-      x-effect="setContext(controls)"
-      x-init={`
-      $watch('items', () => {
-        setContext({
-          collection: $collection.Combobox({
-            items: items,
-            itemToValue: (item) => item,
-            itemToString: (item) => item
-          })
-        })
-      })
-      `}
-    >
-      <div x-props="api['rootProps']" class="combobox-root">
-        <label x-props="api['labelProps']" class="font-medium">Pick your favorite artist</label>
-        <div x-props="api['controlProps']" class="relative">
-          <input
-            x-props="api['inputProps']"
-            class={input("min-w-28 placeholder:text-slate-500 placeholder:italic text-slate-700")}
-          />
-          <button x-props="api['triggerProps']" type="button" class="absolute inset-y-0 right-2">
-            <ChevronDownIcon class="w-4 h-4" />
-          </button>
-        </div>
-      </div>
+    <label x-props="api.labelProps" class="font-medium">Pick your favorite artist</label>
+    <div x-props="api.controlProps" class="relative">
+      <input
+        x-props="api.inputProps"
+        class={input("min-w-28 placeholder:text-slate-500 placeholder:italic text-slate-700")}
+      />
+      <button x-props="api.triggerProps" type="button" class="absolute inset-y-0 right-2">
+        <ChevronDownIcon class="w-4 h-4" />
+      </button>
+    </div>
 
-      <div x-cloak x-props="api['positionerProps']">
-        <div x-show="items.length > 0" x-props="api['contentProps']" class="combobox-content">
-          <ul class="flex flex-col">
+    <template x-teleport="body">
+      <div x-cloak x-props="api.positionerProps">
+        <div x-props="api.contentProps" class="combobox-content">
+          <ul class="flex flex-col gap-0.5">
             <template x-for="item in items">
-              <li x-props="api['getItemProps']({ item })" class="combobox-item">
+              <li x-props="api.getItemProps({ item })" class="combobox-item">
                 <button type="button" x-text="item" class="w-full text-left"></button>
               </li>
             </template>
           </ul>
         </div>
       </div>
-    </div>
+    </template>
   </div>
 
   <div slot="control" class="w-full flex flex-col gap-2">
@@ -106,26 +154,31 @@ import ChevronDownIcon from "../icons/ChevronDownIcon.astro"
 </DemoCard>
 
 <style>
-  .combobox-content {
+  [data-part="content"] {
     @apply relative z-[1400] max-h-48 bg-white border border-slate-200/40 p-1 rounded-md shadow-md overflow-auto;
   }
 
-  .combobox-item {
+  [data-part="item"] {
     @apply inline-flex p-1.5 text-sm font-medium rounded-md;
   }
 
-  .combobox-item:hover {
+  [data-part="item"]:hover {
     @apply bg-gray-50;
   }
 
-  .combobox-item[data-highlighted] {
+  [data-part="item"][data-highlighted] {
     @apply bg-gray-50;
   }
 
-  .combobox-root [data-part="label"][data-disabled] {
+  [data-part="label"][data-disabled] {
     @apply opacity-60;
   }
-  .combobox-root [data-part="control"][data-disabled] {
+
+  [data-part="control"][data-disabled] {
     @apply opacity-60;
+  }
+
+  [data-part="item"][data-disabled] {
+    @apply opacity-60 pointer-events-none;
   }
 </style>

@@ -1,6 +1,6 @@
 {
   "name": "@tunkshif/alpine-zag",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Use Zag components with AlpineJS.",
   "author": "Tristan Yang <tunkshif@foxmail.com>",
   "license": "MIT",
@@ -36,6 +36,7 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
+    "@vue/reactivity": "^3.4.23",
     "@zag-js/types": "^0.46.0"
   }
 }

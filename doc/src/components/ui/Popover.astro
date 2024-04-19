@@ -2,22 +2,24 @@
 import XIcon from "../icons/XIcon.astro"
 ---
 
-<div x-data="Popover({ positioning: { shift: true } })">
+<div
+  x-component={`
+    [
+      "Popover",
+      { positioning: { shift: true } }
+    ]
+`}
+>
   <div x-props="api.triggerProps" class="flex">
     <slot name="trigger" />
   </div>
   <div x-props="api.positionerProps">
-    <div x-cloak x-props="api.contentProps" class="popover-content">
+    <div x-cloak x-props="api.contentProps">
       <h3 class="font-medium mb-2">
         <slot name="title" />
       </h3>
       <slot name="content" />
-      <button
-        class="absolute p-1 top-2.5 right-2.5 hover:bg-slate-200/60 text-slate-500 rounded-md"
-        type="button"
-        x-props="api.closeTriggerProps"
-        aria-label="close popover"
-      >
+      <button type="button" x-props="api.closeTriggerProps">
         <XIcon class="w-4 h-4" />
       </button>
     </div>
@@ -25,11 +27,15 @@ import XIcon from "../icons/XIcon.astro"
 </div>
 
 <style>
-  .popover-content {
+  [data-part="content"] {
     @apply relative z-[1400] min-w-64 bg-white border border-slate-200/40 p-4 rounded-md shadow-md;
   }
 
-  .popover-content[data-state="open"] {
+  [data-part="content"][data-state="open"] {
     animation: fade-in 200ms ease-in-out;
+  }
+
+  [data-part="close-trigger"] {
+    @apply absolute p-1 top-2.5 right-2.5 hover:bg-slate-200/60 text-slate-500 rounded-md;
   }
 </style>
