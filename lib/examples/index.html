@@ -20,8 +20,10 @@
     import * as collapsible from "https://esm.sh/@zag-js/collapsible";
 
     document.addEventListener('alpine:init', () => {
-      Alpine.data("accordion", Zag.createComponent(accordion.connect, accordion.machine))
-      Alpine.data("collapsible", Zag.createComponent(collapsible.connect, collapsible.machine))
+      Zag.plugin.register([
+        ["Accordion", accordion.connect, accordion.machine],
+        ["Collapsible", collapsible.connect, collapsible.machine]
+      ]);
     })
   </script>
   <script defer src="https://unpkg.com/@tunkshif/alpine-zag"></script>
@@ -31,12 +33,14 @@
 <body>
   <div id="app">
     <h1>Collapsible</h1>
-    <div x-data="{disabled: true}">
-      <div x-data="collapsible" x-props="api.rootProps" x-effect="setContext({ disabled: disabled })">
+    <div x-data="{ controls: { disabled: true } }">
+      <div x-component="['Collapsible', {}, controls]" x-props="api.rootProps">
         <div>
           <button type="button" x-props="api.triggerProps">Toggle Content</button>
-          <input id="collapsible-disabled" type="checkbox" x-model="disabled" />
-          <label for="collapsible-disabled">disabled</label>
+          <label>
+            <input type="checkbox" x-model="controls.disabled" />
+            <span>disabled</span>
+          </label>
         </div>
 
         <div x-cloak x-props="api.contentProps">
@@ -55,30 +59,36 @@
 
     <h1>Accordion</h1>
     <div x-data="{ 
-        collapsible: true, 
-        multiple: false, 
+        controls: {
+          collapsible: true, 
+          multiple: false, 
+        },
         items: [
-            {
-                'name': 'Apple',
-                'description': 'Apples are crisp, juicy fruits with a sweet or tart flavor. They come in various colors such as red, green, and yellow.'
-            },
-            {
-                'name': 'Banana',
-                'description': 'Bananas are elongated, curved fruits with a creamy flesh inside. They are rich in potassium and are commonly eaten as a healthy snack.'
-            },
-            {
-                'name': 'Orange',
-                'description': 'Oranges are round citrus fruits with a bright orange skin and juicy flesh. They are known for their high vitamin C content and refreshing taste.'
-            }
+          {
+            'name': 'Apple',
+            'description': 'Apples are crisp, juicy fruits with a sweet or tart flavor. They come in various colors such as red, green, and yellow.'
+          },
+          {
+            'name': 'Banana',
+            'description': 'Bananas are elongated, curved fruits with a creamy flesh inside. They are rich in potassium and are commonly eaten as a healthy snack.'
+          },
+          {
+            'name': 'Orange',
+            'description': 'Oranges are round citrus fruits with a bright orange skin and juicy flesh. They are known for their high vitamin C content and refreshing taste.'
+          }
         ]
     }">
-      <div x-data="accordion({collapsible, multiple})" x-effect="setContext({ collapsible, multiple })">
+      <div x-component="['Accordion', {}, controls]">
         <div>
-          <input id="accordion-collapsible" type="checkbox" x-model="collapsible">
-          <label for="accordion-collapsible">collapsible</label>
+          <label>
+            <input type="checkbox" x-model="controls.collapsible">
+            <span>collapsible</span>
+          </label>
 
-          <input id="accordion-multiple" type="checkbox" x-model="multiple">
-          <label for="accordion-multiple">multiple</label>
+          <label>
+            <input type="checkbox" x-model="controls.multiple">
+            <span>multiple</span>
+          </label>
         </div>
 
         <div x-cloak x-props="api.rootProps">
