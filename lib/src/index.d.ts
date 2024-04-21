@@ -9,10 +9,19 @@ interface ZagPlugin extends PluginCallback {
 
 declare const zag: ZagPlugin
 
+// TODO: better typing
+interface ZagComponent {
+  start(): void
+  stop(): void
+  get api(): Record<string, unknown>
+  get machine(): Record<string, unknown>
+  setContext(context: Record<string, unknown>): void
+}
+
 type CreateComponent = (
   initialContext: Record<string, unknown>,
   syncContext?: Record<string, unknown>
-) => AlpineComponent<unknown>
+) => ZagComponent
 type CreateCollection = <T extends CollectionItem>(options: CollectionOptions<T>) => Collection<T>
 
 declare const getComponent: (name: string) => CreateComponent

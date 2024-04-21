@@ -54,18 +54,27 @@ const icon = "bg-slate-50/20 hover:bg-slate-50/25 p-2 text-slate-100 rounded-md"
           <span slot="content">View Zag References</span>
         </Tooltip>
 
-        <Popover>
-          <Tooltip slot="trigger">
-            <button slot="trigger" class={icon} type="button" aria-label="view component options">
-              <SlidersIcon class="w-5 h-5" />
-            </button>
-            <span slot="content">View Component Properties</span>
-          </Tooltip>
-          <span slot="title">Properties</span>
-          <div slot="content" class="relative flex">
-            <slot name="control" />
-          </div>
-        </Popover>
+        {
+          initialContext ? (
+            <Popover>
+              <Tooltip slot="trigger">
+                <button
+                  slot="trigger"
+                  class={icon}
+                  type="button"
+                  aria-label="view component options"
+                >
+                  <SlidersIcon class="w-5 h-5" />
+                </button>
+                <span slot="content">View Component Properties</span>
+              </Tooltip>
+              <span slot="title">Properties</span>
+              <div slot="content" class="relative flex">
+                <slot name="control" />
+              </div>
+            </Popover>
+          ) : null
+        }
       </div>
     </div>
   </div>

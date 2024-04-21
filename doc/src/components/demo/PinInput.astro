@@ -1,0 +1,45 @@
+---
+import DemoCard from "@/components/DemoCard.astro"
+import { button, checkbox, input } from "@/styles"
+---
+
+<DemoCard
+  name="pin-input"
+  file="PinInput"
+  title="Pin Input"
+  controls={{ disabled: false, mask: false, blurOnComplete: true }}
+>
+  <div
+    slot="content"
+    x-cloak
+    x-component="['PinInput', { value: ['', '', '', ''] }, controls]"
+    class="flex flex-col gap-4"
+  >
+    <div x-props="api.rootProps" class="flex gap-2 disabled:opacity-60">
+      <template x-for="i in [0, 1, 2, 3]">
+        <input
+          x-props="api.getInputProps({ index: i })"
+          class={input("inline-flex justify-center items-center w-10 h-10 text-center")}
+        />
+      </template>
+    </div>
+    <div>
+      <button x-on:click="api.clearValue" class={button()}>Clear</button>
+    </div>
+  </div>
+
+  <div slot="control" class="w-full flex flex-col gap-2">
+    <label class="flex justify-between items-center text-sm">
+      <span>Disabled</span>
+      <input type="checkbox" x-model="controls.disabled" class={checkbox()} />
+    </label>
+    <label class="flex justify-between items-center text-sm">
+      <span>Mask</span>
+      <input type="checkbox" x-model="controls.mask" class={checkbox("px-2 py-1")} />
+    </label>
+    <label class="flex justify-between items-center text-sm">
+      <span>Blur On Complete</span>
+      <input type="checkbox" x-model="controls.blurOnComplete" class={checkbox("px-2 py-1")} />
+    </label>
+  </div>
+</DemoCard>
