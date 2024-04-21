@@ -3,18 +3,44 @@ import DemoCard from "@/components/DemoCard.astro"
 import { button, checkbox, input } from "@/styles"
 ---
 
+<script>
+  import { normalizeProps, useAPI, useMachine } from "@tunkshif/alpine-zag"
+  import { id } from "@/utils"
+  import * as pinInput from "@zag-js/pin-input"
+  import Alpine from "alpinejs"
+
+  document.addEventListener("alpine:init", () => {
+    Alpine.data("PinInput", (controls) => {
+      const service = useMachine(Alpine, pinInput.machine({ id: id(), value: ["", "", "", ""] }), {
+        context: controls
+      })
+      const api = useAPI(Alpine, () =>
+        pinInput.connect(service.state.value, service.send, normalizeProps)
+      )
+      return {
+        init() {
+          service.start()
+          api.start()
+        },
+        destroy() {
+          api.stop()
+          service.stop()
+        },
+        get api() {
+          return api.value
+        }
+      }
+    })
+  })
+</script>
+
 <DemoCard
   name="pin-input"
   file="PinInput"
   title="Pin Input"
   controls={{ disabled: false, mask: false, blurOnComplete: true }}
 >
-  <div
-    slot="content"
-    x-cloak
-    x-component="['PinInput', { value: ['', '', '', ''] }, controls]"
-    class="flex flex-col gap-4"
-  >
+  <div slot="content" x-cloak x-data="PinInput(controls)" class="flex flex-col gap-4">
     <div x-props="api.rootProps" class="flex gap-2 disabled:opacity-60">
       <template x-for="i in [0, 1, 2, 3]">
         <input

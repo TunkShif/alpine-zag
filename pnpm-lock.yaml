@@ -99,9 +99,6 @@ importers:
 
   lib:
     dependencies:
-      '@vue/reactivity':
-        specifier: ^3.4.23
-        version: 3.4.23
       '@zag-js/types':
         specifier: ^0.46.0
         version: 0.46.0
@@ -115,7 +112,7 @@ importers:
       '@types/node':
         specifier: ^20.12.7
         version: 20.12.7
-      '@zag-js/collection':
+      '@zag-js/core':
         specifier: ^0.47.0
         version: 0.47.0
       esbuild:
@@ -1506,18 +1503,8 @@ packages:
       '@vue/shared': 3.1.5
     dev: false
 
-  /@vue/reactivity@3.4.23:
-    resolution: {integrity: sha512-GlXR9PL+23fQ3IqnbSQ8OQKLodjqCyoCrmdLKZk3BP7jN6prWheAfU7a3mrltewTkoBm+N7qMEb372VHIkQRMQ==}
-    dependencies:
-      '@vue/shared': 3.4.23
-    dev: false
-
   /@vue/shared@3.1.5:
     resolution: {integrity: sha512-oJ4F3TnvpXaQwZJNF3ZK+kLPHKarDmJjJ6jyzVNDKH9md1dptjC7lWR//jrGuLdek/U6iltWxqAnYOu8gCiOvA==}
-    dev: false
-
-  /@vue/shared@3.4.23:
-    resolution: {integrity: sha512-wBQ0gvf+SMwsCQOyusNw/GoXPV47WGd1xB5A1Pgzy0sQ3Bi5r5xm3n+92y3gCnB3MWqnRDdvfkRGxhKtbBRNgg==}
     dev: false
 
   /@zag-js/accordion@0.47.0:
@@ -1559,6 +1546,7 @@ packages:
 
   /@zag-js/collection@0.47.0:
     resolution: {integrity: sha512-RRY34ia8mifG4iv+ZW02Rqbx1MQFA4HMJTMPuhhhbp2G6qe1tHVaZd7+BBs92DtJtXJBVPZtejyrUVG6JEZoEw==}
+    dev: false
 
   /@zag-js/combobox@0.47.0:
     resolution: {integrity: sha512-LIH5agkDnzR8I8xQtK7ykxgmczmLbfZFxMBIkzu6iogm9Lnpub1pvWVrYwC+meAmAKQIoctmna7a3DrwPP1myQ==}
@@ -1581,7 +1569,6 @@ packages:
     dependencies:
       '@zag-js/store': 0.47.0
       klona: 2.0.6
-    dev: false
 
   /@zag-js/dialog@0.47.0:
     resolution: {integrity: sha512-NS43h7lh9kcnFQlRxFS0W6/UrWfVvp2k6fJ8lt7AzN5kjWQH26AulMr0LJlKIizaZhZNi4iKHoirJ4qxy/QyiA==}
@@ -1751,7 +1738,6 @@ packages:
     resolution: {integrity: sha512-0z8gCGulz+mpMRpt3wYrieyDyi2kGuV2r6Roht1m2af3WhZMSlDqNhLj6yA9zyaP/O0e1pNl3Qb9cJ0W9wu47g==}
     dependencies:
       proxy-compare: 2.6.0
-    dev: false
 
   /@zag-js/tabbable@0.47.0:
     resolution: {integrity: sha512-AUZ4zGHBKU4E+s46Jb0ImcsGMW3eqZ33juANi9ovRhOJTLFeJlmmLRIyzDPsbvj+9E8iUBBqBvvqwpknbRmPwA==}
@@ -2992,7 +2978,6 @@ packages:
   /klona@2.0.6:
     resolution: {integrity: sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==}
     engines: {node: '>= 8'}
-    dev: false
 
   /lilconfig@2.1.0:
     resolution: {integrity: sha512-utWOt/GHzuUxnLKxB6dk81RoOeoNeHgbrXiuGk4yyF5qlRz+iIVWu56E2fqGHFrXz0QNUhLB/8nKqvRH66JKGQ==}
@@ -3906,7 +3891,6 @@ packages:
 
   /proxy-compare@2.6.0:
     resolution: {integrity: sha512-8xuCeM3l8yqdmbPoYeLbrAXCBWu19XEYc5/F28f5qOaoAIMyfmBUkl5axiK+x9olUvRlcekvnm98AP9RDngOIw==}
-    dev: false
 
   /pump@3.0.0:
     resolution: {integrity: sha512-LwZy+p3SFs1Pytd/jYct4wpv49HiYCqd9Rlc5ZVdk0V+8Yzv6jR5Blk3TRmPL1ft69TxP0IMZGJ+WPFU2BFhww==}

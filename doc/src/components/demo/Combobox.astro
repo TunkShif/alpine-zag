@@ -5,8 +5,10 @@ import ChevronDownIcon from "@/components/icons/ChevronDownIcon.astro"
 ---
 
 <script>
+  import { normalizeProps, useAPI, useMachine } from "@tunkshif/alpine-zag"
+  import { id } from "@/utils"
+  import * as combobox from "@zag-js/combobox"
   import Alpine from "alpinejs"
-  import { getCollection, getComponent } from "@tunkshif/alpine-zag"
 
   const artists = [
     "Lana Del Rey",
@@ -37,21 +39,20 @@ import ChevronDownIcon from "@/components/icons/ChevronDownIcon.astro"
     "Keith Urban"
   ]
 
+  const createCollection = (items: string[]) =>
+    combobox.collection({
+      items: Alpine.raw(items),
+      itemToValue: (item: string) => item,
+      itemToString: (item: string) => item
+    })
+
   document.addEventListener("alpine:init", () => {
-    const Combobox = getComponent("Combobox")
-    const Collection = getCollection("Combobox")
-
-    const createCollection = (items: string[]) =>
-      Collection({
-        items: Alpine.raw(items),
-        itemToValue: (item: string) => item,
-        itemToString: (item: string) => item
-      })
-
     Alpine.data("ArtistCombobox", (controls: Record<string, unknown>) => {
       const items = Alpine.reactive({ value: [] })
-      const machine = Combobox(
-        {
+      const service = useMachine(
+        Alpine,
+        combobox.machine({
+          id: id(),
           collection: createCollection(items.value),
           placeholder: "type or select an artist",
           inputBehavior: "autohighlight",
@@ -68,29 +69,33 @@ import ChevronDownIcon from "@/components/icons/ChevronDownIcon.astro"
             )
             items.value = filtered.length > 0 ? filtered : artists
           }
-        },
-        controls
+        }),
+        { context: controls }
+      )
+      const api = useAPI(Alpine, () =>
+        combobox.connect(service.state.value, service.send, normalizeProps)
       )
 
       let unwatch: () => void
       return {
         init() {
-          this.machine.start()
+          service.start()
+          api.start()
           // @ts-ignore
           unwatch = Alpine.watch(
             () => items.value,
             (items: string[]) => {
-              this.machine.setContext({ collection: createCollection(items) })
+              service.machine.setContext({ collection: createCollection(items) })
             }
           )
         },
         destroy() {
           unwatch()
-          this.machine.stop()
+          api.stop()
+          service.stop()
         },
-        machine,
         get api() {
-          return this.machine.api
+          return api.value
         },
         get items() {
           return items.value

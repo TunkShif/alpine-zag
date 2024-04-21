@@ -5,6 +5,35 @@ import ClipboardCheckIcon from "@/components/icons/ClipboardCheckIcon.astro"
 import ClipboardInIcon from "@/components/icons/ClipboardInIcon.astro"
 ---
 
+<script>
+  import { normalizeProps, useAPI, useMachine } from "@tunkshif/alpine-zag"
+  import { id } from "@/utils"
+  import * as clipboard from "@zag-js/clipboard"
+  import Alpine from "alpinejs"
+
+  document.addEventListener("alpine:init", () => {
+    Alpine.data("Clipboard", (controls) => {
+      const service = useMachine(Alpine, clipboard.machine({ id: id() }), { context: controls })
+      const api = useAPI(Alpine, () =>
+        clipboard.connect(service.state.value, service.send, normalizeProps)
+      )
+      return {
+        init() {
+          service.start()
+          api.start()
+        },
+        destroy() {
+          api.stop()
+          service.stop()
+        },
+        get api() {
+          return api.value
+        }
+      }
+    })
+  })
+</script>
+
 <DemoCard
   name="clipboard"
   file="Clipboard"
@@ -13,7 +42,7 @@ import ClipboardInIcon from "@/components/icons/ClipboardInIcon.astro"
 >
   <div
     slot="content"
-    x-component="['Clipboard', {}, controls]"
+    x-data="Clipboard(controls)"
     x-props="api.rootProps"
     class="flex flex-col gap-1"
   >

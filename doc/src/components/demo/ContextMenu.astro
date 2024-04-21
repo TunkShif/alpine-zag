@@ -4,43 +4,60 @@ import ChevronRightIcon from "@/components/icons/ChevronRightIcon.astro"
 ---
 
 <script>
-  import { getComponent } from "@tunkshif/alpine-zag"
+  import { normalizeProps, useAPI, useMachine } from "@tunkshif/alpine-zag"
+  import { id } from "@/utils"
+  import * as menu from "@zag-js/menu"
   import Alpine from "alpinejs"
 
   document.addEventListener("alpine:init", () => {
-    const Menu = getComponent("Menu")
-
     Alpine.data("ContextMenu", () => {
       const selected = Alpine.reactive({ value: null })
       const handleSelect = ({ value }) => {
         selected.value = value
       }
-      const actionMenu = Menu({ "aria-label": "Action", onSelect: handleSelect })
-      const shareMenu = Menu({ "aria-label": "Share", onSelect: handleSelect })
+
+      const actionMenu = useMachine(
+        Alpine,
+        menu.machine({ id: id(), "aria-label": "Action", onSelect: handleSelect })
+      )
+      const shareMenu = useMachine(
+        Alpine,
+        menu.machine({ id: id(), "aria-label": "Share", onSelect: handleSelect })
+      )
+
+      const actionMenuApi = useAPI(Alpine, () =>
+        menu.connect(actionMenu.state.value, actionMenu.send, normalizeProps)
+      )
+      const shareMenuApi = useAPI(Alpine, () =>
+        menu.connect(shareMenu.state.value, shareMenu.send, normalizeProps)
+      )
+
       return {
         init() {
-          this.actionMenu.start()
-          this.shareMenu.start()
+          actionMenu.start()
+          actionMenuApi.start()
+          shareMenu.start()
+          shareMenuApi.start()
 
           Alpine.nextTick(() => {
-            this.actionMenu.api.setChild(shareMenu.machine)
-            this.shareMenu.api.setParent(actionMenu.machine)
+            actionMenuApi.value.setChild(shareMenu.machine)
+            shareMenuApi.value.setParent(actionMenu.machine)
           })
         },
         destroy() {
-          this.shareMenu.stop()
-          this.actionMenu.stop()
+          shareMenuApi.stop()
+          shareMenu.stop()
+          actionMenuApi.stop()
+          actionMenu.stop()
         },
-        actionMenu,
-        shareMenu,
         get selected() {
           return selected.value
         },
         get actionMenuApi() {
-          return this.actionMenu.api
+          return actionMenuApi.value
         },
         get shareMenuApi() {
-          return this.shareMenu.api
+          return shareMenuApi.value
         }
       }
     })

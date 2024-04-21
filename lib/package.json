@@ -1,6 +1,6 @@
 {
   "name": "@tunkshif/alpine-zag",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Use Zag components with AlpineJS.",
   "author": "Tristan Yang <tunkshif@foxmail.com>",
   "license": "MIT",
@@ -18,7 +18,7 @@
   "module": "dist/module.esm.js",
   "unpkg": "dist/cdn.min.js",
   "jsdelivr": "dist/cdn.min.js",
-  "types": "src/index.d.ts",
+  "types": "dist/index.d.ts",
   "files": [
     "src/",
     "builds/",
@@ -31,12 +31,11 @@
     "@biomejs/biome": "^1.7.0",
     "@types/alpinejs": "^3.13.10",
     "@types/node": "^20.12.7",
-    "@zag-js/collection": "^0.47.0",
+    "@zag-js/core": "^0.47.0",
     "esbuild": "^0.20.2",
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "@vue/reactivity": "^3.4.23",
     "@zag-js/types": "^0.46.0"
   }
 }

@@ -21,17 +21,51 @@ const items = [
 ]
 ---
 
+<script>
+  import { normalizeProps, useAPI, useMachine } from "@tunkshif/alpine-zag"
+  import { id } from "@/utils"
+  import * as accordion from "@zag-js/accordion"
+  import Alpine from "alpinejs"
+
+  document.addEventListener("alpine:init", () => {
+    Alpine.data("Accordion", (controls) => {
+      const service = useMachine(
+        Alpine,
+        accordion.machine({
+          id: id(),
+          value: ["Apple"]
+        }),
+        {
+          context: controls
+        }
+      )
+      const api = useAPI(Alpine, () =>
+        accordion.connect(service.state.value, service.send, normalizeProps)
+      )
+      return {
+        init() {
+          service.start()
+          api.start()
+        },
+        destroy() {
+          api.stop()
+          service.stop()
+        },
+        get api() {
+          return api.value
+        }
+      }
+    })
+  })
+</script>
+
 <DemoCard
   name="accordion"
   file="Accordion"
   title="Accordion"
   controls={{ collapsible: true, multiple: false }}
 >
-  <div
-    slot="content"
-    x-component="['Accordion', { value: ['Apple'] }, controls]"
-    x-props="api.rootProps"
-  >
+  <div slot="content" x-data="Accordion(controls)" x-props="api.rootProps">
     <ul>
       {
         items.map(({ name, description }) => (

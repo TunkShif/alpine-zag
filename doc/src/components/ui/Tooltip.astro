@@ -2,7 +2,39 @@
 
 ---
 
-<div x-component="['Tooltip', { openDelay: 500, closeDelay: 250 }]">
+<script>
+  import { normalizeProps, useAPI, useMachine } from "@tunkshif/alpine-zag"
+  import * as tooltip from "@zag-js/tooltip"
+  import { id } from "@/utils"
+  import Alpine from "alpinejs"
+
+  document.addEventListener("alpine:init", () => {
+    Alpine.data("Tooltip", () => {
+      const service = useMachine(
+        Alpine,
+        tooltip.machine({ id: id(), openDelay: 500, closeDelay: 200 })
+      )
+      const api = useAPI(Alpine, () =>
+        tooltip.connect(service.state.value, service.send, normalizeProps)
+      )
+      return {
+        init() {
+          service.start()
+          api.start()
+        },
+        destroy() {
+          api.stop()
+          service.stop()
+        },
+        get api() {
+          return api.value
+        }
+      }
+    })
+  })
+</script>
+
+<div x-data="Tooltip">
   <div x-props="api.triggerProps" class="flex">
     <slot name="trigger" data-test />
   </div>

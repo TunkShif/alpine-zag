@@ -2,14 +2,36 @@
 import XIcon from "@/components/icons/XIcon.astro"
 ---
 
-<div
-  x-component={`
-    [
-      "Popover",
-      { positioning: { shift: true } }
-    ]
-`}
->
+<script>
+  import { normalizeProps, useAPI, useMachine } from "@tunkshif/alpine-zag"
+  import { id } from "@/utils"
+  import * as popover from "@zag-js/popover"
+  import Alpine from "alpinejs"
+
+  window.addEventListener("alpine:init", () => {
+    Alpine.data("Popover", () => {
+      const service = useMachine(Alpine, popover.machine({ id: id(), positioning: { flip: true } }))
+      const api = useAPI(Alpine, () =>
+        popover.connect(service.state.value, service.send, normalizeProps)
+      )
+      return {
+        init() {
+          service.start()
+          api.start()
+        },
+        destroy() {
+          api.stop()
+          service.stop()
+        },
+        get api() {
+          return api.value
+        }
+      }
+    })
+  })
+</script>
+
+<div x-data="Popover">
   <div x-props="api.triggerProps" class="flex">
     <slot name="trigger" />
   </div>

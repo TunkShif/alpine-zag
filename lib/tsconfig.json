@@ -1,16 +1,22 @@
 {
   "compilerOptions": {
-    "module": "Node16",
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "lib": [
       "ES6",
       "DOM"
     ],
-    "noEmit": true,
+    "baseUrl": ".",
+    "outDir": "./dist/",
+    "outFile": "./dist/index.d.ts",
+    "declaration": true,
+    "emitDeclarationOnly": true,
     "strict": true,
     "allowJs": true,
     "skipLibCheck": true
   },
-  "files": [
-    "src/index.d.ts"
+  "include": [
+    "./src/"
   ]
 }
