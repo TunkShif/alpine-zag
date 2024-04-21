@@ -8,7 +8,9 @@ export default {
   useTabs: false,
   singleQuote: false,
   trailingComma: "none",
-  plugins: ["prettier-plugin-astro"],
+  importOrderSeparation: true,
+  importOrderSortSpecifiers: true,
+  plugins: ["prettier-plugin-astro", "@trivago/prettier-plugin-sort-imports"],
   overrides: [
     {
       files: "*.astro",

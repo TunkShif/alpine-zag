@@ -1,7 +1,7 @@
 ---
-import { checkbox, input } from "../../styles"
-import DemoCard from "../DemoCard.astro"
-import ChevronDownIcon from "../icons/ChevronDownIcon.astro"
+import { checkbox, input } from "@/styles"
+import DemoCard from "@/components//DemoCard.astro"
+import ChevronDownIcon from "@/components/icons/ChevronDownIcon.astro"
 ---
 
 <script>
@@ -41,14 +41,14 @@ import ChevronDownIcon from "../icons/ChevronDownIcon.astro"
     const Combobox = getComponent("Combobox")
     const Collection = getCollection("Combobox")
 
-    const createCollection = (items) =>
+    const createCollection = (items: string[]) =>
       Collection({
         items: Alpine.raw(items),
-        itemToValue: (item) => item,
-        itemToString: (item) => item
+        itemToValue: (item: string) => item,
+        itemToString: (item: string) => item
       })
 
-    Alpine.data("ArtistCombobox", (controls) => {
+    Alpine.data("ArtistCombobox", (controls: Record<string, unknown>) => {
       const items = Alpine.reactive({ value: [] })
       const machine = Combobox(
         {
@@ -72,13 +72,14 @@ import ChevronDownIcon from "../icons/ChevronDownIcon.astro"
         controls
       )
 
-      let unwatch
+      let unwatch: () => void
       return {
         init() {
           this.machine.start()
+          // @ts-ignore
           unwatch = Alpine.watch(
             () => items.value,
-            (items) => {
+            (items: string[]) => {
               this.machine.setContext({ collection: createCollection(items) })
             }
           )
