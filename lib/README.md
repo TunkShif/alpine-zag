@@ -10,9 +10,10 @@ Import `alpine-zag` from CDN like [jsdelivr](https://www.jsdelivr.com/) or [unpk
 
 Be **aware** that the plugin should be imported before the Alpine itself.
 
+<!-- prettier-ignore -->
 ```html
 <head>
-  <script defer src="https://cdn.jsdelivr.net/npm/@tunkshif/alpine-zag@0.1.x/dist/cdn.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@tunkshif/alpine-zag@0.3.x/dist/cdn.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 ```
@@ -28,62 +29,65 @@ pnpm add alpine-zag
 bun add alpine-zag
 ```
 
-Then apply the plugin with Alpine.
-
-```js
-import { zag } from "@tunkshif/alpine-zag"
-
-Alpine.plugin(zag)
-
-Alpine.start()
-```
-
 ## Usage
 
-### Create Component
-Use `createComponent` function to create a Zag component for Alpine.
+Currently, `alpine-zag` provides a set of low-level API and it is similar to other framework's integration with Zag.
+
+### Apply Plugin
 
 ```js
-import { createComponent } from "@tunkshif/alpine-zag"
-import * as collapsible from "@zag-js/collapsible"
+import { plugin as zag } from "@tunkshif/alpine-zag"
 
-Alpine.data("collapsible", createComponent(collapsible.connect, collapsible.machine))
+Alpine.plugin(zag)
 ```
 
-If you're using `alpine-zag` form CDN, you can access `createComponent` from a global export `Zag` like this:
+### Define Component
+
+`alpine-zag` provides `useMachine` and `useActor` to consume a machine or an actor, and then you can use `useAPI` to connect to your machine.
+
+The main difference in usage from other frameworks' integration is that you'll have to pass an extra `Alpine` instance as the first argument and you have to manage the lifecycle of the machine manually.
+
+At least for now, I haven't found a better way to automatically manage effects and cleanup outside the scope of Alpine, but you could make your own directives to make it less verbose.
 
 ```js
-Alpine.data("collapsible", Zag.createComponent(collapsible.connect, collapsible.machine))
+import { useAPI, useMachine } from "@tunkshif/alpine-zag"
+
+Alpine.data("Tooltip", () => {
+  const service = useMachine(Alpine, tooltip.machine({ id: id(), openDelay: 500, closeDelay: 200 }))
+  const api = useAPI(Alpine, () =>
+    tooltip.connect(service.state.value, service.send, normalizeProps)
+  )
+  return {
+    init() {
+      service.start()
+      api.start()
+    },
+    destroy() {
+      api.stop()
+      service.stop()
+    },
+    get api() {
+      return api.value
+    }
+  }
+})
 ```
 
-### Use Component
+### Use Components
 
-Use `x-data` directive to initialize your previously created zag component.
-
-```html
-<div x-data="collapsible"></div>
-```
-
-Or you can optionally pass in a initial machine context.
-
-```html
-<div x-data="collapsible({ disabled: true })"></div>
-```
-
-And now you have access to the machine API as `api` and the machine context setter as `setContext`.
+Use `x-data` directive to initialize your previously created zag component. And now you have access to the machine API via `api`.
 
 Use `x-props` directive to bind props from the machine api to a DOM element.
 
 ```html
-<div x-data="collapsible" x-props="api.rootProps">
-  <button x-props="api.triggerProps">Toggle Content</button>
-  <div x-props="api.contentProps">Collapsible Content</div>
+<div x-data="Tooltip">
+  <div x-props="api.triggerProps" class="flex">
+    <slot name="trigger" data-test />
+  </div>
+  <div x-cloak x-show="api.isOpen" x-props="api.positionerProps">
+    <div x-props="api.contentProps">
+      <slot name="content" />
+    </div>
+  </div>
 </div>
 ```
-
-You can check the full code example [here](https://github.com/TunkShif/alpine-zag/blob/main/examples/index.html).
-
-
-[website]: https://alpine-zag.tunkshif.com/
-[zag-homepage]: https://zagjs.com/
-[alpine-homepage]: https://alpinejs.dev/

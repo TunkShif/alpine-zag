@@ -13,7 +13,7 @@ Be **aware** that the plugin should be imported before the Alpine itself.
 <!-- prettier-ignore -->
 ```html
 <head>
-  <script defer src="https://cdn.jsdelivr.net/npm/@tunkshif/alpine-zag@0.2.x/dist/cdn.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@tunkshif/alpine-zag@0.3.x/dist/cdn.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 ```
@@ -31,58 +31,63 @@ bun add alpine-zag
 
 # Usage
 
-## Register Components
+Currently, `alpine-zag` provides a set of low-level API and it is similar to other framework's integration with Zag.
 
-Use `zag.register` function to register a list of Zag components for Alpine. Each component registration item is composed of the name of the component, the `connect` function, the `machine` function, and an optional `collection` function.
+## Apply Plugin
 
 ```js
-import { zag } from "@tunkshif/alpine-zag"
-import * as collapsible from "@zag-js/collapsible"
-import * as combobox from "@zag-js/combobox"
+import { plugin as zag } from "@tunkshif/alpine-zag"
 
-Alpine.plugin(
-  zag.register([
-    ["Collapsible", collapsible.connect, collapsible.machine],
-    ["Combobox", combobox.connect, combobox.machine, combobox.collection]
-  ])
-)
+Alpine.plugin(zag)
 ```
 
-If you're using `alpine-zag` form CDN, you can access the register function from a global export name `Zag` like this:
+## Define Component
+
+`alpine-zag` provides `useMachine` and `useActor` to consume a machine or an actor, and then you can use `useAPI` to connect to your machine.
+
+The main difference in usage from other frameworks' integration is that you'll have to pass an extra `Alpine` instance as the first argument and you have to manage the lifecycle of the machine manually.
+
+At least for now, I haven't found a better way to automatically manage effects and cleanup outside the scope of Alpine, but you could make your own directives to make it less verbose.
 
 ```js
-Zag.plugin.register(components)
+import { useAPI, useMachine } from "@tunkshif/alpine-zag"
+
+Alpine.data("Tooltip", () => {
+  const service = useMachine(Alpine, tooltip.machine({ id: id(), openDelay: 500, closeDelay: 200 }))
+  const api = useAPI(Alpine, () =>
+    tooltip.connect(service.state.value, service.send, normalizeProps)
+  )
+  return {
+    init() {
+      service.start()
+      api.start()
+    },
+    destroy() {
+      api.stop()
+      service.stop()
+    },
+    get api() {
+      return api.value
+    }
+  }
+})
 ```
 
 ## Use Components
 
-Use `x-data` directive to initialize your previously created zag component.
-
-```html
-<div x-data="Collapsible"></div>
-```
-
-Or you can optionally pass in an initial machine context.
-
-```html
-<div x-data="Collapsible({ disabled: true })"></div>
-```
-
-And now you have access to the machine API via `api` and the machine context setter via `setContext`.
+Use `x-data` directive to initialize your previously created zag component. And now you have access to the machine API via `api`.
 
 Use `x-props` directive to bind props from the machine api to a DOM element.
 
 ```html
-<div x-data="Collapsible" x-props="api.rootProps">
-  <button x-props="api.triggerProps">Toggle Content</button>
-  <div x-props="api.contentProps">Collapsible Content</div>
+<div x-data="Tooltip">
+  <div x-props="api.triggerProps" class="flex">
+    <slot name="trigger" data-test />
+  </div>
+  <div x-cloak x-show="api.isOpen" x-props="api.positionerProps">
+    <div x-props="api.contentProps">
+      <slot name="content" />
+    </div>
+  </div>
 </div>
 ```
-
-Some components like `combobox` or `select` requires a `collection` context value to be set. You can create the collection using `$collection` magic property.
-
-```html
-<div x-data="Select({ collection: $collection.Select({ items }) })"></div>
-```
-
-You can check the full code example [here](https://github.com/TunkShif/alpine-zag/blob/main/lib/examples/index.html).
