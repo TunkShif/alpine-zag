@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[x-cloak] {
+  display: none !important;
+}
+
+@layer base {
+  :root {
+    --colors-border-default: theme(colors.zinc.200 / 60%);
+  }
+
+  [data-theme="dark"] {
+    --colors-border-default: theme(colors.white / 10%);
+  }
+}

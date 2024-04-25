@@ -1,0 +1,17 @@
+[
+  {
+    "name": "accordion",
+    "file": "Accordion",
+    "title": "Accordion"
+  },
+  {
+    "name": "avatar",
+    "file": "Avatar",
+    "title": "Avatar"
+  },
+  {
+    "name": "carousel",
+    "file": "Carousel",
+    "title": "Carousel"
+  }
+]

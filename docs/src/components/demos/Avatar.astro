@@ -1,0 +1,21 @@
+---
+---
+
+<div x-data x-avatar>
+  <span x-avatar:fallback>KT</span>
+  <img x-cloak x-avatar:image src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=128&h=128&dpr=2&q=80&auto=format&fit=crop" alt="a cat" />
+</div>
+
+<style>
+  [data-part="root"] {
+    @apply inline-flex justify-center items-center aspect-square w-12 h-12 border border-zinc-200/60 rounded-full overflow-hidden;
+  }
+
+  [data-part="fallback"] {
+    @apply font-medium text-sm;
+  }
+
+  [data-part="image"] {
+    @apply w-12 h-12 object-cover rounded-full;
+  }
+</style>

@@ -37,6 +37,14 @@
   },
   "dependencies": {
     "@zag-js/accordion": "^0.48.0",
+    "@zag-js/avatar": "^0.48.0",
+    "@zag-js/carousel": "^0.48.0",
+    "@zag-js/checkbox": "^0.48.0",
+    "@zag-js/clipboard": "^0.47.0",
+    "@zag-js/collapsible": "^0.48.0",
+    "@zag-js/color-picker": "^0.48.0",
+    "@zag-js/combobox": "^0.47.0",
+    "@zag-js/dialog": "^0.47.0",
     "@zag-js/types": "^0.48.0"
   }
 }
