@@ -99,13 +99,16 @@ importers:
 
   lib:
     dependencies:
+      '@zag-js/accordion':
+        specifier: ^0.48.0
+        version: 0.48.0
       '@zag-js/types':
-        specifier: ^0.46.0
-        version: 0.46.0
+        specifier: ^0.48.0
+        version: 0.48.0
     devDependencies:
       '@biomejs/biome':
-        specifier: ^1.7.0
-        version: 1.7.0
+        specifier: ^1.7.1
+        version: 1.7.1
       '@types/alpinejs':
         specifier: ^3.13.10
         version: 3.13.10
@@ -113,8 +116,8 @@ importers:
         specifier: ^20.12.7
         version: 20.12.7
       '@zag-js/core':
-        specifier: ^0.47.0
-        version: 0.47.0
+        specifier: ^0.48.0
+        version: 0.48.0
       esbuild:
         specifier: ^0.20.2
         version: 0.20.2
@@ -478,24 +481,24 @@ packages:
       '@babel/helper-validator-identifier': 7.22.20
       to-fast-properties: 2.0.0
 
-  /@biomejs/biome@1.7.0:
-    resolution: {integrity: sha512-mejiRhnAq6UrXtYvjWJUKdstcT58n0/FfKemFf3d2Ou0HxOdS88HQmWtQ/UgyZvOEPD572YbFTb6IheyROpqkw==}
+  /@biomejs/biome@1.7.1:
+    resolution: {integrity: sha512-wb2UNoFXcgaMdKXKT5ytsYntaogl2FSTjDt20CZynF3v7OXQUcIpTrr+be3XoOGpoZRj3Ytq9TSpmplUREXmeA==}
     engines: {node: '>=14.21.3'}
     hasBin: true
     requiresBuild: true
     optionalDependencies:
-      '@biomejs/cli-darwin-arm64': 1.7.0
-      '@biomejs/cli-darwin-x64': 1.7.0
-      '@biomejs/cli-linux-arm64': 1.7.0
-      '@biomejs/cli-linux-arm64-musl': 1.7.0
-      '@biomejs/cli-linux-x64': 1.7.0
-      '@biomejs/cli-linux-x64-musl': 1.7.0
-      '@biomejs/cli-win32-arm64': 1.7.0
-      '@biomejs/cli-win32-x64': 1.7.0
+      '@biomejs/cli-darwin-arm64': 1.7.1
+      '@biomejs/cli-darwin-x64': 1.7.1
+      '@biomejs/cli-linux-arm64': 1.7.1
+      '@biomejs/cli-linux-arm64-musl': 1.7.1
+      '@biomejs/cli-linux-x64': 1.7.1
+      '@biomejs/cli-linux-x64-musl': 1.7.1
+      '@biomejs/cli-win32-arm64': 1.7.1
+      '@biomejs/cli-win32-x64': 1.7.1
     dev: true
 
-  /@biomejs/cli-darwin-arm64@1.7.0:
-    resolution: {integrity: sha512-12TaeaKHU4SAZt0fQJ2bYk1jUb4foope7LmgDE5p3c0uMxd3mFkg1k7G721T+K6UHYULcSOQDsNNM8DhYi8Irg==}
+  /@biomejs/cli-darwin-arm64@1.7.1:
+    resolution: {integrity: sha512-qfLrIIB58dkgiY/1tgG6fSCBK22PZaSIf6blweZBsG6iMij05mEuJt50ne+zPnNFNUmt8t43NC/qOXT3iFHQBA==}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [darwin]
@@ -503,8 +506,8 @@ packages:
     dev: true
     optional: true
 
-  /@biomejs/cli-darwin-x64@1.7.0:
-    resolution: {integrity: sha512-6Qq1BSIB0cpp0cQNqO/+EiUV7FE3jMpF6w7+AgIBXp0oJxUWb2Ff0RDZdO9bfzkimXD58j0vGpNHMGnCcjDV2Q==}
+  /@biomejs/cli-darwin-x64@1.7.1:
+    resolution: {integrity: sha512-OGeyNsEcp5VnKbF9/TBjPCTHNEOm7oHegEve07U3KZmzqfpw2Oe3i9DVW8t6vvj1TYbrwWYCld25H34kBDY7Vg==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [darwin]
@@ -512,8 +515,8 @@ packages:
     dev: true
     optional: true
 
-  /@biomejs/cli-linux-arm64-musl@1.7.0:
-    resolution: {integrity: sha512-pwIY80nU7SAxrVVZ6HD9ah1pruwh9ZqlSR0Nvbg4ZJqQa0POhiB+RJx7+/1Ml2mTZdrl8kb/YiwQpD16uwb5wg==}
+  /@biomejs/cli-linux-arm64-musl@1.7.1:
+    resolution: {integrity: sha512-giH0/CzLOJ+wbxLxd5Shnr5xQf5fGnTRWLDe3lzjaF7IplVydNCEeZJtncB01SvyA6DAFJsvQ4LNxzAOQfEVCg==}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [linux]
@@ -521,8 +524,8 @@ packages:
     dev: true
     optional: true
 
-  /@biomejs/cli-linux-arm64@1.7.0:
-    resolution: {integrity: sha512-GwSci7xBJ2j1CrdDXDUVXnUtrvypEz/xmiYPpFeVdlX5p95eXx+7FekPPbJfhGGw5WKSsKZ+V8AAlbN+kUwJWw==}
+  /@biomejs/cli-linux-arm64@1.7.1:
+    resolution: {integrity: sha512-MQDf5wErj1iBvlcxCyOa0XqZYN8WJrupVgbNnqhntO3yVATg8GxduVUn1fDSaolznkDRsj7Pz3Xu1esBFwvfmg==}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [linux]
@@ -530,8 +533,8 @@ packages:
     dev: true
     optional: true
 
-  /@biomejs/cli-linux-x64-musl@1.7.0:
-    resolution: {integrity: sha512-KzCA0mW4LSbCd7XZWaEJvTOTTBjfJoVEXkfq1fsXxww1HB+ww5PGMbhbIcbYCsj2CTJUifeD5hOkyuBVppU1xQ==}
+  /@biomejs/cli-linux-x64-musl@1.7.1:
+    resolution: {integrity: sha512-ySNDtPhsLxU125IFHHAxfpoHBpkM56s4mEXeO70GZtgZay/o1h8IUPWCWf5Z7gKgc4jwgYN1U1U9xabI3hZVAg==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [linux]
@@ -539,8 +542,8 @@ packages:
     dev: true
     optional: true
 
-  /@biomejs/cli-linux-x64@1.7.0:
-    resolution: {integrity: sha512-1y+odKQsyHcw0JCGRuqhbx7Y6jxOVSh4lGIVDdJxW1b55yD22DY1kcMEfhUte6f95OIc2uqfkwtiI6xQAiZJdw==}
+  /@biomejs/cli-linux-x64@1.7.1:
+    resolution: {integrity: sha512-3wmCsGcC3KZ4pfTknXHfyMMlXPMhgfXVAcG5GlrR+Tq2JGiAw0EUydaLpsSBEbcG7IxH6OiUZEJZ95kAycCHBA==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [linux]
@@ -548,8 +551,8 @@ packages:
     dev: true
     optional: true
 
-  /@biomejs/cli-win32-arm64@1.7.0:
-    resolution: {integrity: sha512-AvLDUYZBpOUFgS/mni4VruIoVV3uSGbKSkZQBPXsHgL0w4KttLll3NBrVanmWxOHsom6C6ocHLyfAY8HUc8TXg==}
+  /@biomejs/cli-win32-arm64@1.7.1:
+    resolution: {integrity: sha512-8hIDakEqZn0i6+388noYKdZ0ZrovTwnvMU/Qp/oJou0G7EPVdXupOe0oxiQSdRN0W7f6CS/yjPCYuVGzDG6r0g==}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [win32]
@@ -557,8 +560,8 @@ packages:
     dev: true
     optional: true
 
-  /@biomejs/cli-win32-x64@1.7.0:
-    resolution: {integrity: sha512-Pylm00BAAuLVb40IH9PC17432BTsY8K4pSUvhvgR1eaalnMaD6ug9SYJTTzKDbT6r24MPAGCTiSZERyhGkGzFQ==}
+  /@biomejs/cli-win32-x64@1.7.1:
+    resolution: {integrity: sha512-3W9k3uH6Ea6VOpAS9xkkAlS0LTfnGQjmIUCegZ8SDtK2NgJ1gO+qdEkGJb0ltahusFTN1QxJ107dM7ASA9IUEg==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [win32]
@@ -1518,8 +1521,23 @@ packages:
       '@zag-js/utils': 0.47.0
     dev: false
 
+  /@zag-js/accordion@0.48.0:
+    resolution: {integrity: sha512-hQGWFQe7Gk18f6DTMZ96KpgPF8iHvAedWAyhVHkQDHVCV1UAgTd+oGvMEIMBhYz1nHcjdf6P8xQMY6l7CdpTOQ==}
+    dependencies:
+      '@zag-js/anatomy': 0.48.0
+      '@zag-js/core': 0.48.0
+      '@zag-js/dom-event': 0.48.0
+      '@zag-js/dom-query': 0.48.0
+      '@zag-js/types': 0.48.0
+      '@zag-js/utils': 0.48.0
+    dev: false
+
   /@zag-js/anatomy@0.47.0:
     resolution: {integrity: sha512-RzYUfjYeHI8fftH+iZXiFukdz9LWu1W4mewhn30yxTqhsUzn7NLUGbA/+e1zGe1yCOvv1aaRGgXCEn3dA53iCw==}
+    dev: false
+
+  /@zag-js/anatomy@0.48.0:
+    resolution: {integrity: sha512-8hXfzg7M3R11sSJOdYhNF/kWuee1hu40JfYGOrN2BQ7PZYDdO3SYFfWXn9pbETypzJSjd2k6U4tU9JhNYgn+xg==}
     dev: false
 
   /@zag-js/aria-hidden@0.47.0:
@@ -1569,6 +1587,13 @@ packages:
     dependencies:
       '@zag-js/store': 0.47.0
       klona: 2.0.6
+    dev: false
+
+  /@zag-js/core@0.48.0:
+    resolution: {integrity: sha512-PlgjAfSPgn5eXog2obzEcb/RvyCDQ5JQ2qw76SlJBijLYm07b1RpA5legi8Cg/Gi893Mj9doLiEmWQC6Ilh8Vw==}
+    dependencies:
+      '@zag-js/store': 0.48.0
+      klona: 2.0.6
 
   /@zag-js/dialog@0.47.0:
     resolution: {integrity: sha512-NS43h7lh9kcnFQlRxFS0W6/UrWfVvp2k6fJ8lt7AzN5kjWQH26AulMr0LJlKIizaZhZNi4iKHoirJ4qxy/QyiA==}
@@ -1601,8 +1626,20 @@ packages:
       '@zag-js/types': 0.47.0
     dev: false
 
+  /@zag-js/dom-event@0.48.0:
+    resolution: {integrity: sha512-uE2S9yYyUnWmYjzebj5egTR/tLBOIQUGEpa4jaSDql+HVeJQnx4RI/HoT4ocD19Ne5i6uc6qPg1IJPIxXoGWhQ==}
+    dependencies:
+      '@zag-js/dom-query': 0.48.0
+      '@zag-js/text-selection': 0.48.0
+      '@zag-js/types': 0.48.0
+    dev: false
+
   /@zag-js/dom-query@0.47.0:
     resolution: {integrity: sha512-B1wZ3o/8uHOn75BkfcT45zwc23hqZJ/gUF7Z6UrmxWFNpr6JKiDNvOW+QaAKzYNEpvz3NnUOB4tEY0IhDms7Sg==}
+    dev: false
+
+  /@zag-js/dom-query@0.48.0:
+    resolution: {integrity: sha512-pUM+BHOZIWPtHgqEqBXN+1YJzhYhn6F8er3Rfr27chlgE+76bLkT8k7FRnp2TQW30uur9TqM2RTdWlvpw7Wjrw==}
     dev: false
 
   /@zag-js/element-rect@0.47.0:
@@ -1738,6 +1775,12 @@ packages:
     resolution: {integrity: sha512-0z8gCGulz+mpMRpt3wYrieyDyi2kGuV2r6Roht1m2af3WhZMSlDqNhLj6yA9zyaP/O0e1pNl3Qb9cJ0W9wu47g==}
     dependencies:
       proxy-compare: 2.6.0
+    dev: false
+
+  /@zag-js/store@0.48.0:
+    resolution: {integrity: sha512-YrkdLXxRijzSQJeWYtysSsH7Ybte05LF2wxi1W7sysWBT3ERBAyO3WUokELDYV5NK8Em996KdWuGeDQkOceusg==}
+    dependencies:
+      proxy-compare: 2.6.0
 
   /@zag-js/tabbable@0.47.0:
     resolution: {integrity: sha512-AUZ4zGHBKU4E+s46Jb0ImcsGMW3eqZ33juANi9ovRhOJTLFeJlmmLRIyzDPsbvj+9E8iUBBqBvvqwpknbRmPwA==}
@@ -1779,6 +1822,12 @@ packages:
       '@zag-js/dom-query': 0.47.0
     dev: false
 
+  /@zag-js/text-selection@0.48.0:
+    resolution: {integrity: sha512-XOv+lWfLep33bJp/ZoWyQUcEndsfNV6EcKsSqU91RdTwX5UFYJ2zRycTqgP1D+OIc5m6EgUwX7oJu9EfdZfqlA==}
+    dependencies:
+      '@zag-js/dom-query': 0.48.0
+    dev: false
+
   /@zag-js/toast@0.47.0:
     resolution: {integrity: sha512-3+hE7ZaxvKsnGknGytnncL7ZlZNlEOvn5v9+jgPTYJjqGuHlD6YZoRd8Mj1YuJjajKrMEu3hIWBn7ir595c0JQ==}
     dependencies:
@@ -1803,20 +1852,24 @@ packages:
       '@zag-js/utils': 0.47.0
     dev: false
 
-  /@zag-js/types@0.46.0:
-    resolution: {integrity: sha512-4qr0VzcD4gkGnsa4uRnFirtEZEoLbpnKHEkOLa2BGs7Z616m/tIb2UkysJ29WS2nSwSsek+V+ob6NyVl0VECGQ==}
-    dependencies:
-      csstype: 3.1.3
-    dev: false
-
   /@zag-js/types@0.47.0:
     resolution: {integrity: sha512-DDtWwzJiJhpJw9W64tuidqaZniipO+SaiNBC8/DsPpuFL+5h4DJTiVIZnYUv60BNv+KwGRRRTazIY0+wvzyNeQ==}
     dependencies:
       csstype: 3.1.3
     dev: false
 
+  /@zag-js/types@0.48.0:
+    resolution: {integrity: sha512-q0NMF5Xc4q+CTd9CVQGgwP+3U0VZoQnP5dpWFA0UPLHvlsFEYJW6E+kv5vI0dbqXLUAgEQl+BE94sAwpbkxCFA==}
+    dependencies:
+      csstype: 3.1.3
+    dev: false
+
   /@zag-js/utils@0.47.0:
     resolution: {integrity: sha512-Pz8Mpi4G9DTgQKWYKzZkWBQ2C1j/OUGNso/s3VL78MGUGKQUa8rJDRCDBByJwlVt/YBiSe73NNyQkf3jujOL3g==}
+    dev: false
+
+  /@zag-js/utils@0.48.0:
+    resolution: {integrity: sha512-VxNfAY3qMBm+VEsbM9+GmXTV9Ks2MxrLcXIcTK4qaGBl0y+DZZHN+b8DVMTLZpmkQK6wkJnkEnFC1Sv9dsQYkA==}
     dev: false
 
   /@zag-js/visually-hidden@0.47.0:
@@ -2021,13 +2074,13 @@ packages:
     dev: false
     optional: true
 
-  /bare-fs@2.2.3:
-    resolution: {integrity: sha512-amG72llr9pstfXOBOHve1WjiuKKAMnebcmMbPWDZ7BCevAoJLpugjuAPRsDINEyjT0a6tbaVx3DctkXIRbLuJw==}
+  /bare-fs@2.3.0:
+    resolution: {integrity: sha512-TNFqa1B4N99pds2a5NYHR15o0ZpdNKbAeKTE/+G6ED/UeOavv8RY3dr/Fu99HW3zU3pXpo2kDNO8Sjsm2esfOw==}
     requiresBuild: true
     dependencies:
       bare-events: 2.2.2
       bare-path: 2.1.1
-      streamx: 2.16.1
+      bare-stream: 1.0.0
     dev: false
     optional: true
 
@@ -2042,6 +2095,14 @@ packages:
     requiresBuild: true
     dependencies:
       bare-os: 2.2.1
+    dev: false
+    optional: true
+
+  /bare-stream@1.0.0:
+    resolution: {integrity: sha512-KhNUoDL40iP4gFaLSsoGE479t0jHijfYdIcxRn/XtezA2BaUD0NRf/JGRpsMq6dMNM+SrCrB0YSSo/5wBY4rOQ==}
+    requiresBuild: true
+    dependencies:
+      streamx: 2.16.1
     dev: false
     optional: true
 
@@ -4449,7 +4510,7 @@ packages:
       pump: 3.0.0
       tar-stream: 3.1.7
     optionalDependencies:
-      bare-fs: 2.2.3
+      bare-fs: 2.3.0
       bare-path: 2.1.1
     dev: false
     optional: true

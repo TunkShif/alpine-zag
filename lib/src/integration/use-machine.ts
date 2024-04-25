@@ -3,6 +3,7 @@ import { useSnapshot } from "./use-snapshot"
 import type { MachineSrc, StateMachine as S } from "@zag-js/core"
 import type { MachineOptions } from "./types"
 import type { Alpine } from "alpinejs"
+import { markRaw } from "src/integration/reactivity"
 
 declare module "alpinejs" {
   interface Alpine {
@@ -22,7 +23,7 @@ export const useMachine = <
   const [service, onServiceMounted, onServiceDestroyed] = useService(Alpine, machine, options)
   const [state, onSnapshotDestroyed] = useSnapshot(Alpine, service, options)
 
-  return {
+  return markRaw({
     start() {
       onServiceMounted()
     },
@@ -39,5 +40,5 @@ export const useMachine = <
     get machine() {
       return service
     }
-  }
+  })
 }

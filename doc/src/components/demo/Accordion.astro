@@ -21,60 +21,22 @@ const items = [
 ]
 ---
 
-<script>
-  import { normalizeProps, useAPI, useMachine } from "@tunkshif/alpine-zag"
-  import { id } from "@/utils"
-  import * as accordion from "@zag-js/accordion"
-  import Alpine from "alpinejs"
-
-  document.addEventListener("alpine:init", () => {
-    Alpine.data("Accordion", (controls) => {
-      const service = useMachine(
-        Alpine,
-        accordion.machine({
-          id: id(),
-          value: ["Apple"]
-        }),
-        {
-          context: controls
-        }
-      )
-      const api = useAPI(Alpine, () =>
-        accordion.connect(service.state.value, service.send, normalizeProps)
-      )
-      return {
-        init() {
-          service.start()
-          api.start()
-        },
-        destroy() {
-          api.stop()
-          service.stop()
-        },
-        get api() {
-          return api.value
-        }
-      }
-    })
-  })
-</script>
-
 <DemoCard
   name="accordion"
   file="Accordion"
   title="Accordion"
   controls={{ collapsible: true, multiple: false }}
 >
-  <div slot="content" x-data="Accordion(controls)" x-props="api.rootProps">
+  <div slot="content" x-accordion="controls">
     <ul>
       {
         items.map(({ name, description }) => (
-          <li x-props={`api.getItemProps({ value: '${name}' })`}>
+          <li x-accordion:item={`'${name}'`}>
             <div>
-              <button x-props={`api.getItemTriggerProps({ value: '${name}' })`}>
+              <button x-accordion:item-trigger={`'${name}'`}>
                 <h3>{name}</h3>
               </button>
-              <div x-cloak x-props={`api.getItemContentProps({ value: '${name}' })`}>
+              <div x-cloak x-accordion:item-content={`'${name}'`}>
                 <div class="overflow-hidden">
                   <p class="text-sm py-2 px-4 leading-relaxed">{description}</p>
                 </div>

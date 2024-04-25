@@ -1,5 +1,2 @@
-export { plugin } from "./alpine"
-export { useAPI } from "./use-api"
-export { useActor } from "./use-actor"
-export { useMachine } from "./use-machine"
-export { normalizeProps } from "./normalize-props"
+export * from "./components"
+export { plugin as zag, useAPI, useActor, useMachine, normalizeProps } from "./integration"
