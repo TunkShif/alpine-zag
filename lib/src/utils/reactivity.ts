@@ -27,3 +27,11 @@ export const computedRef = <V>(Alpine: Alpine, cleanup: CleanupFn, getter: () =>
   cleanup(() => unwatch())
   return ref
 }
+
+export const computedShallowRef = <V>(
+  Alpine: Alpine,
+  cleanup: CleanupFn,
+  getter: () => V
+): Ref<V> => {
+  return computedRef(Alpine, cleanup, () => markRaw(getter()))
+}

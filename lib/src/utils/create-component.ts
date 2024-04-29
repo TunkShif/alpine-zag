@@ -1,7 +1,7 @@
 import type { Alpine } from "alpinejs"
 import { normalizeProps, useMachine } from "src/integration"
 import { createBind } from "src/integration/bind"
-import { type CleanupFn, computedRef, markRaw } from "src/utils/reactivity"
+import { type CleanupFn, computedShallowRef, markRaw } from "src/utils/reactivity"
 
 type Dict = Record<string, any>
 
@@ -37,12 +37,15 @@ export const createComponent = (
   createMachine: CreateMachine,
   connectMachine: ConnectMachine
 ): Dict => {
-  return {
-    init() {
-      const contextProp = `_${name}_context`
-      const machineProp = `_${name}_machine`
-      const apiProp = `_${name}_api`
+  const contextProp = `_${name}_context`
+  const machineProp = `_${name}_machine`
+  const apiProp = `_${name}_api`
 
+  return {
+    [contextProp]: null,
+    [machineProp]: null,
+    [apiProp]: null,
+    init() {
       this[contextProp] = props
       const [state, send, machine] = useMachine(
         Alpine,
@@ -55,8 +58,8 @@ export const createComponent = (
       )
 
       this[machineProp] = markRaw(machine)
-      this[apiProp] = computedRef(Alpine, cleanup, () =>
-        markRaw(connectMachine(state.value, send, normalizeProps))
+      this[apiProp] = computedShallowRef(Alpine, cleanup, () =>
+        connectMachine(state.value, send, normalizeProps)
       )
     }
   }
