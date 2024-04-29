@@ -1,6 +1,7 @@
 import type { MachineSrc, StateMachine as S } from "@zag-js/core"
-import type { MachineOptions } from "./types"
 import type { Alpine } from "alpinejs"
+import type { CleanupFn } from "src/utils/reactivity"
+import type { MachineOptions } from "./types"
 
 export const useService = <
   TContext extends Record<string, any>,
@@ -8,6 +9,7 @@ export const useService = <
   TEvent extends S.EventObject = S.AnyEventObject
 >(
   Alpine: Alpine,
+  cleanup: CleanupFn,
   machine: MachineSrc<TContext, TState, TEvent>,
   options?: MachineOptions<TContext, TState, TEvent>
 ) => {
@@ -16,9 +18,7 @@ export const useService = <
   const service = typeof machine === "function" ? machine() : machine
   if (context) service.setContext(Alpine.raw(context))
   service._created()
-
-  const onMounted = () => service.start(hydratedState)
-  const onDestroyed = () => service.stop()
-
-  return [service, onMounted, onDestroyed] as const
+  service.start(hydratedState)
+  cleanup(() => service.stop())
+  return service
 }

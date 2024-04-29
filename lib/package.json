@@ -25,7 +25,8 @@
     "dist/"
   ],
   "scripts": {
-    "build": "node scripts/build.mjs"
+    "build": "node scripts/build.mjs",
+    "format": "biome check --apply --linter-enabled=false ./src"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.7.1",

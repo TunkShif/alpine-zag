@@ -1,33 +1,34 @@
 import * as carousel from "@zag-js/carousel"
 import type { PluginCallback } from "alpinejs"
 import { createComponent, getApi, handleComponentPart } from "src/utils/create-component"
+import type { CleanupFn } from "src/utils/reactivity"
 
 export const plugin: PluginCallback = (Alpine) => {
-  Alpine.directive("carousel", (el, directive, { evaluate }) => {
+  Alpine.directive("carousel", (el, directive, { evaluate, cleanup }) => {
     switch (directive.value) {
       case "prev-trigger":
-        return handleComponentPart(el, Alpine, "prevTriggerProps")
+        return handleComponentPart(el, Alpine, "carousel", "prevTriggerProps")
       case "next-trigger":
-        return handleComponentPart(el, Alpine, "nextTriggerProps")
+        return handleComponentPart(el, Alpine, "carousel", "nextTriggerProps")
       case "viewport":
-        return handleComponentPart(el, Alpine, "viewportProps")
+        return handleComponentPart(el, Alpine, "carousel", "viewportProps")
       case "item-group":
-        return handleComponentPart(el, Alpine, "itemGroupProps")
+        return handleComponentPart(el, Alpine, "carousel", "itemGroupProps")
       case "item":
-        return handleComponentPart(el, Alpine, "getItemProps", {
+        return handleComponentPart(el, Alpine, "carousel", "getItemProps", {
           index: evaluate(directive.expression)
         })
       default:
-        return handleRoot(el, Alpine, evaluate(directive.expression || "{}"))
+        return handleRoot(el, Alpine, cleanup, evaluate(directive.expression || "{}"))
     }
   })
 
   Alpine.magic("carousel", (el) => {
-    return getApi<carousel.Api>(el, Alpine)
+    return getApi<carousel.Api>(el, Alpine, "carousel")
   })
 }
 
-const handleRoot = (el: HTMLElement, Alpine: any, props: any) => {
+const handleRoot = (el: HTMLElement, Alpine: any, cleanup: CleanupFn, props: any) => {
   Alpine.bind(el, {
     "x-id"() {
       return ["z-carousel"]
@@ -35,6 +36,8 @@ const handleRoot = (el: HTMLElement, Alpine: any, props: any) => {
     "x-data"() {
       return createComponent(
         Alpine,
+        cleanup,
+        "carousel",
         props,
         ({ $id, $dispatch }) =>
           carousel.machine({
@@ -49,5 +52,5 @@ const handleRoot = (el: HTMLElement, Alpine: any, props: any) => {
     }
   })
 
-  handleComponentPart(el, Alpine, "rootProps")
+  handleComponentPart(el, Alpine, "carousel", "rootProps")
 }

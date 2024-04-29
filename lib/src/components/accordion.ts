@@ -1,32 +1,33 @@
 import * as accordion from "@zag-js/accordion"
 import type { Alpine, PluginCallback } from "alpinejs"
 import { createComponent, getApi, handleComponentPart } from "src/utils/create-component"
+import type { CleanupFn } from "src/utils/reactivity"
 
 export const plugin: PluginCallback = (Alpine) => {
-  Alpine.directive("accordion", (el, directive, { evaluate }) => {
+  Alpine.directive("accordion", (el, directive, { evaluate, cleanup }) => {
     const param = directive.value?.startsWith("item")
       ? { value: evaluate(directive.expression) }
       : evaluate(directive.expression || "{}")
     switch (directive.value) {
       case "item":
-        return handleComponentPart(el, Alpine, "getItemProps", param)
+        return handleComponentPart(el, Alpine, "accordion", "getItemProps", param)
       case "item-trigger":
-        return handleComponentPart(el, Alpine, "getItemTriggerProps", param)
+        return handleComponentPart(el, Alpine, "accordion", "getItemTriggerProps", param)
       case "item-indicator":
-        return handleComponentPart(el, Alpine, "getItemIndicatorProps", param)
+        return handleComponentPart(el, Alpine, "accordion", "getItemIndicatorProps", param)
       case "item-content":
-        return handleComponentPart(el, Alpine, "getItemContentProps", param)
+        return handleComponentPart(el, Alpine, "accordion", "getItemContentProps", param)
       default:
-        return handleRoot(el, Alpine, param)
+        return handleRoot(el, Alpine, cleanup, param)
     }
   }).before("bind")
 
   Alpine.magic("accordion", (el) => {
-    return getApi<accordion.Api>(el, Alpine)
+    return getApi<accordion.Api>(el, Alpine, "accordion")
   })
 }
 
-const handleRoot = (el: HTMLElement, Alpine: Alpine, props: any) => {
+const handleRoot = (el: HTMLElement, Alpine: Alpine, cleanup: CleanupFn, props: any) => {
   Alpine.bind(el, {
     "x-id"() {
       return ["z-accordion"]
@@ -34,6 +35,8 @@ const handleRoot = (el: HTMLElement, Alpine: Alpine, props: any) => {
     "x-data"() {
       return createComponent(
         Alpine,
+        cleanup,
+        "accordion",
         props,
         ({ $id, $dispatch }) =>
           accordion.machine({
@@ -51,5 +54,5 @@ const handleRoot = (el: HTMLElement, Alpine: Alpine, props: any) => {
     }
   })
 
-  handleComponentPart(el, Alpine, "rootProps")
+  handleComponentPart(el, Alpine, "accordion", "rootProps")
 }

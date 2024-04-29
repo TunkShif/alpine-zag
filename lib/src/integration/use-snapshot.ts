@@ -1,9 +1,7 @@
-import { markRaw } from "./reactivity"
 import type { Machine, StateMachine as S } from "@zag-js/core"
-import type { MachineOptions } from "./types"
 import type { Alpine } from "alpinejs"
-
-type Ref<T> = { value: T }
+import type { MachineOptions } from "src/integration/types"
+import { type CleanupFn, type Ref, markRaw } from "src/utils/reactivity"
 
 export const useSnapshot = <
   TContext extends Record<string, any>,
@@ -11,9 +9,10 @@ export const useSnapshot = <
   TEvent extends S.EventObject = S.AnyEventObject
 >(
   Alpine: Alpine,
+  cleanup: CleanupFn,
   service: Machine<TContext, TState, TEvent>,
   options?: MachineOptions<TContext, TState, TEvent>
-): [Ref<S.State<TContext, TState, TEvent>>, () => void] => {
+): Ref<S.State<TContext, TState, TEvent>> => {
   const { context } = options ?? {}
 
   const state = Alpine.reactive({ value: markRaw(service.state) })
@@ -31,9 +30,10 @@ export const useSnapshot = <
     )
   }
 
-  const onDestroyed = () => {
+  cleanup(() => {
     unwatch?.()
     unsubscribe()
-  }
-  return [state, onDestroyed] as const
+  })
+
+  return state
 }
