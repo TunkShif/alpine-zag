@@ -17,22 +17,21 @@ const items = [
   }
 ]
 ---
-  <div x-data x-accordion>
-      {
-        items.map(({ name, description }) => (
-            <div x-accordion:item={`'${name}'`}>
-              <button x-accordion:item-trigger={`'${name}'`}>
-                {name}
-              </button>
-              <div x-cloak x-accordion:item-content={`'${name}'`}>
-                <div class="overflow-hidden">
-                  <p class="text-sm py-2 px-4 leading-relaxed">{description}</p>
-                </div>
-              </div>
-            </div>
-        ))
-      }
-  </div>
+
+<div x-cloak x-data x-accordion>
+  {
+    items.map(({ name, description }) => (
+      <div x-accordion:item={`'${name}'`}>
+        <button x-accordion:item-trigger={`'${name}'`}>{name}</button>
+        <div x-cloak x-accordion:item-content={`'${name}'`}>
+          <div class="overflow-hidden">
+            <p class="text-sm py-2 px-4 leading-relaxed">{description}</p>
+          </div>
+        </div>
+      </div>
+    ))
+  }
+</div>
 
 <style>
   [data-part="root"] {
