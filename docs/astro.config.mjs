@@ -8,6 +8,13 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "Alpine Zag",
+      favicon: "/favicon.ico",
+      logo: {
+        light: "./src/assets/logo-light.svg",
+        dark: "./src/assets/logo-dark.svg",
+        replacesTitle: true
+      },
+      pagination: false,
       social: {
         github: "https://github.com/TunkShif/alpine-zag"
       },
