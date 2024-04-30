@@ -25,7 +25,7 @@ export default defineConfig({
           autogenerate: { directory: "reference" }
         }
       ],
-      customCss: ["./src/tailwind.css"]
+      customCss: ["@fontsource-variable/figtree", "@fontsource/dm-mono", "./src/tailwind.css"]
     }),
     tailwind({ applyBaseStyles: false }),
     alpinejs({ entrypoint: "/src/alpine" })
