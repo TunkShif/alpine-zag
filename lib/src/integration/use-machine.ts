@@ -12,10 +12,11 @@ export const useMachine = <
 >(
   Alpine: Alpine,
   cleanup: CleanupFn,
+  nextTick: (callback: () => void) => void,
   machine: MachineSrc<TContext, TState, TEvent>,
   options?: MachineOptions<TContext, TState, TEvent>
 ) => {
-  const service = useService(Alpine, cleanup, machine, options)
+  const service = useService(Alpine, cleanup, nextTick, machine, options)
   const state = useSnapshot(Alpine, cleanup, service, options)
 
   return [state, service.send, service] as const

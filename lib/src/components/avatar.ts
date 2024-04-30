@@ -10,7 +10,7 @@ export const plugin: PluginCallback = (Alpine) => {
       case "fallback":
         return handleComponentPart(el, Alpine, "avatar", "fallbackProps")
       case "image":
-        return handleImage(el, Alpine)
+        return handleComponentPart(el, Alpine, "avatar", "imageProps")
       default:
         return handleRoot(el, Alpine, cleanup, param)
     }
@@ -46,22 +46,4 @@ const handleRoot = (el: HTMLElement, Alpine: Alpine, cleanup: CleanupFn, props: 
   })
 
   handleComponentPart(el, Alpine, "avatar", "rootProps")
-}
-
-const handleImage = (el: HTMLElement, Alpine: Alpine) => {
-  Alpine.bind(el, {
-    "x-init"() {
-      const ctx = this as any
-      const machine = ctx._avatar_machine
-
-      // the zag machine starts before the image element attributes are ready
-      // here we're manually setting the image id in advance and doing the initial check
-      ctx.$el.id = ctx.$avatar.imageProps.id
-      if (ctx.$el.complete) {
-        machine.send({ type: "IMG.LOADED", src: "ssr" })
-      }
-    }
-  })
-
-  handleComponentPart(el, Alpine, "avatar", "imageProps")
 }

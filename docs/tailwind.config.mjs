@@ -1,3 +1,4 @@
+import { getIconCollections, iconsPlugin } from "@egoist/tailwindcss-icons"
 import colors from "tailwindcss/colors"
 import starlightPlugin from "@astrojs/starlight-tailwind"
 
@@ -15,5 +16,5 @@ export default {
       }
     }
   },
-  plugins: [starlightPlugin()]
+  plugins: [starlightPlugin(), iconsPlugin({ collections: getIconCollections(["lucide"]) })]
 }

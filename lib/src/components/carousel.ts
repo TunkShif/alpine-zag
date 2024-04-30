@@ -6,16 +6,24 @@ import type { CleanupFn } from "src/utils/reactivity"
 export const plugin: PluginCallback = (Alpine) => {
   Alpine.directive("carousel", (el, directive, { evaluate, cleanup }) => {
     switch (directive.value) {
-      case "prev-trigger":
-        return handleComponentPart(el, Alpine, "carousel", "prevTriggerProps")
-      case "next-trigger":
-        return handleComponentPart(el, Alpine, "carousel", "nextTriggerProps")
       case "viewport":
         return handleComponentPart(el, Alpine, "carousel", "viewportProps")
       case "item-group":
         return handleComponentPart(el, Alpine, "carousel", "itemGroupProps")
       case "item":
         return handleComponentPart(el, Alpine, "carousel", "getItemProps", {
+          index: evaluate(directive.expression)
+        })
+      case "control":
+        return handleControl(el, Alpine)
+      case "prev-trigger":
+        return handleComponentPart(el, Alpine, "carousel", "prevTriggerProps")
+      case "next-trigger":
+        return handleComponentPart(el, Alpine, "carousel", "nextTriggerProps")
+      case "indicator-group":
+        return handleComponentPart(el, Alpine, "carousel", "indicatorGroupProps")
+      case "indicator":
+        return handleComponentPart(el, Alpine, "carousel", "getIndicatorProps", {
           index: evaluate(directive.expression)
         })
       default:
@@ -53,4 +61,15 @@ const handleRoot = (el: HTMLElement, Alpine: any, cleanup: CleanupFn, props: any
   })
 
   handleComponentPart(el, Alpine, "carousel", "rootProps")
+}
+
+const handleControl = (el: HTMLElement, Alpine: any) => {
+  Alpine.bind(el, {
+    ":data-scope"() {
+      return "carousel"
+    },
+    ":data-part"() {
+      return "control"
+    }
+  })
 }

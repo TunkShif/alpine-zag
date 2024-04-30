@@ -1,0 +1,95 @@
+---
+const images = [
+  {
+    url: "https://images.unsplash.com/photo-1714108671525-a8f722f30632?q=80&w=2070&auto=format&fit=crop",
+    alt: "palm trees"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1714119486465-9a8fd405106b?q=80&w=2070&auto=format&fit=crop",
+    alt: "dunes"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1713766673451-e2a0630f4e6a?q=80&w=1973&auto=format&fit=crop",
+    alt: "lilac flowers"
+  },
+  {
+    url: "https://plus.unsplash.com/premium_photo-1713712698731-7eb5449fa133?q=80&w=2069&auto=format&fit=crop",
+    alt: "strawberries and popsicles"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1714216363143-960163ac6afa?q=80&w=2070&auto=format&fit=crop",
+    alt: "tree leaves shadow"
+  }
+]
+---
+
+<div x-cloak x-data x-carousel>
+  <div x-carousel:viewport>
+    <div x-carousel:item-group>
+      {
+        images.map((image, index) => (
+          <div x-carousel:item={index}>
+            <img src={image.url} alt={image.alt} loading="lazy" />
+          </div>
+        ))
+      }
+    </div>
+
+    <div x-carousel:control>
+      <button x-carousel:prev-trigger>
+        <i class="i-lucide-chevron-left w-4 h-4 text-zinc-400"></i>
+      </button>
+      <div x-carousel:indicator-group>
+        {
+          images.map((_, index) => (
+            <button x-carousel:indicator={index}>
+              <i class="w-3 h-3 rounded-full bg-zinc-400/60" />
+            </button>
+          ))
+        }
+      </div>
+      <button x-carousel:next-trigger>
+        <i class="i-lucide-chevron-right w-4 h-4 text-zinc-400"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  [data-part="root"] {
+    @apply w-72 md:w-96 border border-zinc-200/60 rounded;
+  }
+
+  [data-part="viewport"] {
+    @apply relative rounded overflow-x-hidden;
+  }
+
+  [data-part="item"] > img {
+    @apply block w-full h-64 object-cover;
+  }
+
+  [data-part="control"] {
+    @apply absolute p-0.5 py-1 bg-zinc-50/80 left-1/2 -translate-x-1/2 bottom-4 flex justify-center items-center gap-1 border border-zinc-200/60 rounded;
+  }
+
+  [data-part="indicator-group"] {
+    @apply flex justify-center gap-2;
+  }
+
+  [data-part="prev-trigger"],
+  [data-part="next-trigger"],
+  [data-part="indicator"] {
+    @apply inline-flex justify-center items-center p-0.5 cursor-pointer bg-transparent;
+  }
+
+  :where([data-part="prev-trigger"], [data-part="next-trigger"], [data-part="indicator"]):is(
+      :disabled,
+      [disabled]
+    ) {
+    @apply opacity-40 cursor-not-allowed;
+  }
+
+  [data-part="indicator"][data-current] > i {
+    @apply bg-yellow-700;
+  }
+</style>

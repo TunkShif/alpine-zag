@@ -47,9 +47,11 @@ export const createComponent = (
     [apiProp]: null,
     init() {
       this[contextProp] = props
+      const nextTick = (callback: () => void) => this.$nextTick(callback)
       const [state, send, machine] = useMachine(
         Alpine,
         cleanup,
+        nextTick,
         createMachine({
           $id: (scope) => this.$id(scope),
           $dispatch: (event, details) => this.$dispatch(event, details)

@@ -22,7 +22,12 @@ const items = [
   {
     items.map(({ name, description }) => (
       <div x-accordion:item={`'${name}'`}>
-        <button x-accordion:item-trigger={`'${name}'`}>{name}</button>
+        <button x-accordion:item-trigger={`'${name}'`}>
+          {name}
+          <div x-accordion:item-indicator={`'${name}'`}>
+            <i class="i-lucide-chevron-down w-5 h-5" />
+          </div>
+        </button>
         <div x-cloak x-accordion:item-content={`'${name}'`}>
           <p class="text-sm py-2 px-4 leading-relaxed">{description}</p>
         </div>
@@ -48,6 +53,18 @@ const items = [
     @apply text-zinc-500 overflow-hidden;
   }
 
+  [data-part="item-indicator"] {
+    @apply inline-flex items-center justify-center transition-transform duration-200 ease-in-out;
+  }
+
+  [data-part="item-indicator"][data-state="open"] {
+    @apply rotate-180;
+  }
+
+  [data-part="item-indicator"][data-state="closed"] {
+    @apply rotate-0;
+  }
+
   @keyframes expand {
     from {
       height: 0;
@@ -67,10 +84,10 @@ const items = [
   }
 
   [data-part="item-content"][data-state="open"] {
-    animation: expand 110ms cubic-bezier(0, 0, 0.38, 0.9);
+    animation: expand 200ms cubic-bezier(0, 0, 0.38, 0.9);
   }
 
   [data-part="item-content"][data-state="closed"] {
-    animation: collapse 110ms cubic-bezier(0, 0, 0.38, 0.9);
+    animation: collapse 200ms cubic-bezier(0, 0, 0.38, 0.9);
   }
 </style>

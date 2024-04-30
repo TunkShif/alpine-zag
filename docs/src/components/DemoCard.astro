@@ -15,7 +15,7 @@ const code = await readFile(`${import.meta.dirname}/demos/${Astro.props.file}.as
   <div class="flex flex-col border border-default rounded-md overflow-hidden">
     <div
       data-part="display"
-      class="grid place-items-center p-16 min-h-80 bg-gray-50 dark:bg-zinc-900"
+      class="grid place-items-center p-8 md:p-16 min-h-80 bg-gray-50 dark:bg-zinc-900"
     >
       <slot />
     </div>
@@ -46,4 +46,3 @@ const code = await readFile(`${import.meta.dirname}/demos/${Astro.props.file}.as
     background-image: radial-gradient(theme(colors.gray.600) 1px, transparent 0);
   }
 </style>
-
