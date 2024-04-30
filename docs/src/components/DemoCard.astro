@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises"
 import { Code } from "@astrojs/starlight/components"
 
 interface Props {
+  name: string
   file: string
 }
 
@@ -20,7 +21,18 @@ const code = await readFile(`${import.meta.dirname}/demos/${Astro.props.file}.as
       <slot />
     </div>
 
-    <div class="flex justify-end px-2 py-1.5 border-t border-default" :class="code && 'border-b'">
+    <div
+      class="flex justify-between px-2 py-1.5 border-t border-default"
+      :class="code && 'border-b'"
+    >
+      <a
+        class="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-sm font-medium rounded-md no-underline hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer visited:text-inherit"
+        href={`https://zagjs.com/components/react/${Astro.props.name}`}
+        target="_blank"
+      >
+        <i class="i-lucide-zap w-4 h-4"></i>
+        Zag.js Reference
+      </a>
       <button
         type="button"
         @click="code = !code"

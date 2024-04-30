@@ -2,22 +2,37 @@
 
 ---
 
-<div x-cloak x-data x-avatar>
-  <span x-avatar:fallback>KT</span>
-  <img
-    x-avatar:image
-    src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=128&h=128&dpr=2&q=80&auto=format&fit=crop"
-    alt="a cat"
-  />
+<div x-cloak x-data class="flex gap-6">
+  <div x-avatar>
+    <span x-avatar:fallback>KT</span>
+    <img
+      x-avatar:image
+      src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=128&h=128&dpr=2&q=80&auto=format&fit=crop"
+      alt="a cat"
+    />
+  </div>
+
+  <div x-avatar>
+    <span x-avatar:fallback>KT</span>
+    <img
+      x-avatar:image
+      src="https://images.unsplash.com/photo-1574158622682-e40e69881006?q=80&w=128&h=128&auto=format&fit=crop"
+      alt="a cat"
+    />
+  </div>
+
+  <div x-avatar>
+    <span x-avatar:fallback>KT</span>
+  </div>
 </div>
 
 <style>
   [data-part="root"] {
-    @apply inline-flex justify-center items-center aspect-square w-12 h-12 border border-zinc-200/60 rounded-full overflow-hidden;
+    @apply inline-flex justify-center items-center aspect-square w-12 h-12 bg-white dark:bg-zinc-800 border border-zinc-400/60 rounded-full overflow-hidden;
   }
 
   [data-part="fallback"] {
-    @apply font-medium text-sm;
+    @apply font-semibold text-sm;
   }
 
   [data-part="image"] {
