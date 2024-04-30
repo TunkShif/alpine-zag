@@ -1,48 +1,52 @@
-import * as avatar from "@zag-js/avatar"
+import * as clipboard from "@zag-js/clipboard"
 import type { Alpine, PluginCallback } from "alpinejs"
 import { createComponent, getApi, handleComponentPart } from "src/utils/create-component"
 import type { CleanupFn } from "src/utils/reactivity"
 
 export const plugin: PluginCallback = (Alpine) => {
-  Alpine.directive("avatar", (el, directive, { evaluate, cleanup }) => {
+  Alpine.directive("clipboard", (el, directive, { evaluate, cleanup }) => {
     switch (directive.value) {
-      case "fallback":
-        return handleComponentPart(el, Alpine, "avatar", "fallbackProps")
-      case "image":
-        return handleComponentPart(el, Alpine, "avatar", "imageProps")
+      case "control":
+        return handleComponentPart(el, Alpine, "clipboard", "controlProps")
+      case "label":
+        return handleComponentPart(el, Alpine, "clipboard", "labelProps")
+      case "input":
+        return handleComponentPart(el, Alpine, "clipboard", "inputProps")
+      case "trigger":
+        return handleComponentPart(el, Alpine, "clipboard", "triggerProps")
       default:
         return handleRoot(el, Alpine, cleanup, evaluate(directive.expression || "{}"))
     }
   }).before("bind")
 
-  Alpine.magic("avatar", (el) => {
-    return getApi<avatar.Api>(el, Alpine, "avatar")
+  Alpine.magic("clipboard", (el) => {
+    return getApi<clipboard.Api>(el, Alpine, "clipboard")
   })
 }
 
 const handleRoot = (el: HTMLElement, Alpine: Alpine, cleanup: CleanupFn, props: any) => {
   Alpine.bind(el, {
     "x-id"() {
-      return ["z-avatar"]
+      return ["z-clipboard"]
     },
     "x-data"() {
       return createComponent(
         Alpine,
         cleanup,
-        "avatar",
+        "clipboard",
         props,
         ({ $id, $dispatch }) =>
-          avatar.machine({
-            id: $id("z-avatar"),
+          clipboard.machine({
+            id: $id("z-clipboard"),
             ...Alpine.raw(props),
             onStatusChange: (details) => {
               $dispatch("z-status-change", details)
             }
           }),
-        avatar.connect
+        clipboard.connect
       )
     }
   })
 
-  handleComponentPart(el, Alpine, "avatar", "rootProps")
+  handleComponentPart(el, Alpine, "clipboard", "rootProps")
 }

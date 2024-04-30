@@ -1,0 +1,25 @@
+---
+
+---
+
+<label x-cloak x-data x-checkbox>
+  <div x-checkbox:control>
+    <i x-show="$checkbox.checkedState" class="i-lucide-check w-4 h-4 text-zinc-700"></i>
+  </div>
+  <span x-checkbox:label>Accept user agreement.</span>
+  <input x-checkbox:hidden-input />
+</label>
+
+<style>
+  [data-part="root"] {
+    @apply inline-flex items-center gap-2;
+  }
+
+  [data-part="control"] {
+    @apply inline-flex items-center justify-center w-6 h-6 bg-white border border-zinc-300/60 rounded-md cursor-pointer;
+  }
+
+  [data-part="label"] {
+    @apply font-medium;
+  }
+</style>

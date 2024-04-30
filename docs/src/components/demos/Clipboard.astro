@@ -1,0 +1,36 @@
+---
+
+---
+
+<div x-cloak x-data x-clipboard="{ value: 'https://example.com' }">
+  <label x-clipboard:label>Copy your subscription link.</label>
+  <div x-clipboard:control>
+    <input x-clipboard:input />
+    <button x-clipboard:trigger>
+      <i x-show="!$clipboard.isCopied" class="i-lucide-clipboard-copy w-4 h-4"></i>
+      <i x-show="$clipboard.isCopied" class="i-lucide-clipboard-check w-4 h-4"></i>
+    </button>
+  </div>
+</div>
+
+<style>
+  [data-part="root"] {
+    @apply flex flex-col gap-1;
+  }
+
+  [data-part="label"] {
+    @apply font-medium;
+  }
+
+  [data-part="control"] {
+    @apply flex gap-2;
+  }
+
+  [data-part="input"] {
+    @apply px-2 h-9 bg-white text-zinc-700 border border-zinc-300/60 rounded outline-none focus:outline-zinc-500;
+  }
+
+  [data-part="trigger"] {
+    @apply inline-flex justify-center items-center w-9 h-9 rounded border bg-white text-zinc-700 hover:bg-zinc-100 border-zinc-300/60 cursor-pointer;
+  }
+</style>
