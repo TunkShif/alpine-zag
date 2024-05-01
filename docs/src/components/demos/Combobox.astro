@@ -1,0 +1,117 @@
+---
+
+---
+
+<script is:inline>
+  window.FRUITS = [
+    "Apple",
+    "Apricot",
+    "Banana",
+    "Blackberry",
+    "Blueberry",
+    "Cherry",
+    "Cranberry",
+    "Grape",
+    "Kiwi",
+    "Lemon",
+    "Lime",
+    "Mango",
+    "Orange",
+    "Papaya",
+    "Peach",
+    "Pear",
+    "Pineapple",
+    "Plum",
+    "Raspberry",
+    "Strawberry",
+    "Watermelon"
+  ]
+</script>
+
+<div
+  x-cloak
+  x-data="{ options: [...FRUITS]  }"
+  x-combobox={`
+    {
+      items: options,
+      itemToValue: (it) => it,
+      itemToString: (it) => it,
+      inputBehavior: "autohighlight",
+      placeholder: 'Type or select a fruit',
+      positioning: { flip: true, sameWidth: true }
+    }`}
+  x-on:z-open-change="options.splice(0);options.push(...FRUITS)"
+  x-on:z-input-value-change={`
+    const filtered = FRUITS.filter((it) => it.toLowerCase().includes($event.detail.value.toLowerCase()))
+    if (filtered.length > 0) {
+      options.splice(0);
+      options.push(...filtered);
+    } else {
+      options.splice(0);
+      options.push(...FRUITS);
+    }`}
+>
+  <label x-combobox:label>Pick your favorite fruit</label>
+  <div x-combobox:control>
+    <input x-combobox:input />
+    <button x-combobox:trigger type="button">
+      <i class="i-lucide-chevron-down w-4 h-4"></i>
+    </button>
+  </div>
+
+  <template x-teleport="body">
+    <div x-combobox:positioner>
+      <div x-combobox:content>
+        <ul>
+          <template x-for="item in options" :key="item">
+            <li>
+              <button type="button" x-combobox:item="item" x-text="item"></button>
+            </li>
+          </template>
+        </ul>
+      </div>
+    </div>
+  </template>
+</div>
+
+<style>
+  [data-part="root"] {
+    @apply flex flex-col gap-1;
+  }
+
+  [data-part="label"] {
+    @apply font-medium;
+  }
+
+  [data-part="control"] {
+    @apply relative;
+  }
+
+  [data-part="input"] {
+    @apply px-2 h-9 min-w-48 bg-white text-zinc-700 border border-zinc-300/60 rounded outline-none focus:outline-zinc-500;
+  }
+
+  [data-part="trigger"] {
+    @apply absolute inset-y-0 right-2 inline-flex items-center justify-center text-zinc-700 bg-transparent cursor-pointer;
+  }
+
+  [data-part="content"] {
+    @apply relative z-[1400] max-h-48 bg-white border border-zinc-200/60 p-1 rounded-md shadow-md overflow-auto;
+  }
+
+  [data-part="content"] > ul {
+    @apply flex flex-col p-0;
+  }
+
+  [data-part="content"] > ul > li {
+    @apply list-none;
+  }
+
+  [data-part="item"] {
+    @apply w-full text-sm text-left font-medium text-zinc-700 bg-transparent cursor-pointer px-2 py-1 rounded;
+  }
+
+  [data-part="item"][data-highlighted] {
+    @apply bg-zinc-100;
+  }
+</style>

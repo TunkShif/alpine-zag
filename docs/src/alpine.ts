@@ -1,4 +1,12 @@
-import { accordion, avatar, carousel, checkbox, clipboard, collapsible } from "@tunkshif/alpine-zag"
+import {
+  accordion,
+  avatar,
+  carousel,
+  checkbox,
+  clipboard,
+  collapsible,
+  combobox
+} from "@tunkshif/alpine-zag"
 import type { Alpine } from "alpinejs"
 
 export default (Alpine: Alpine) => {
@@ -8,4 +16,5 @@ export default (Alpine: Alpine) => {
   Alpine.plugin(checkbox)
   Alpine.plugin(clipboard)
   Alpine.plugin(collapsible)
+  Alpine.plugin(combobox)
 }

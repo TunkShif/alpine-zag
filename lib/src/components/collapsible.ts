@@ -1,6 +1,6 @@
 import * as collapsible from "@zag-js/collapsible"
 import type { Alpine, PluginCallback } from "alpinejs"
-import { createComponent, handleComponentPart } from "src/utils/create-component"
+import { createComponent, getApi, handleComponentPart } from "src/utils/create-component"
 import type { CleanupFn } from "src/utils/reactivity"
 
 export const plugin: PluginCallback = (Alpine) => {
@@ -11,9 +11,13 @@ export const plugin: PluginCallback = (Alpine) => {
       case "content":
         return handleComponentPart(el, Alpine, "collapsible", "contentProps")
       default:
-        return handleRoot(el, Alpine, cleanup, evaluate(directive.value || "{}"))
+        return handleRoot(el, Alpine, cleanup, evaluate(directive.expression || "{}"))
     }
   }).before("bind")
+
+  Alpine.magic("collapsible", (el) => {
+    return getApi<collapsible.Api>(el, Alpine, "collapsible")
+  })
 }
 
 const handleRoot = (el: HTMLElement, Alpine: Alpine, cleanup: CleanupFn, props: any) => {
