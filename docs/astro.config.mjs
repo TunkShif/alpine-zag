@@ -5,6 +5,9 @@ import alpinejs from "@astrojs/alpinejs"
 
 // https://astro.build/config
 export default defineConfig({
+  redirects: {
+    "/": "/overview/introduction/"
+  },
   integrations: [
     starlight({
       title: "Alpine Zag",
@@ -20,16 +23,15 @@ export default defineConfig({
       },
       sidebar: [
         {
-          label: "Guides",
-          items: [{ label: "Example Guide", link: "/guides/example/" }]
+          label: "Overview",
+          items: [
+            { label: "Introduction", link: "/overview/introduction/" },
+            { label: "Installation", link: "/overview/installation/" }
+          ]
         },
         {
           label: "Components",
           autogenerate: { directory: "components" }
-        },
-        {
-          label: "Reference",
-          autogenerate: { directory: "reference" }
         }
       ],
       customCss: ["@fontsource-variable/figtree", "@fontsource/dm-mono", "./src/tailwind.css"],

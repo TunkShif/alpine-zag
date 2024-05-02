@@ -7,7 +7,7 @@ interface Props {
   file: string
 }
 
-const code = await readFile(`${import.meta.dirname}/demos/${Astro.props.file}.astro`, {
+const code = await readFile(`./src/components/demos/${Astro.props.file}.astro`, {
   encoding: "utf-8"
 })
 ---
