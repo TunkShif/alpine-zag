@@ -58,7 +58,6 @@ const handleRoot = (
           itemToString: ctx._combobox_context.itemToString,
           itemToValue: ctx._combobox_context.itemToValue
         })
-        console.log("effect")
         ctx._combobox_context.collection = markRaw(collection)
       })
 

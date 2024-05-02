@@ -1,0 +1,97 @@
+---
+
+---
+
+<div x-cloak x-data x-dialog>
+  <button x-dialog:trigger> <i class="i-lucide-download w-4 h-4"></i> Download</button>
+  <template x-show="$dialog.isOpen" x-teleport="body">
+    <div data-scope="dialog" data-part="container">
+      <div x-dialog:backdrop></div>
+      <div x-dialog:positioner>
+        <div x-dialog:content>
+          <header>
+            <h2 x-dialog:title>Confirm Download</h2>
+            <p x-dialog:description>
+              The file <code>exports.zip</code> will be saved to your disk.
+            </p>
+          </header>
+          <footer>
+            <button
+              type="button"
+              data-scope="dialog"
+              data-part="cancel-trigger"
+              x-on:click="$dialog.close()"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              data-scope="dialog"
+              data-part="confirm-trigger"
+              x-on:click="$dialog.close()"
+            >
+              Download
+            </button>
+          </footer>
+          <button type="button" x-dialog:close-trigger>
+            <i class="i-lucide-x w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </template>
+</div>
+
+<style>
+  [data-part="root"] {
+    @apply contents;
+  }
+
+  [data-part="trigger"] {
+    @apply inline-flex justify-center items-center gap-2 px-2.5 py-1 min-h-9 rounded border text-sm font-medium bg-white text-zinc-700 hover:bg-zinc-100 border-zinc-300/60 cursor-pointer;
+  }
+
+  [data-part="container"] {
+    @apply contents;
+  }
+
+  [data-part="backdrop"] {
+    @apply fixed inset-0 bg-zinc-900/40 backdrop-blur-sm z-[1300];
+  }
+
+  [data-part="positioner"] {
+    @apply fixed inset-0 flex justify-center items-center z-[1400];
+  }
+
+  [data-part="content"] {
+    @apply relative px-6 py-4 max-w-80 md:max-w-lg bg-white border border-zinc-300/60 rounded-md shadow-sm;
+  }
+
+  [data-part="title"] {
+    @apply text-lg text-zinc-600 font-semibold;
+  }
+
+  [data-part="description"] {
+    @apply pt-2 text-zinc-600 text-sm;
+  }
+
+  [data-part="description"] > code {
+    @apply text-zinc-900;
+  }
+
+  [data-part="close-trigger"] {
+    @apply absolute p-1 h-6 w-6 inline-flex justify-center items-center top-2 right-2 bg-transparent hover:bg-zinc-100 text-zinc-500 rounded-md cursor-pointer;
+  }
+
+  [data-part="content"] > footer {
+    @apply mt-4 flex justify-between gap-4;
+  }
+
+  [data-part="cancel-trigger"] {
+    @apply inline-flex justify-center items-center gap-2 px-2.5 py-1 w-full min-h-9 rounded border text-sm font-medium bg-white text-zinc-700 hover:bg-zinc-100 border-zinc-300/60 cursor-pointer;
+  }
+
+  [data-part="confirm-trigger"] {
+    @apply inline-flex justify-center items-center gap-2 px-2.5 py-1 w-full min-h-9 rounded text-sm font-medium bg-zinc-700 text-white hover:bg-zinc-600 cursor-pointer;
+  }
+</style>

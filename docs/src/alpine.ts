@@ -5,7 +5,8 @@ import {
   checkbox,
   clipboard,
   collapsible,
-  combobox
+  combobox,
+  dialog
 } from "@tunkshif/alpine-zag"
 import type { Alpine } from "alpinejs"
 
@@ -17,4 +18,5 @@ export default (Alpine: Alpine) => {
   Alpine.plugin(clipboard)
   Alpine.plugin(collapsible)
   Alpine.plugin(combobox)
+  Alpine.plugin(dialog)
 }
