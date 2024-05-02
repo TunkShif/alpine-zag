@@ -30,7 +30,7 @@
 
 <div
   x-cloak
-  x-data="{ options: [...FRUITS]  }"
+  x-data="{ options: { value: [...FRUITS] }  }"
   x-combobox={`
     {
       items: options,
@@ -39,23 +39,20 @@
       inputBehavior: "autohighlight",
       placeholder: 'Type or select a fruit',
       positioning: { flip: true, sameWidth: true }
-    }`}
-  x-on:z-open-change="options.splice(0);options.push(...FRUITS)"
+    }
+  `}
+  x-on:z-open-change="options.value = [...FRUITS]"
   x-on:z-input-value-change={`
-    const filtered = FRUITS.filter((it) => it.toLowerCase().includes($event.detail.value.toLowerCase()))
-    if (filtered.length > 0) {
-      options.splice(0);
-      options.push(...filtered);
-    } else {
-      options.splice(0);
-      options.push(...FRUITS);
-    }`}
+    const input = $event.detail.value
+    const filtered = FRUITS.filter((it) => it.toLowerCase().includes(input.toLowerCase()))
+    options.value = filtered.length > 0 ? filtered : [...FRUITS]
+  `}
 >
   <label x-combobox:label>Pick your favorite fruit</label>
   <div x-combobox:control>
     <input x-combobox:input />
     <button x-combobox:trigger type="button">
-      <i class="i-lucide-chevron-down w-4 h-4"></i>
+      <i class="i-lucide-chevrons-up-down w-4 h-4"></i>
     </button>
   </div>
 
@@ -63,7 +60,7 @@
     <div x-combobox:positioner>
       <div x-combobox:content>
         <ul>
-          <template x-for="item in options" :key="item">
+          <template x-for="item in options.value" :key="item">
             <li>
               <button type="button" x-combobox:item="item" x-text="item"></button>
             </li>

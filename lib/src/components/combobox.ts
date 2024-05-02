@@ -44,7 +44,7 @@ const handleRoot = (
   Alpine.bind(el, {
     "x-init"() {
       const ctx = this as any
-      const items = props.items ?? []
+      const items = props.items ?? { value: [] }
       const itemToString = props.itemToString ?? ((item: any) => item.label)
       const itemToValue = props.itemToValue ?? ((item: any) => item.value)
 
@@ -54,10 +54,11 @@ const handleRoot = (
 
       effect(() => {
         const collection = combobox.collection({
-          items: ctx._combobox_context.items,
+          items: ctx._combobox_context.items.value,
           itemToString: ctx._combobox_context.itemToString,
           itemToValue: ctx._combobox_context.itemToValue
         })
+        console.log("effect")
         ctx._combobox_context.collection = markRaw(collection)
       })
 
