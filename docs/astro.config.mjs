@@ -32,7 +32,10 @@ export default defineConfig({
           autogenerate: { directory: "reference" }
         }
       ],
-      customCss: ["@fontsource-variable/figtree", "@fontsource/dm-mono", "./src/tailwind.css"]
+      customCss: ["@fontsource-variable/figtree", "@fontsource/dm-mono", "./src/tailwind.css"],
+      components: {
+        Head: "./src/components/Head.astro"
+      }
     }),
     tailwind({ applyBaseStyles: false }),
     alpinejs({ entrypoint: "/src/alpine" })
