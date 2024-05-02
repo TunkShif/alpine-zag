@@ -15,11 +15,12 @@ export const createBind = (
         handler(event)
       }
     } else {
-      const prop = `:${key}`
+      const prop = key === "innerHTML" ? "x-text" : `:${key}`
       binds[prop] = function () {
-        return param
+        const value = param
           ? this[`_${name}_api`].value[propName](param)[key]
           : this[`_${name}_api`].value[propName][key]
+        return value
       }
     }
   }

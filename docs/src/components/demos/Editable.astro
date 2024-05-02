@@ -1,0 +1,49 @@
+---
+
+---
+
+<div x-cloak x-data x-editable="{ placeholder: 'Click to edit.' }">
+  <div x-editable:area>
+    <input x-editable:input />
+    <span x-editable:preview></span>
+  </div>
+
+  <div data-scope="editable" data-part="control">
+    <button x-show="!$editable.editing" type="button" x-editable:edit-trigger>
+      <i class="i-lucide-edit w-4 h-4"></i>
+    </button>
+    <button x-show="$editable.editing" type="button" x-editable:submit-trigger>
+      <i class="i-lucide-check w-4 h-4"></i>
+    </button>
+    <button x-show="$editable.editing" type="button" x-editable:cancel-trigger>
+      <i class="i-lucide-x w-4 h-4"></i>
+    </button>
+  </div>
+</div>
+
+<style>
+  [data-part="root"] {
+    @apply flex justify-between items-center gap-4;
+  }
+
+  [data-part="control"] {
+    @apply flex gap-2 justify-end;
+  }
+
+  [data-part="input"] {
+    @apply px-2 h-9 bg-white text-zinc-700 border border-zinc-300/60 rounded outline-none focus:outline-zinc-500;
+  }
+
+  [data-part="preview"] {
+    @apply text-blue-600 dark:text-blue-500 underline underline-offset-4;
+  }
+
+  [data-part="edit-trigger"],
+  [data-part="cancel-trigger"] {
+    @apply inline-flex justify-center items-center w-9 h-9 rounded border bg-white text-zinc-700 hover:bg-zinc-100 border-zinc-300/60 cursor-pointer;
+  }
+
+  [data-part="submit-trigger"] {
+    @apply inline-flex justify-center items-center w-9 h-9 rounded bg-zinc-700 text-white hover:bg-zinc-600 cursor-pointer;
+  }
+</style>
