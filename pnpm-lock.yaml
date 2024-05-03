@@ -99,6 +99,9 @@ importers:
       '@zag-js/editable':
         specifier: ^0.49.0
         version: 0.49.0
+      '@zag-js/file-upload':
+        specifier: ^0.49.0
+        version: 0.49.0
       '@zag-js/types':
         specifier: ^0.48.0
         version: 0.48.0
@@ -1880,12 +1883,36 @@ packages:
       '@zag-js/utils': 0.49.0
     dev: false
 
+  /@zag-js/file-upload@0.49.0:
+    resolution: {integrity: sha512-2Csu1s9KPo8hENJNCJ7bUHJvzvJcTkQxZ8rdNXq39aSl8e6wqTOaAfw7+yRxymPkBUk9zCT8kIlL4/X+UexXZg==}
+    dependencies:
+      '@zag-js/anatomy': 0.49.0
+      '@zag-js/core': 0.49.0
+      '@zag-js/dom-query': 0.49.0
+      '@zag-js/file-utils': 0.49.0
+      '@zag-js/i18n-utils': 0.49.0
+      '@zag-js/types': 0.49.0
+      '@zag-js/utils': 0.49.0
+    dev: false
+
+  /@zag-js/file-utils@0.49.0:
+    resolution: {integrity: sha512-4eyw++7aDn8wETsPwtw/FwaVfck1vTr1/9vtHgV8t2q969apotIg2nwDUgejoYq13688fDoyOaWdl8rnlxBsjw==}
+    dependencies:
+      '@zag-js/i18n-utils': 0.49.0
+    dev: false
+
   /@zag-js/form-utils@0.48.0:
     resolution: {integrity: sha512-4LTjzarMvePgOKyFm3tBdUtBQnE7p2kYfJfuIvYj141mwP0OlKHbgINfIjI65uZd13hCmOUSy41doM7Gpv7SUQ==}
     dev: false
 
   /@zag-js/form-utils@0.49.0:
     resolution: {integrity: sha512-R2kQmOEPVbrbk4h3t4T7cv7U2tgChgvuzCus7K4fVQa7qDfpEdTZy6rH0kHqhLKDoW/f+R9PJi6+txLErhc5OQ==}
+    dev: false
+
+  /@zag-js/i18n-utils@0.49.0:
+    resolution: {integrity: sha512-IlmVq2zxrM/QY8GXzRu2AJc/lpWsV1Srei872mcw1HS9b/3w/l3fPZq6L/gR252dVFCukoOAlrl48540ddX16Q==}
+    dependencies:
+      '@zag-js/dom-query': 0.49.0
     dev: false
 
   /@zag-js/interact-outside@0.47.0:

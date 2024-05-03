@@ -1,0 +1,62 @@
+---
+
+---
+
+<div x-cloak x-data x-file-upload="{ allowDrop: true, accept: 'image/png, image/jpeg' }">
+  <div x-file-upload:dropzone>
+    <input x-file-upload:hidden-input />
+    <div data-scope="file-upload" data-part="icon">
+      <i class="i-lucide-upload-cloud w-7 h-7"></i>
+    </div>
+    <div data-scope="file-upload" data-part="description">Drop your images here.</div>
+  </div>
+
+  <button x-file-upload:trigger>Upload</button>
+
+  <ul x-file-upload:item-group>
+    <template x-for="file in $fileUpload.acceptedFiles" :key="file.name">
+      <li x-file-upload:item="file">
+        <span x-file-upload:item-name="file" x-text="file.name" :title="file.name"></span>
+        <button x-file-upload:item-delete-trigger="file"><i class="i-lucide-x w-4 h-4"></i></button>
+      </li>
+    </template>
+  </ul>
+</div>
+
+<style>
+  [data-part="root"] {
+    @apply flex flex-col gap-4 bg-white px-6 py-4 w-72 min-h-48 rounded-md;
+  }
+
+  [data-part="dropzone"] {
+    @apply flex flex-col gap-2 p-4 border-2 border-dashed border-zinc-300/60 rounded-md cursor-pointer;
+  }
+
+  [data-part="icon"] {
+    @apply inline-flex justify-center items-center text-zinc-700;
+  }
+
+  [data-part="description"] {
+    @apply text-center text-zinc-700;
+  }
+
+  [data-part="trigger"] {
+    @apply w-full inline-flex justify-center items-center gap-2 px-2.5 py-1 min-h-9 rounded border text-sm font-medium bg-white text-zinc-700 hover:bg-zinc-100 border-zinc-300/60 cursor-pointer;
+  }
+
+  [data-part="item-group"] {
+    @apply flex flex-col gap-2 p-0;
+  }
+
+  [data-part="item"] {
+    @apply list-none p-0 flex justify-between items-center gap-2;
+  }
+
+  [data-part="item"] > span {
+    @apply line-clamp-1 text-sm;
+  }
+
+  [data-part="item-delete-trigger"] {
+    @apply shrink-0 inline-flex justify-center items-center w-7 h-7 rounded border bg-white text-zinc-700 hover:bg-zinc-100 border-zinc-300/60 cursor-pointer;
+  }
+</style>

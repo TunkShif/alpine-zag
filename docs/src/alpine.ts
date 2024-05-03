@@ -7,7 +7,8 @@ import {
   collapsible,
   combobox,
   dialog,
-  editable
+  editable,
+  fileUpload
 } from "@tunkshif/alpine-zag"
 import type { Alpine } from "alpinejs"
 
@@ -21,4 +22,5 @@ export default (Alpine: Alpine) => {
   Alpine.plugin(combobox)
   Alpine.plugin(dialog)
   Alpine.plugin(editable)
+  Alpine.plugin(fileUpload)
 }
