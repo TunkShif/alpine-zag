@@ -14,6 +14,7 @@ And **Alpine Zag** provides an easy way to consume the machine and connect it to
 ### Unstyled
 
 Components have no predefined styles. You can use your preferred CSS tools to build your design system.
+
 ### Accessible
 
 Components are built following the WAI-ARIA guidelines to provide accessible user experience, like keyboard navigation and focus management.
