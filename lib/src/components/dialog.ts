@@ -45,14 +45,14 @@ const handleRoot = (el: HTMLElement, Alpine: Alpine, cleanup: CleanupFn, props: 
           dialog.machine({
             id: $id("z-dialog"),
             ...Alpine.raw(props),
-            onPointerDownOutside: (details) => {
-              $dispatch("z-pointer-down-outside", details)
+            onPointerDownOutside: (event) => {
+              $dispatch("z-pointer-down-outside", event.detail)
             },
-            onFocusOutside: (details) => {
-              $dispatch("z-focus-outside", details)
+            onFocusOutside: (event) => {
+              $dispatch("z-focus-outside", event.detail)
             },
-            onInteractOutside: (details) => {
-              $dispatch("z-interact-outside", details)
+            onInteractOutside: (event) => {
+              $dispatch("z-interact-outside", event.detail)
             }
           }),
         dialog.connect
