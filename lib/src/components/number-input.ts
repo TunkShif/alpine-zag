@@ -9,6 +9,8 @@ export const plugin: PluginCallback = (Alpine) => {
     switch (directive.value) {
       case "label":
         return handleComponentPart(el, Alpine, "number_input", "labelProps")
+      case "control":
+        return handleComponentPart(el, Alpine, "number_input", "controlProps")
       case "decrement-trigger":
         return handleComponentPart(el, Alpine, "number_input", "decrementTriggerProps")
       case "input":

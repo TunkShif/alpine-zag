@@ -9,10 +9,14 @@ export const plugin: PluginCallback = (Alpine) => {
     switch (directive.value) {
       case "label":
         return handleComponentPart(el, Alpine, "pin_input", "labelProps")
+      case "control":
+        return handleComponentPart(el, Alpine, "pin_input", "controlProps")
       case "input":
         return handleComponentPart(el, Alpine, "pin_input", "getInputProps", {
           index: evaluate(directive.expression)
         })
+      case "hidden-input":
+        return handleComponentPart(el, Alpine, "pin_input", "hiddenInputProps")
       default:
         return handleRoot(el, Alpine, cleanup, evaluate(directive.expression || "{}"))
     }

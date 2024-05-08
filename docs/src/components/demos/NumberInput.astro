@@ -1,0 +1,47 @@
+---
+
+---
+
+<div x-cloak x-data x-number-input>
+  <label x-number-input:label>Input a number:</label>
+  <div x-number-input:control>
+    <input x-number-input:input />
+    <button x-number-input:increment-trigger>
+      <i class="i-lucide-chevron-up w-4 h-4"></i>
+    </button>
+    <button x-number-input:decrement-trigger>
+      <i class="i-lucide-chevron-down w-4 h-4"></i>
+    </button>
+  </div>
+</div>
+
+<style>
+  [data-part="root"] {
+    @apply flex flex-col gap-1;
+  }
+
+  [data-part="label"] {
+    @apply font-medium;
+  }
+
+  [data-part="control"] {
+    @apply relative;
+  }
+
+  [data-part="input"] {
+    @apply px-2 h-9 min-w-48 bg-white text-zinc-700 border border-zinc-300/60 rounded outline-none focus:outline-zinc-500;
+  }
+
+  [data-part="increment-trigger"],
+  [data-part="decrement-trigger"] {
+    @apply absolute right-0 h-[1.125rem] w-8 inline-flex justify-center items-center border bg-white text-zinc-700 hover:bg-zinc-100 border-zinc-300/60 cursor-pointer;
+  }
+
+  [data-part="increment-trigger"] {
+    @apply top-0 rounded-tr border-b-0;
+  }
+
+  [data-part="decrement-trigger"] {
+    @apply bottom-0 rounded-br;
+  }
+</style>

@@ -4,6 +4,7 @@ import { createComponent, getApi, handleComponentPart } from "src/utils/create-c
 import { type CleanupFn, markRaw } from "src/utils/reactivity"
 
 // TODO: warn when missing required props
+// TODO: add presence composition
 
 export const plugin: PluginCallback = (Alpine) => {
   Alpine.directive("combobox", (el, directive, { evaluate, effect, cleanup }) => {

@@ -3,6 +3,8 @@ import type { Alpine, PluginCallback } from "alpinejs"
 import { createComponent, getApi, handleComponentPart } from "src/utils/create-component"
 import type { CleanupFn } from "src/utils/reactivity"
 
+// TODO: add presence composition
+
 export const plugin: PluginCallback = (Alpine) => {
   Alpine.directive("dialog", (el, directive, { evaluate, cleanup }) => {
     switch (directive.value) {
