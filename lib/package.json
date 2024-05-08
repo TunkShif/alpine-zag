@@ -29,23 +29,23 @@
     "format": "biome check --apply --linter-enabled=false ./src"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.7.1",
+    "@biomejs/biome": "^1.7.3",
     "@types/alpinejs": "^3.13.10",
-    "@types/node": "^20.12.7",
-    "@zag-js/core": "^0.48.0",
-    "esbuild": "^0.20.2",
+    "@types/node": "^20.12.10",
+    "@zag-js/core": "^0.49.0",
+    "esbuild": "^0.21.1",
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "@zag-js/accordion": "^0.48.0",
-    "@zag-js/avatar": "^0.48.0",
-    "@zag-js/carousel": "^0.48.0",
-    "@zag-js/checkbox": "^0.48.0",
-    "@zag-js/clipboard": "^0.47.0",
-    "@zag-js/collapsible": "^0.48.0",
-    "@zag-js/color-picker": "^0.48.0",
-    "@zag-js/combobox": "^0.47.0",
-    "@zag-js/dialog": "^0.47.0",
+    "@zag-js/accordion": "^0.49.0",
+    "@zag-js/avatar": "^0.49.0",
+    "@zag-js/carousel": "^0.49.0",
+    "@zag-js/checkbox": "^0.49.0",
+    "@zag-js/clipboard": "^0.49.0",
+    "@zag-js/collapsible": "^0.49.0",
+    "@zag-js/color-picker": "^0.49.0",
+    "@zag-js/combobox": "^0.49.0",
+    "@zag-js/dialog": "^0.49.0",
     "@zag-js/editable": "^0.49.0",
     "@zag-js/file-upload": "^0.49.0",
     "@zag-js/hover-card": "^0.49.0",
@@ -66,6 +66,6 @@
     "@zag-js/toast": "^0.49.0",
     "@zag-js/toggle-group": "^0.49.0",
     "@zag-js/tooltip": "^0.49.0",
-    "@zag-js/types": "^0.48.0"
+    "@zag-js/types": "^0.49.0"
   }
 }
