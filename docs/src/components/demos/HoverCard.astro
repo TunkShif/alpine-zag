@@ -1,0 +1,67 @@
+---
+
+---
+
+<div x-cloak x-data x-hover-card>
+  <a x-hover-card:trigger href="https://twitter.com/zag_js" target="_blank">@zag_js</a>
+
+  <template x-teleport="body">
+    <div x-hover-card:positioner>
+      <div x-hover-card:content>
+        <div x-hover-card:arrow>
+          <div x-hover-card:arrow-tip></div>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <div class="flex items-center gap-4">
+            <img
+              class="w-12 h-12 rounded-full"
+              src="https://zagjs.com/favicon/apple-touch-icon.png"
+              alt="zag.js logo"
+            />
+            <div class="flex flex-col justify-between">
+              <h2 class="text-lg text-zinc-700 font-semibold">Zag JS</h2>
+              <span class="text-zinc-500">@zag_js</span>
+            </div>
+          </div>
+          <div class="text-zinc-700 leading-normal">
+            UI components powered by Finite State Machines.
+          </div>
+          <div class="flex items-center gap-4">
+            <div>
+              <span class="text-zinc-700 font-semibold">2</span>
+              <span class="text-zinc-500">Following</span>
+            </div>
+            <div>
+              <span class="text-zinc-700 font-semibold">4,000</span>
+              <span class="text-zinc-500">Followers</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+</div>
+
+<style>
+  a:visited {
+    color: inherit;
+  }
+
+  [data-part="trigger"] {
+    @apply font-medium;
+  }
+
+  [data-part="content"] {
+    @apply relative bg-white max-w-72 border border-zinc-200/60 p-4 rounded-md shadow-md;
+  }
+
+  [data-part="arrow"] {
+    --arrow-background: white;
+    --arrow-size: 12px;
+  }
+
+  [data-part="arrow-tip"] {
+    @apply border-l border-t border-zinc-200/60;
+  }
+</style>

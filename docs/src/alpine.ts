@@ -8,7 +8,8 @@ import {
   combobox,
   dialog,
   editable,
-  fileUpload
+  fileUpload,
+  hoverCard
 } from "@tunkshif/alpine-zag"
 import type { Alpine } from "alpinejs"
 
@@ -23,4 +24,5 @@ export default (Alpine: Alpine) => {
   Alpine.plugin(dialog)
   Alpine.plugin(editable)
   Alpine.plugin(fileUpload)
+  Alpine.plugin(hoverCard)
 }
