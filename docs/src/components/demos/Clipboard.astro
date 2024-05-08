@@ -7,8 +7,8 @@
   <div x-clipboard:control>
     <input x-clipboard:input />
     <button x-clipboard:trigger>
-      <i x-show="!$clipboard.isCopied" class="i-lucide-clipboard-copy w-4 h-4"></i>
-      <i x-show="$clipboard.isCopied" class="i-lucide-clipboard-check w-4 h-4"></i>
+      <i x-show="!$clipboard.copied" class="i-lucide-clipboard-copy w-4 h-4"></i>
+      <i x-show="$clipboard.copied" class="i-lucide-clipboard-check w-4 h-4"></i>
     </button>
   </div>
 </div>

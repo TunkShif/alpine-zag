@@ -43,7 +43,7 @@
   `}
   x-on:z-open-change="options.value = [...FRUITS]"
   x-on:z-input-value-change={`
-    const input = $event.detail.value
+    const input = $event.detail.inputValue
     const filtered = FRUITS.filter((it) => it.toLowerCase().includes(input.toLowerCase()))
     options.value = filtered.length > 0 ? filtered : [...FRUITS]
   `}

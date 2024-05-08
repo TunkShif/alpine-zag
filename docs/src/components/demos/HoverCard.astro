@@ -56,6 +56,32 @@
     @apply relative bg-white max-w-72 border border-zinc-200/60 p-4 rounded-md shadow-md;
   }
 
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  [data-part="content"][data-state="open"] {
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  [data-part="content"][data-state="closed"] {
+    animation: fadeOut 0.2s ease-out;
+  }
+
   [data-part="arrow"] {
     --arrow-background: white;
     --arrow-size: 12px;

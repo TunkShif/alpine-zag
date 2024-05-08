@@ -4,7 +4,7 @@
 
 <div x-cloak x-data x-dialog>
   <button x-dialog:trigger> <i class="i-lucide-download w-4 h-4"></i> Download</button>
-  <template x-show="$dialog.isOpen" x-teleport="body">
+  <template x-teleport="body">
     <div data-scope="dialog" data-part="container">
       <div x-dialog:backdrop></div>
       <div x-dialog:positioner>
@@ -20,7 +20,7 @@
               type="button"
               data-scope="dialog"
               data-part="cancel-trigger"
-              x-on:click="$dialog.close()"
+              x-on:click="$dialog.setOpen(false)"
             >
               Cancel
             </button>
@@ -28,7 +28,7 @@
               type="button"
               data-scope="dialog"
               data-part="confirm-trigger"
-              x-on:click="$dialog.close()"
+              x-on:click="$dialog.setOpen(false)"
             >
               Download
             </button>

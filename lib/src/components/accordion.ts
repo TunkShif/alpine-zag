@@ -2,7 +2,12 @@ import * as accordion from "@zag-js/accordion"
 import * as collapsible from "@zag-js/collapsible"
 import { mergeProps } from "@zag-js/core"
 import type { Alpine, PluginCallback } from "alpinejs"
-import { createComponent, getApi, handleComponentPart } from "src/utils/create-component"
+import {
+  createBind,
+  createComponent,
+  getApi,
+  handleComponentPart
+} from "src/utils/create-component"
 import { type CleanupFn, computedShallowRef, markRaw } from "src/utils/reactivity"
 
 export const plugin: PluginCallback = (Alpine) => {
@@ -107,14 +112,9 @@ const handleItemContent = (el: HTMLElement, Alpine: Alpine, cleanup: CleanupFn, 
     }
   })
 
-  const binds: Record<string, any> = {}
   const itemContentProps = (Alpine.$data(el) as any)._collapsibleItemContentProps
-  for (const key in itemContentProps) {
-    const prop = `:${key}`
-    binds[prop] = function () {
-      return this._collapsibleItemContentProps[key]
-    }
-  }
-
-  Alpine.bind(el, binds)
+  Alpine.bind(
+    el,
+    createBind(itemContentProps, (ctx) => ctx._collapsibleItemContentProps)
+  )
 }

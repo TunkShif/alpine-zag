@@ -1,6 +1,5 @@
 import type { Alpine } from "alpinejs"
 import { normalizeProps, useMachine } from "src/integration"
-import { createBind } from "src/integration/bind"
 import { type CleanupFn, computedShallowRef, markRaw } from "src/utils/reactivity"
 
 type Dict = Record<string, any>
@@ -16,6 +15,30 @@ export const getApi = <API>(el: HTMLElement, Alpine: Alpine, name: string) => {
   return (Alpine.$data(el) as any)[`_${name}_api`].value as API
 }
 
+export const createBind = (
+  props: Record<string, any>,
+  accessor: (context: any) => any,
+  param?: Record<string, any>
+) => {
+  const binds: Record<string, any> = {}
+  for (const key in props) {
+    if (key.startsWith("on")) {
+      const event = `@${key.substring(2)}`
+      binds[event] = function (event: any) {
+        const handler = param ? accessor(this)(param)[key] : accessor(this)[key]
+        handler(event)
+      }
+    } else {
+      const prop = key === "innerHTML" ? "x-text" : `:${key}`
+      binds[prop] = function () {
+        const value = param ? accessor(this)(param)[key] : accessor(this)[key]
+        return value
+      }
+    }
+  }
+  return binds
+}
+
 export const handleComponentPart = (
   el: HTMLElement,
   Alpine: Alpine,
@@ -24,9 +47,11 @@ export const handleComponentPart = (
   param?: any
 ) => {
   const api = getApi<any>(el, Alpine, name)
-  param
-    ? Alpine.bind(el, createBind(name, api[propName](param), propName, param))
-    : Alpine.bind(el, createBind(name, api[propName], propName))
+  const accessor = (ctx: any) => ctx[`_${name}_api`].value[propName]
+  const binds = param
+    ? createBind(api[propName](param), accessor, param)
+    : createBind(api[propName], accessor)
+  Alpine.bind(el, binds)
 }
 
 export const createComponent = (
