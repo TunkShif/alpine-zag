@@ -1,0 +1,118 @@
+---
+
+---
+
+<div x-cloak x-data x-popover>
+  <button x-popover:trigger><i class="i-lucide-cloud-off w-4 h-4"></i></button>
+  <template x-teleport="body">
+    <div x-popover:positioner>
+      <div x-popover:content>
+        <div x-popover:arrow>
+          <div x-popover:arrow-tip></div>
+        </div>
+
+        <header>
+          <h2 x-popover:title>Cloud Sync Error</h2>
+        </header>
+        <div x-popover:description>
+          Failed to sync with cloud. Please check your network connection and try again.
+        </div>
+        <footer>
+          <button
+            data-scope="popover"
+            data-part="cancel-trigger"
+            x-on:click="$popover.setOpen(false)">Cancel</button
+          >
+          <button
+            data-scope="popover"
+            data-part="confirm-trigger"
+            x-on:click="$popover.setOpen(false)">Try Again</button
+          >
+        </footer>
+        <button x-popover:close-trigger><i class="i-lucide-x w-4 h-4"></i></button>
+      </div>
+    </div>
+  </template>
+</div>
+
+<style>
+  [data-part="trigger"] {
+    @apply relative inline-flex justify-center items-center w-9 h-9 rounded border bg-white text-zinc-700 hover:bg-zinc-100 border-zinc-300/60 cursor-pointer;
+  }
+
+  [data-part="content"] {
+    @apply relative max-w-72 bg-white border border-zinc-300/60 rounded-md shadow-sm;
+  }
+
+  [data-part="content"] > header {
+    @apply border-b border-zinc-200/60 px-4 py-2;
+  }
+
+  [data-part="content"] > footer {
+    @apply border-t border-zinc-200/60 px-4 py-2 flex justify-end gap-4;
+  }
+
+  [data-part="title"] {
+    @apply text-base text-zinc-600 font-semibold leading-9;
+  }
+
+  [data-part="description"] {
+    @apply p-4 text-zinc-600 text-sm;
+  }
+
+  [data-part="close-trigger"] {
+    @apply absolute p-1 h-6 w-6 inline-flex justify-center items-center top-2.5 right-2.5 bg-transparent hover:bg-zinc-100 text-zinc-500 rounded-md cursor-pointer;
+  }
+
+  [data-part="cancel-trigger"] {
+    @apply inline-flex justify-center items-center gap-2 px-2.5 py-1 min-w-24 min-h-9 rounded border text-sm font-medium bg-white text-zinc-700 hover:bg-zinc-100 border-zinc-300/60 cursor-pointer;
+  }
+
+  [data-part="confirm-trigger"] {
+    @apply inline-flex justify-center items-center gap-2 px-2.5 py-1 min-w-24 min-h-9 rounded text-sm font-medium bg-zinc-700 text-white hover:bg-zinc-600 cursor-pointer;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95) translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.95) translateY(-10px);
+    }
+  }
+
+  [data-part="content"][data-state="open"] {
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  [data-part="content"][data-state="closed"] {
+    animation: fadeOut 0.2s ease-out;
+  }
+
+  [data-part="arrow"] {
+    --arrow-background: white;
+    --arrow-size: 12px;
+  }
+
+  [data-part="arrow-tip"] {
+    @apply border-l border-t border-zinc-300/60;
+  }
+
+  [data-part="trigger"]::after {
+    content: "";
+    @apply absolute top-0 right-0 transform translate-x-0.5 -translate-y-0.5  w-2 h-2 bg-rose-500 rounded-full;
+  }
+</style>
