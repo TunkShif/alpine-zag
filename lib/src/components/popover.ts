@@ -1,14 +1,9 @@
-import { mergeProps } from "@zag-js/core"
 import * as popover from "@zag-js/popover"
 import * as presence from "@zag-js/presence"
 import type { Alpine, PluginCallback } from "alpinejs"
-import {
-  createBind,
-  createComponent,
-  getApi,
-  handleComponentPart
-} from "src/utils/create-component"
-import { type CleanupFn, markRaw } from "src/utils/reactivity"
+import { createComponent, getApi, handleComponentPart } from "src/utils/create-component"
+import { createPresence, handlePresencePart, mergePresenceProps } from "src/utils/create-presence"
+import type { CleanupFn } from "src/utils/reactivity"
 
 export const plugin: PluginCallback = (Alpine) => {
   Alpine.directive("popover", (el, directive, { evaluate, cleanup }) => {
@@ -16,7 +11,7 @@ export const plugin: PluginCallback = (Alpine) => {
       case "trigger":
         return handleComponentPart(el, Alpine, "popover", "triggerProps")
       case "positioner":
-        return handlePositioner(el, Alpine, cleanup)
+        return handleComponentPart(el, Alpine, "popover", "positionerProps")
       case "content":
         return handleContent(el, Alpine)
       case "title":
@@ -45,7 +40,9 @@ const handleRoot = (el: HTMLElement, Alpine: Alpine, cleanup: CleanupFn, props: 
       return ["z-popover"]
     },
     "x-data"() {
-      return createComponent(
+      const component = {} as any
+
+      const { init: initPopover, ...popoverContext } = createComponent(
         Alpine,
         cleanup,
         "popover",
@@ -69,6 +66,21 @@ const handleRoot = (el: HTMLElement, Alpine: Alpine, cleanup: CleanupFn, props: 
           }),
         popover.connect
       )
+
+      const { init: initPresence, ...presenceContext } = createPresence(
+        Alpine,
+        cleanup,
+        component,
+        "popover"
+      )
+
+      Object.assign(component, popoverContext, presenceContext)
+      component.init = () => {
+        initPopover.bind(component)()
+        initPresence.bind(component)()
+      }
+      mergePresenceProps(component, "popover", "contentProps")
+      return component
     },
     ":data-scope"() {
       return "popover"
@@ -81,53 +93,13 @@ const handleRoot = (el: HTMLElement, Alpine: Alpine, cleanup: CleanupFn, props: 
   handleComponentPart(el, Alpine, "popover", "rootProps")
 }
 
-const handlePositioner = (el: HTMLElement, Alpine: Alpine, cleanup: CleanupFn) => {
-  Alpine.bind(el, {
-    "x-data"() {
-      const ctx = this as any
-      const context = Alpine.reactive({
-        get present() {
-          return ctx.$popover.open
-        }
-      })
-      return createComponent(
-        Alpine,
-        cleanup,
-        "popover_presence",
-        context,
-        () => presence.machine({ ...Alpine.raw(context) }),
-        presence.connect
-      )
-    }
-  })
-
-  handleComponentPart(el, Alpine, "popover", "positionerProps")
-}
-
 const handleContent = (el: HTMLElement, Alpine: Alpine) => {
   Alpine.bind(el, {
     "x-init"() {
       const ctx = this as any
       ctx._popover_presence_api.value.setNode(el)
-    },
-    "x-data"() {
-      return {
-        get _popoverContentProps() {
-          const ctx = this as any
-          const presence = ctx._popover_presence_api
-          const localProps = ctx.$popover.contentProps
-          const presenceProps = {
-            hidden: !presence.value.present
-          }
-          return markRaw(mergeProps(localProps, presenceProps))
-        }
-      }
     }
   })
 
-  const contentProps = (Alpine.$data(el) as any)._popoverContentProps
-  Alpine.bind(
-    el,
-    createBind(contentProps, (ctx) => ctx._popoverContentProps)
-  )
+  handlePresencePart(el, Alpine, "popover", "contentProps")
 }

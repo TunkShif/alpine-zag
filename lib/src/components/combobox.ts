@@ -1,10 +1,10 @@
 import * as combobox from "@zag-js/combobox"
 import type { Alpine, PluginCallback } from "alpinejs"
 import { createComponent, getApi, handleComponentPart } from "src/utils/create-component"
+import { createPresence, handlePresencePart, mergePresenceProps } from "src/utils/create-presence"
 import { type CleanupFn, markRaw } from "src/utils/reactivity"
 
 // TODO: warn when missing required props
-// TODO: add presence composition
 
 export const plugin: PluginCallback = (Alpine) => {
   Alpine.directive("combobox", (el, directive, { evaluate, effect, cleanup }) => {
@@ -20,7 +20,7 @@ export const plugin: PluginCallback = (Alpine) => {
       case "positioner":
         return handleComponentPart(el, Alpine, "combobox", "positionerProps")
       case "content":
-        return handleComponentPart(el, Alpine, "combobox", "contentProps")
+        return handleContent(el, Alpine)
       case "item":
         return handleComponentPart(el, Alpine, "combobox", "getItemProps", {
           item: evaluate(directive.value)
@@ -68,7 +68,9 @@ const handleRoot = (
       return ["z-combobox"]
     },
     "x-data"() {
-      return createComponent(
+      const component = {} as any
+
+      const { init: initCombobox, ...comboboxContext } = createComponent(
         Alpine,
         cleanup,
         "combobox",
@@ -92,8 +94,34 @@ const handleRoot = (
           }),
         combobox.connect
       )
+
+      const { init: initPresence, ...presenceContext } = createPresence(
+        Alpine,
+        cleanup,
+        component,
+        "combobox"
+      )
+
+      Object.assign(component, comboboxContext, presenceContext)
+      component.init = () => {
+        initCombobox.bind(component)()
+        initPresence.bind(component)()
+      }
+      mergePresenceProps(component, "combobox", "contentProps")
+      return component
     }
   })
 
   handleComponentPart(el, Alpine, "combobox", "rootProps")
+}
+
+const handleContent = (el: HTMLElement, Alpine: Alpine) => {
+  Alpine.bind(el, {
+    "x-init"() {
+      const ctx = this as any
+      ctx._combobox_presence_api.value.setNode(el)
+    }
+  })
+
+  handlePresencePart(el, Alpine, "combobox", "contentProps")
 }

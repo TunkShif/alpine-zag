@@ -1,9 +1,8 @@
 import * as dialog from "@zag-js/dialog"
 import type { Alpine, PluginCallback } from "alpinejs"
 import { createComponent, getApi, handleComponentPart } from "src/utils/create-component"
+import { createPresence, handlePresencePart, mergePresenceProps } from "src/utils/create-presence"
 import type { CleanupFn } from "src/utils/reactivity"
-
-// TODO: add presence composition
 
 export const plugin: PluginCallback = (Alpine) => {
   Alpine.directive("dialog", (el, directive, { evaluate, cleanup }) => {
@@ -11,11 +10,11 @@ export const plugin: PluginCallback = (Alpine) => {
       case "trigger":
         return handleComponentPart(el, Alpine, "dialog", "triggerProps")
       case "backdrop":
-        return handleComponentPart(el, Alpine, "dialog", "backdropProps")
+        return handlePresencePart(el, Alpine, "dialog", "backdropProps")
       case "positioner":
         return handleComponentPart(el, Alpine, "dialog", "positionerProps")
       case "content":
-        return handleComponentPart(el, Alpine, "dialog", "contentProps")
+        return handleContent(el, Alpine)
       case "title":
         return handleComponentPart(el, Alpine, "dialog", "titleProps")
       case "description":
@@ -38,7 +37,9 @@ const handleRoot = (el: HTMLElement, Alpine: Alpine, cleanup: CleanupFn, props: 
       return ["z-dialog"]
     },
     "x-data"() {
-      return createComponent(
+      const component = {} as any
+
+      const { init: initDialog, ...dialogContext } = createComponent(
         Alpine,
         cleanup,
         "dialog",
@@ -59,6 +60,21 @@ const handleRoot = (el: HTMLElement, Alpine: Alpine, cleanup: CleanupFn, props: 
           }),
         dialog.connect
       )
+      const { init: initPresence, ...presenceContext } = createPresence(
+        Alpine,
+        cleanup,
+        component,
+        "dialog"
+      )
+
+      Object.assign(component, dialogContext, presenceContext)
+      component.init = () => {
+        initDialog.bind(component)()
+        initPresence.bind(component)()
+      }
+      mergePresenceProps(component, "dialog", "backdropProps")
+      mergePresenceProps(component, "dialog", "contentProps")
+      return component
     },
     ":data-scope"() {
       return "dialog"
@@ -67,4 +83,15 @@ const handleRoot = (el: HTMLElement, Alpine: Alpine, cleanup: CleanupFn, props: 
       return "root"
     }
   })
+}
+
+const handleContent = (el: HTMLElement, Alpine: Alpine) => {
+  Alpine.bind(el, {
+    "x-init"() {
+      const ctx = this as any
+      ctx._dialog_presence_api.value.setNode(el)
+    }
+  })
+
+  handlePresencePart(el, Alpine, "dialog", "contentProps")
 }

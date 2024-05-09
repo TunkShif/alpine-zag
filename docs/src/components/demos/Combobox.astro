@@ -85,7 +85,7 @@
   }
 
   [data-part="input"] {
-    @apply px-2 h-9 min-w-48 bg-white text-zinc-700 border border-zinc-300/60 rounded outline-none focus:outline-zinc-500;
+    @apply px-2.5 h-9 min-w-48 bg-white text-zinc-700 border border-zinc-300/60 rounded outline-none focus:outline-zinc-500;
   }
 
   [data-part="trigger"] {
@@ -110,5 +110,35 @@
 
   [data-part="item"][data-highlighted] {
     @apply bg-zinc-100;
+  }
+
+  @keyframes enter {
+    from {
+      opacity: 0;
+      transform: scale(0.95) translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @keyframes exit {
+    from {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.95) translateY(-10px);
+    }
+  }
+
+  [data-part="content"][data-state="open"] {
+    animation: enter 0.2s ease-out;
+  }
+
+  [data-part="content"][data-state="closed"] {
+    animation: exit 0.2s ease-out;
   }
 </style>

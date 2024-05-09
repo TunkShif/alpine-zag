@@ -71,7 +71,7 @@ export const createComponent = (
     [machineProp]: null,
     [apiProp]: null,
     init() {
-      this[contextProp] = props
+      this[contextProp] = Alpine.reactive(props)
       const nextTick = (callback: () => void) => this.$nextTick(callback)
       const [state, send, machine] = useMachine(
         Alpine,

@@ -53,7 +53,7 @@
   }
 
   [data-part="title"] {
-    @apply text-base text-zinc-600 font-semibold leading-9;
+    @apply text-base text-zinc-600 font-semibold;
   }
 
   [data-part="description"] {
@@ -61,18 +61,18 @@
   }
 
   [data-part="close-trigger"] {
-    @apply absolute p-1 h-6 w-6 inline-flex justify-center items-center top-2.5 right-2.5 bg-transparent hover:bg-zinc-100 text-zinc-500 rounded-md cursor-pointer;
+    @apply absolute p-1 h-6 w-6 inline-flex justify-center items-center top-1.5 right-1.5 bg-transparent hover:bg-zinc-100 text-zinc-500 rounded-md cursor-pointer;
   }
 
   [data-part="cancel-trigger"] {
-    @apply inline-flex justify-center items-center gap-2 px-2.5 py-1 min-w-24 min-h-9 rounded border text-sm font-medium bg-white text-zinc-700 hover:bg-zinc-100 border-zinc-300/60 cursor-pointer;
+    @apply inline-flex justify-center items-center gap-2 px-2.5 py-1 min-w-20 min-h-7 rounded border text-sm font-medium bg-white text-zinc-700 hover:bg-zinc-100 border-zinc-300/60 cursor-pointer;
   }
 
   [data-part="confirm-trigger"] {
-    @apply inline-flex justify-center items-center gap-2 px-2.5 py-1 min-w-24 min-h-9 rounded text-sm font-medium bg-zinc-700 text-white hover:bg-zinc-600 cursor-pointer;
+    @apply inline-flex justify-center items-center gap-2 px-2.5 py-1 min-w-20 min-h-7 rounded text-sm font-medium bg-zinc-700 text-white hover:bg-zinc-600 cursor-pointer;
   }
 
-  @keyframes fadeIn {
+  @keyframes enter {
     from {
       opacity: 0;
       transform: scale(0.95) translateY(-10px);
@@ -83,7 +83,7 @@
     }
   }
 
-  @keyframes fadeOut {
+  @keyframes exit {
     from {
       opacity: 1;
       transform: scale(1) translateY(0);
@@ -95,11 +95,11 @@
   }
 
   [data-part="content"][data-state="open"] {
-    animation: fadeIn 0.2s ease-out;
+    animation: enter 0.2s ease-out;
   }
 
   [data-part="content"][data-state="closed"] {
-    animation: fadeOut 0.2s ease-out;
+    animation: exit 0.2s ease-out;
   }
 
   [data-part="arrow"] {

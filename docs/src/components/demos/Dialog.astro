@@ -11,10 +11,10 @@
         <div x-dialog:content>
           <header>
             <h2 x-dialog:title>Confirm Download</h2>
-            <p x-dialog:description>
-              The file <code>exports.zip</code> will be saved to your disk.
-            </p>
           </header>
+          <div x-dialog:description>
+            The file <code>exports.zip</code> will be saved to your disk.
+          </div>
           <footer>
             <button
               type="button"
@@ -64,7 +64,15 @@
   }
 
   [data-part="content"] {
-    @apply relative px-6 py-4 max-w-80 md:max-w-lg bg-white border border-zinc-300/60 rounded-md shadow-sm;
+    @apply relative max-w-80 md:max-w-lg bg-white border border-zinc-300/60 rounded-md shadow-sm;
+  }
+
+  [data-part="content"] > header {
+    @apply border-b border-zinc-200/60 px-4 py-2;
+  }
+
+  [data-part="content"] > footer {
+    @apply border-t border-zinc-200/60 px-4 py-2 flex justify-between gap-4;
   }
 
   [data-part="title"] {
@@ -72,7 +80,7 @@
   }
 
   [data-part="description"] {
-    @apply pt-2 text-zinc-600 text-sm;
+    @apply p-4 text-zinc-600 text-sm;
   }
 
   [data-part="description"] > code {
@@ -83,15 +91,67 @@
     @apply absolute p-1 h-6 w-6 inline-flex justify-center items-center top-2 right-2 bg-transparent hover:bg-zinc-100 text-zinc-500 rounded-md cursor-pointer;
   }
 
-  [data-part="content"] > footer {
-    @apply mt-4 flex justify-between gap-4;
-  }
-
   [data-part="cancel-trigger"] {
     @apply inline-flex justify-center items-center gap-2 px-2.5 py-1 w-full min-h-9 rounded border text-sm font-medium bg-white text-zinc-700 hover:bg-zinc-100 border-zinc-300/60 cursor-pointer;
   }
 
   [data-part="confirm-trigger"] {
     @apply inline-flex justify-center items-center gap-2 px-2.5 py-1 w-full min-h-9 rounded text-sm font-medium bg-zinc-700 text-white hover:bg-zinc-600 cursor-pointer;
+  }
+
+  @keyframes enter {
+    from {
+      opacity: 0;
+      transform: scale(0.95) translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @keyframes exit {
+    from {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.95) translateY(-10px);
+    }
+  }
+
+  [data-part="content"][data-state="open"] {
+    animation: enter 0.2s ease-out;
+  }
+
+  [data-part="content"][data-state="closed"] {
+    animation: exit 0.2s ease-out;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  [data-part="backdrop"][data-state="open"] {
+    animation: fade-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  [data-part="backdrop"][data-state="closed"] {
+    animation: fade-out 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
 </style>
