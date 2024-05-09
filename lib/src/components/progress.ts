@@ -19,6 +19,8 @@ export const plugin: PluginCallback = (Alpine) => {
         return handleComponentPart(el, Alpine, "progress", "circleTrackProps")
       case "circle-range":
         return handleComponentPart(el, Alpine, "progress", "circleRangeProps")
+      case "value-text":
+        return handleComponentPart(el, Alpine, "progress", "valueTextProps")
       default:
         return handleRoot(el, Alpine, cleanup, evaluate(directive.expression || "{}"))
     }

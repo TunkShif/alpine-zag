@@ -1,0 +1,56 @@
+---
+
+---
+
+<div
+  x-cloak
+  x-data="{ progress: { value: 50 } }"
+  x-init="setInterval(() => { progress.value = progress.value > 90 ? 20 : progress.value + 1 }, 200)"
+  class="flex flex-col gap-4"
+>
+  <div x-progress="progress">
+    <label x-progress:label>Upload Progress</label>
+
+    <div x-progress:track>
+      <div x-progress:range></div>
+    </div>
+
+    <svg x-progress:circle>
+      <circle x-progress:circle-track></circle>
+      <circle x-progress:circle-range></circle>
+    </svg>
+
+    <div x-progress:value-text><span x-text="$progress.value"></span>%</div>
+  </div>
+</div>
+
+<style>
+  [data-part="root"] {
+    @apply flex flex-col items-center w-72 gap-4;
+  }
+
+  [data-part="label"] {
+    @apply text-center font-medium;
+  }
+
+  [data-part="track"] {
+    @apply w-full h-2 bg-zinc-300 dark:bg-zinc-700 rounded-lg overflow-hidden;
+  }
+
+  [data-part="range"] {
+    @apply h-full bg-zinc-700 dark:bg-zinc-50 transition-all duration-200 ease-in-out;
+  }
+
+  [data-part="circle"] {
+    --size: 44px;
+    --thickness: 4px;
+  }
+
+  [data-part="circle-track"] {
+    @apply stroke-zinc-300 dark:stroke-zinc-700;
+  }
+
+  [data-part="circle-range"] {
+    @apply stroke-zinc-700 dark:stroke-zinc-50 transition-all duration-200 ease-in-out;
+  }
+</style>
