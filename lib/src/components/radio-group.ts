@@ -4,6 +4,8 @@ import type { PropTypes } from "src/integration/normalize-props"
 import { createComponent, getApi, handleComponentPart } from "src/utils/create-component"
 import type { CleanupFn } from "src/utils/reactivity"
 
+// TODO: support disabled prop
+
 export const plugin: PluginCallback = (Alpine) => {
   Alpine.directive("radio-group", (el, directive, { evaluate, cleanup }) => {
     const param = directive.value?.startsWith("item")

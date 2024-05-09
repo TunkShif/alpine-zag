@@ -1,0 +1,46 @@
+---
+const fruits = ["Mango", "Peach", "Tangerine"]
+---
+
+<div x-cloak x-data x-radio-group>
+  <div x-radio-group:label>Pick a fruit</div>
+  {
+    fruits.map((name) => (
+      <label x-radio-group:item={`'${name}'`}>
+        <div x-radio-group:item-control={`'${name}'`} />
+        <input x-radio-group:item-hidden-input={`'${name}'`} />
+        <span x-radio-group:item-text={`'${name}'`}>{name}</span>
+      </label>
+    ))
+  }
+</div>
+
+<style>
+  [data-part="root"] {
+    @apply flex flex-col gap-1;
+  }
+
+  [data-part="label"] {
+    @apply font-medium;
+  }
+
+  [data-part="item"] {
+    @apply flex items-center gap-2;
+  }
+
+  [data-part="item-control"] {
+    @apply w-5 h-5 bg-white border border-zinc-300/60 rounded-full cursor-pointer;
+  }
+
+  [data-part="item-control"][data-focus] {
+    @apply ring-2 ring-offset-2 ring-zinc-500 dark:ring-offset-zinc-900;
+  }
+
+  [data-part="item-control"][data-state="checked"] {
+    @apply border-[7px] border-zinc-600 bg-white;
+  }
+
+  [data-part="item-text"] {
+    @apply font-medium;
+  }
+</style>
