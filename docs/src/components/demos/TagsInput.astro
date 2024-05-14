@@ -1,0 +1,48 @@
+---
+
+---
+
+<div x-cloak x-data x-tags-input="{ value: ['JavaScript', 'PHP', 'Elixir'] }">
+  <template x-for="(value, index) in $tagsInput.value" x-key="index">
+    <div x-tags-input:item="{ index, value }">
+      <div x-tags-input:item-preview="{ index, value }">
+        <span x-text="value"></span>
+        <button x-tags-input:item-delete-trigger="{ index, value }">
+          <i class="i-lucide-x w-3 h-3"></i>
+        </button>
+      </div>
+      <input x-tags-input:item-input="{ index, value }" />
+    </div>
+  </template>
+  <input placeholder="Add tags..." x-tags-input:input />
+</div>
+
+<style>
+  [data-part="root"] {
+    @apply w-72 p-2 flex flex-wrap gap-2 bg-white border border-zinc-200/60 rounded-md shadow-sm overflow-hidden;
+  }
+
+  [data-part="root"][data-focus] {
+    @apply outline-zinc-700 outline outline-2;
+  }
+
+  [data-part="item-preview"] {
+    @apply inline-flex justify-between items-center gap-2 text-sm border px-2 py-1 bg-white rounded-md text-zinc-700;
+  }
+
+  [data-part="item-preview"][data-highlighted] {
+    @apply outline-zinc-700 outline outline-2;
+  }
+
+  [data-part="item-preview"][hidden] {
+    @apply hidden;
+  }
+
+  [data-part="item-delete-trigger"] {
+    @apply w-4 h-4 bg-transparent p-0 cursor-pointer text-zinc-700;
+  }
+
+  [data-part="input"] {
+    @apply w-28 outline-none bg-transparent;
+  }
+</style>

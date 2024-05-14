@@ -1,0 +1,37 @@
+---
+
+---
+
+<label x-cloak x-data x-switch>
+  <span x-switch:label>Airplane Mode</span>
+  <span x-switch:control>
+    <span x-switch:thumb></span>
+  </span>
+  <input x-switch:hidden-input />
+</label>
+
+<style>
+  [data-part="root"] {
+    @apply relative flex justify-center items-center gap-2;
+  }
+
+  [data-part="label"] {
+    @apply font-medium;
+  }
+
+  [data-part="control"] {
+    @apply inline-flex w-9 p-0.5 bg-zinc-200 dark:bg-zinc-700 border border-zinc-200/60 rounded-full cursor-pointer;
+  }
+
+  [data-part="control"][data-state="checked"] {
+    @apply bg-zinc-700 dark:bg-zinc-950;
+  }
+
+  [data-part="thumb"] {
+    @apply w-4 h-4 translate-x-0 bg-white rounded-full transition-transform duration-200;
+  }
+
+  [data-part="thumb"][data-state="checked"] {
+    @apply translate-x-full;
+  }
+</style>

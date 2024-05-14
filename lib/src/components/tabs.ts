@@ -9,13 +9,23 @@ export const plugin: PluginCallback = (Alpine) => {
       case "list":
         return handleComponentPart(el, Alpine, "tabs", "listProps")
       case "trigger":
-        return handleComponentPart(el, Alpine, "tabs", "getTriggerProps", {
-          value: evaluate(directive.expression)
-        })
+        return handleComponentPart(
+          el,
+          Alpine,
+          "tabs",
+          "getTriggerProps",
+          evaluate(directive.expression)
+        )
       case "content":
-        return handleComponentPart(el, Alpine, "tabs", "getContentProps", {
-          value: evaluate(directive.expression)
-        })
+        return handleComponentPart(
+          el,
+          Alpine,
+          "tabs",
+          "getContentProps",
+          evaluate(directive.expression)
+        )
+      case "indicator":
+        return handleComponentPart(el, Alpine, "tabs", "indicatorProps")
       default:
         return handleRoot(el, Alpine, cleanup, evaluate(directive.expression || "{}"))
     }

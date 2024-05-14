@@ -18,7 +18,12 @@ import {
   ratingGroup,
   signaturePad,
   slider,
-  splitter
+  splitter,
+  switches,
+  tabs,
+  tagsInput,
+  toggleGroup,
+  tooltip
 } from "@tunkshif/alpine-zag"
 import type { Alpine } from "alpinejs"
 
@@ -43,4 +48,9 @@ export default (Alpine: Alpine) => {
   Alpine.plugin(signaturePad)
   Alpine.plugin(slider)
   Alpine.plugin(splitter)
+  Alpine.plugin(switches)
+  Alpine.plugin(tabs)
+  Alpine.plugin(tagsInput)
+  Alpine.plugin(toggleGroup)
+  Alpine.plugin(tooltip)
 }
