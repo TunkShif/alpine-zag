@@ -1,0 +1,63 @@
+---
+
+---
+
+<div x-cloak x-data x-rating-group="{ value: 2.5, allowHalf: true }">
+  <label x-rating-group:label>Rate this product</label>
+  <div x-rating-group:control>
+    <template
+      x-for="{ index, half } in $ratingGroup.items.map(index => ({ index, half: $ratingGroup.getItemState({ index }).half }))"
+      x-key="index"
+    >
+      <span x-rating-group:item="{ index }">
+        <svg x-show="half" class="w-6 h-6" viewBox="0 0 273 260" data-part="star">
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M135.977 214.086L52.1294 259.594L69.6031 165.229L0 99.1561L95.1465 86.614L135.977 1.04785V214.086Z"
+            fill="currentColor"></path>
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M135.977 213.039L219.826 258.546L202.352 164.181L271.957 98.1082L176.808 85.5661L135.977 0V213.039Z"
+            fill="var(--color-inactive)"></path>
+        </svg>
+        <svg x-show="!half" class="w-6 h-6" viewBox="0 0 273 260">
+          <path
+            d="M136.5 0L177.83 86.614L272.977 99.1561L203.374 165.229L220.847 259.594L136.5 213.815L52.1528 259.594L69.6265 165.229L0.0233917 99.1561L95.1699 86.614L136.5 0Z"
+            fill="currentColor"
+          >
+          </path>
+        </svg>
+      </span>
+    </template>
+  </div>
+  <input x-rating-group:hidden-input />
+</div>
+
+<style>
+  [data-part="root"] {
+    @apply flex flex-col gap-1;
+  }
+
+  [data-part="label"] {
+    @apply font-medium;
+  }
+
+  [data-part="control"] {
+    @apply flex gap-1;
+  }
+
+  [data-part="item"] {
+    --color-inactive: theme(colors.zinc.200);
+    @apply cursor-pointer text-zinc-200 dark:text-zinc-700 outline-none transition-colors duration-200;
+  }
+
+  [data-part="item"]:is([data-theme="dark"] *) {
+    --color-inactive: theme(colors.zinc.700);
+  }
+
+  [data-part="item"][data-highlighted] {
+    @apply text-yellow-500;
+  }
+</style>

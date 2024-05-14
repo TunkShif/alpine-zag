@@ -12,9 +12,13 @@ export const plugin: PluginCallback = (Alpine) => {
       case "control":
         return handleComponentPart(el, Alpine, "rating_group", "controlProps")
       case "item":
-        return handleComponentPart(el, Alpine, "rating_group", "getItemProps", {
-          index: evaluate(directive.expression)
-        })
+        return handleComponentPart(
+          el,
+          Alpine,
+          "rating_group",
+          "getItemProps",
+          evaluate(directive.expression)
+        )
       case "hidden-input":
         return handleComponentPart(el, Alpine, "rating_group", "hiddenInputProps")
       default:
