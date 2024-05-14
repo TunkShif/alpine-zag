@@ -17,7 +17,8 @@ import {
   radioGroup,
   ratingGroup,
   signaturePad,
-  slider
+  slider,
+  splitter
 } from "@tunkshif/alpine-zag"
 import type { Alpine } from "alpinejs"
 
@@ -41,4 +42,5 @@ export default (Alpine: Alpine) => {
   Alpine.plugin(ratingGroup)
   Alpine.plugin(signaturePad)
   Alpine.plugin(slider)
+  Alpine.plugin(splitter)
 }

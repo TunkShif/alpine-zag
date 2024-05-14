@@ -7,13 +7,21 @@ export const plugin: PluginCallback = (Alpine) => {
   Alpine.directive("splitter", (el, directive, { evaluate, cleanup }) => {
     switch (directive.value) {
       case "panel":
-        return handleComponentPart(el, Alpine, "splitter", "getPanelProps", {
-          id: evaluate(directive.expression)
-        })
+        return handleComponentPart(
+          el,
+          Alpine,
+          "splitter",
+          "getPanelProps",
+          evaluate(directive.expression)
+        )
       case "resize-trigger":
-        return handleComponentPart(el, Alpine, "splitter", "getResizeTriggerProps", {
-          id: evaluate(directive.expression)
-        })
+        return handleComponentPart(
+          el,
+          Alpine,
+          "splitter",
+          "getResizeTriggerProps",
+          evaluate(directive.expression)
+        )
       default:
         return handleRoot(el, Alpine, cleanup, evaluate(directive.expression || "{}"))
     }

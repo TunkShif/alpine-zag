@@ -1,0 +1,51 @@
+---
+
+---
+
+<div class="w-96 h-56">
+  <div
+    x-cloak
+    x-data
+    x-splitter="{ size: [{ id: 'a', size: 50, minSize: 10 }, { id: 'bc', size: 50, minSize: 30 }] }"
+  >
+    <div x-splitter:panel="{ id: 'a' }">
+      <div data-part="content">A</div>
+    </div>
+    <div x-splitter:resize-trigger="{ id: 'a:bc' }"></div>
+    <div x-splitter:panel="{ id: 'bc' }">
+      <div
+        x-splitter="{ orientation: 'vertical', size: [{ id: 'b', size: 50, minSize: 20 }, { id: 'c', size: 50, minSize: 20 }] }"
+      >
+        <div x-splitter:panel="{ id: 'b' }">
+          <div data-part="content">B</div>
+        </div>
+        <div x-splitter:resize-trigger="{ id: 'b:c' }"></div>
+        <div x-splitter:panel="{ id: 'c' }">
+          <div data-part="content">C</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  [data-part="root"] {
+    @apply flex gap-1;
+  }
+
+  [data-part="content"] {
+    @apply w-full h-full flex justify-center items-center text-zinc-700 bg-white border border-zinc-200/60 rounded-md;
+  }
+
+  [data-part="resize-trigger"] {
+    @apply rounded-full bg-zinc-300 hover:bg-zinc-400 active:bg-zinc-400 self-center outline-none;
+  }
+
+  [data-part="resize-trigger"][data-orientation="horizontal"] {
+    @apply min-w-2 h-12;
+  }
+
+  [data-part="resize-trigger"][data-orientation="vertical"] {
+    @apply min-h-2 w-16;
+  }
+</style>
