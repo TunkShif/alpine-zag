@@ -1,0 +1,75 @@
+---
+
+---
+
+<div>
+  <button
+    data-part="trigger"
+    x-on:click="$toaster.create({ title: 'Notification', description: 'The brown fox jumps over the lazy dog.' })"
+    >Toast</button
+  >
+  <div x-toast-group="{ placement: 'top-right', overlap: true }">
+    <template x-teleport="body">
+      <template x-for="placement in $toastGroup.getPlacements()" x-bind:key="placement">
+        <div x-toast-group:group="{ placement }">
+          <template
+            x-for="toast in $toastGroup.getToastsByPlacement(placement)"
+            x-bind:key="toast.id"
+          >
+            <div x-toast="toast">
+              <div x-toast:ghost-before></div>
+              <h3 x-toast:title x-text="$toast.title"></h3>
+              <p x-toast:description x-text="$toast.description"></p>
+              <button x-toast:close-trigger>
+                <i class="i-lucide-x w-4 h-4"></i>
+              </button>
+              <div x-toast:ghost-after></div>
+            </div>
+          </template>
+        </div>
+      </template>
+    </template>
+  </div>
+</div>
+
+<style>
+  [data-part="trigger"] {
+    @apply inline-flex justify-center items-center gap-2 px-2.5 py-1 min-h-9 rounded border text-sm font-medium bg-white text-zinc-700 hover:bg-zinc-100 border-zinc-300/60 cursor-pointer;
+  }
+
+  [data-part="root"] {
+    @apply relative px-4 py-2 min-w-72 bg-white border border-zinc-300/60 rounded-md shadow-sm;
+    overflow-wrap: anywhere;
+    translate: var(--x) var(--y);
+    scale: var(--scale);
+    z-index: var(--z-index);
+    height: var(--height);
+    opacity: var(--opacity);
+    will-change: translate, opacity, scale;
+    transition:
+      translate 400ms,
+      scale 400ms,
+      opacity 400ms;
+    transition-timing-function: cubic-bezier(0.21, 1.02, 0.73, 1);
+  }
+
+  [data-part="root"][data-state="closed"] {
+    transition:
+      translate 400ms,
+      scale 400ms,
+      opacity 200ms;
+    transition-timing-function: cubic-bezier(0.06, 0.71, 0.55, 1);
+  }
+
+  [data-part="title"] {
+    @apply text-base font-medium text-zinc-800;
+  }
+
+  [data-part="description"] {
+    @apply text-sm text-zinc-600;
+  }
+
+  [data-part="close-trigger"] {
+    @apply absolute p-1 h-5 w-5 inline-flex justify-center items-center top-2 right-2 bg-transparent hover:bg-zinc-100 text-zinc-500 rounded-full cursor-pointer;
+  }
+</style>

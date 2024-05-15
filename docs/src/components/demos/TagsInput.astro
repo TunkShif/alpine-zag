@@ -3,7 +3,7 @@
 ---
 
 <div x-cloak x-data x-tags-input="{ value: ['JavaScript', 'PHP', 'Elixir'] }">
-  <template x-for="(value, index) in $tagsInput.value" x-key="index">
+  <template x-for="(value, index) in $tagsInput.value" x-bind:key="index">
     <div x-tags-input:item="{ index, value }">
       <div x-tags-input:item-preview="{ index, value }">
         <span x-text="value"></span>

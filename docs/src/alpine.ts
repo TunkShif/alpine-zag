@@ -23,6 +23,7 @@ import {
   switches,
   tabs,
   tagsInput,
+  toast,
   toggleGroup,
   tooltip
 } from "@tunkshif/alpine-zag"
@@ -53,6 +54,7 @@ export default (Alpine: Alpine) => {
   Alpine.plugin(switches)
   Alpine.plugin(tabs)
   Alpine.plugin(tagsInput)
+  Alpine.plugin(toast)
   Alpine.plugin(toggleGroup)
   Alpine.plugin(tooltip)
 }

@@ -7,7 +7,7 @@
   <div x-rating-group:control>
     <template
       x-for="{ index, half } in $ratingGroup.items.map(index => ({ index, half: $ratingGroup.getItemState({ index }).half }))"
-      x-key="index"
+      x-bind:key="index"
     >
       <span x-rating-group:item="{ index }">
         <svg x-show="half" class="w-6 h-6" viewBox="0 0 273 260" data-part="star">
