@@ -16,6 +16,7 @@ import {
   progress,
   radioGroup,
   ratingGroup,
+  select,
   signaturePad,
   slider,
   splitter,
@@ -45,6 +46,7 @@ export default (Alpine: Alpine) => {
   Alpine.plugin(progress)
   Alpine.plugin(radioGroup)
   Alpine.plugin(ratingGroup)
+  Alpine.plugin(select)
   Alpine.plugin(signaturePad)
   Alpine.plugin(slider)
   Alpine.plugin(splitter)

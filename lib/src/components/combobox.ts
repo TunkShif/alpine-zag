@@ -17,14 +17,52 @@ export const plugin: PluginCallback = (Alpine) => {
         return handleComponentPart(el, Alpine, "combobox", "inputProps")
       case "trigger":
         return handleComponentPart(el, Alpine, "combobox", "triggerProps")
+      case "clear-trigger":
+        return handleComponentPart(el, Alpine, "combobox", "clearTriggerProps")
       case "positioner":
         return handleComponentPart(el, Alpine, "combobox", "positionerProps")
       case "content":
         return handleContent(el, Alpine)
       case "item":
-        return handleComponentPart(el, Alpine, "combobox", "getItemProps", {
-          item: evaluate(directive.value)
-        })
+        return handleComponentPart(
+          el,
+          Alpine,
+          "combobox",
+          "getItemProps",
+          evaluate(directive.expression)
+        )
+      case "item-text":
+        return handleComponentPart(
+          el,
+          Alpine,
+          "combobox",
+          "getItemTextProps",
+          evaluate(directive.expression)
+        )
+      case "item-indicator":
+        return handleComponentPart(
+          el,
+          Alpine,
+          "combobox",
+          "getItemIndicatorProps",
+          evaluate(directive.expression)
+        )
+      case "item-group":
+        return handleComponentPart(
+          el,
+          Alpine,
+          "combobox",
+          "getItemGroupProps",
+          evaluate(directive.expression)
+        )
+      case "item-group-label":
+        return handleComponentPart(
+          el,
+          Alpine,
+          "combobox",
+          "getItemGroupLabelProps",
+          evaluate(directive.expression)
+        )
       default:
         return handleRoot(el, Alpine, effect, cleanup, evaluate(directive.expression || "{}"))
     }
@@ -48,16 +86,19 @@ const handleRoot = (
       const items = props.items ?? { value: [] }
       const itemToString = props.itemToString ?? ((item: any) => item.label)
       const itemToValue = props.itemToValue ?? ((item: any) => item.value)
+      const isItemDisabled = props.isItemDisabled ?? ((item: any) => item.disabled)
 
       ctx._combobox_context.items = items
       ctx._combobox_context.itemToString = itemToString
       ctx._combobox_context.itemToValue = itemToValue
+      ctx._combobox_context.isItemDisabled = isItemDisabled
 
       effect(() => {
         const collection = combobox.collection({
           items: ctx._combobox_context.items.value,
           itemToString: ctx._combobox_context.itemToString,
-          itemToValue: ctx._combobox_context.itemToValue
+          itemToValue: ctx._combobox_context.itemToValue,
+          isItemDisabled: ctx._combobox_context.isItemDisabled
         })
         ctx._combobox_context.collection = markRaw(collection)
       })
@@ -90,6 +131,15 @@ const handleRoot = (
             },
             onOpenChange: (details) => {
               $dispatch("z-open-change", details)
+            },
+            onPointerDownOutside: (event) => {
+              $dispatch("z-pointer-down-outside", event.detail)
+            },
+            onFocusOutside: (event) => {
+              $dispatch("z-focus-outside", event.detail)
+            },
+            onInteractOutside: (event) => {
+              $dispatch("z-interact-outside", event.detail)
             }
           }),
         combobox.connect

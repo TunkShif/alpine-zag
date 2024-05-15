@@ -30,39 +30,36 @@
 
 <div
   x-cloak
-  x-data="{ options: { value: [...FRUITS] }  }"
-  x-combobox={`
+  x-data
+  x-select={`
     {
-      items: options,
+      items: { value: FRUITS },
       itemToValue: (it) => it,
       itemToString: (it) => it,
-      inputBehavior: "autohighlight",
-      placeholder: 'Type or select a fruit',
       positioning: { flip: true, sameWidth: true }
     }
   `}
-  x-on:z-open-change="options.value = [...FRUITS]"
-  x-on:z-input-value-change={`
-    const input = $event.detail.inputValue
-    const filtered = FRUITS.filter((it) => it.toLowerCase().includes(input.toLowerCase()))
-    options.value = filtered.length > 0 ? filtered : [...FRUITS]
-  `}
 >
-  <label x-combobox:label>Pick your favorite fruit</label>
-  <div x-combobox:control>
-    <input x-combobox:input />
-    <button x-combobox:trigger type="button">
+  <div x-select:control>
+    <label x-select:label>Pick your favorite fruit</label>
+    <button x-select:trigger>
+      <span x-text="$select.valueAsString || 'Select a fruit'"></span>
       <i class="i-lucide-chevrons-up-down w-4 h-4"></i>
     </button>
   </div>
 
   <template x-teleport="body">
-    <div x-combobox:positioner>
-      <div x-combobox:content>
+    <div x-select:positioner>
+      <div x-select:content>
         <ul>
-          <template x-for="item in options.value" :key="item">
+          <template x-for="item in FRUITS" :key="item">
             <li>
-              <button type="button" x-combobox:item="{ item }" x-text="item"></button>
+              <button type="button" x-select:item="{ item }">
+                <span x-select:item-indicator="{ item }">
+                  <i class="i-lucide-check w-4 h-4"></i>
+                </span>
+                <span x-select:item-text="{ item }" x-text="item"></span>
+              </button>
             </li>
           </template>
         </ul>
@@ -80,16 +77,12 @@
     @apply font-medium;
   }
 
-  [data-part="control"] {
-    @apply relative;
-  }
-
-  [data-part="input"] {
-    @apply px-2.5 h-9 min-w-48 bg-white text-zinc-700 border border-zinc-300/60 rounded outline-none focus:outline-zinc-500;
-  }
-
   [data-part="trigger"] {
-    @apply absolute inset-y-0 right-2 inline-flex items-center justify-center text-zinc-700 bg-transparent cursor-pointer;
+    @apply flex justify-between items-center px-2.5 h-9 min-w-48 bg-white text-zinc-700 border border-zinc-300/60 rounded outline-none focus:outline-zinc-500 cursor-pointer;
+  }
+
+  [data-part="trigger"][data-state="open"] {
+    @apply outline-zinc-500;
   }
 
   [data-part="content"] {
@@ -105,11 +98,19 @@
   }
 
   [data-part="item"] {
-    @apply w-full text-sm text-left font-medium text-zinc-700 bg-transparent cursor-pointer px-2 py-1 rounded;
+    @apply flex items-center w-full text-sm text-left font-medium text-zinc-700 bg-transparent cursor-pointer px-2 py-1 rounded;
   }
 
   [data-part="item"][data-highlighted] {
     @apply bg-zinc-100;
+  }
+
+  [data-part="item-text"] {
+    @apply ml-5;
+  }
+
+  [data-part="item-indicator"][data-state="checked"] {
+    @apply absolute inline-flex justify-center items-center;
   }
 
   @keyframes enter {
