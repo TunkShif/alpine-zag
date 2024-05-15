@@ -1,6 +1,7 @@
 import * as tooltip from "@zag-js/tooltip"
 import type { Alpine, PluginCallback } from "alpinejs"
 import { createComponent, getApi, handleComponentPart } from "src/utils/create-component"
+import { createPresence, handlePresencePart, mergePresenceProps } from "src/utils/create-presence"
 import type { CleanupFn } from "src/utils/reactivity"
 
 export const plugin: PluginCallback = (Alpine) => {
@@ -11,9 +12,11 @@ export const plugin: PluginCallback = (Alpine) => {
       case "positioner":
         return handleComponentPart(el, Alpine, "tooltip", "positionerProps")
       case "content":
-        return handleComponentPart(el, Alpine, "tooltip", "contentProps")
+        return handleContent(el, Alpine)
       case "arrow":
         return handleComponentPart(el, Alpine, "tooltip", "arrowProps")
+      case "arrow-tip":
+        return handleComponentPart(el, Alpine, "tooltip", "arrowTipProps")
       default:
         return handleRoot(el, Alpine, cleanup, evaluate(directive.expression || "{}"))
     }
@@ -30,7 +33,8 @@ const handleRoot = (el: HTMLElement, Alpine: Alpine, cleanup: CleanupFn, props: 
       return ["z-tooltip"]
     },
     "x-data"() {
-      return createComponent(
+      const component = {} as any
+      const { init: initTooltip, ...tooltipContext } = createComponent(
         Alpine,
         cleanup,
         "tooltip",
@@ -45,6 +49,21 @@ const handleRoot = (el: HTMLElement, Alpine: Alpine, cleanup: CleanupFn, props: 
           }),
         tooltip.connect
       )
+
+      const { init: initPresence, ...presenceContext } = createPresence(
+        Alpine,
+        cleanup,
+        component,
+        "tooltip"
+      )
+
+      Object.assign(component, tooltipContext, presenceContext)
+      component.init = () => {
+        initTooltip.bind(component)()
+        initPresence.bind(component)()
+      }
+      mergePresenceProps(component, "tooltip", "contentProps")
+      return component
     },
     ":data-scope"() {
       return "tooltip"
@@ -53,4 +72,15 @@ const handleRoot = (el: HTMLElement, Alpine: Alpine, cleanup: CleanupFn, props: 
       return "root"
     }
   })
+}
+
+const handleContent = (el: HTMLElement, Alpine: Alpine) => {
+  Alpine.bind(el, {
+    "x-init"() {
+      const ctx = this as any
+      ctx._tooltip_presence_api.value.setNode(el)
+    }
+  })
+
+  handlePresencePart(el, Alpine, "tooltip", "contentProps")
 }

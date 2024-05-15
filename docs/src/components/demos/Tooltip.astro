@@ -1,0 +1,70 @@
+---
+
+---
+
+<div
+  x-cloak
+  x-data
+  x-tooltip="{ openDelay: 100, closeDelay: 100, positioning: { placement: 'top' } }"
+>
+  <button x-tooltip:trigger><i class="i-lucide-search w-4 h-4"></i></button>
+  <template x-teleport="body">
+    <div x-tooltip:positioner>
+      <div x-tooltip:content>
+        <div x-tooltip:arrow>
+          <div x-tooltip:arrow-tip></div>
+        </div>
+        <div>Search in Library</div>
+      </div>
+    </div>
+  </template>
+</div>
+
+<style>
+  [data-part="trigger"] {
+    @apply inline-flex justify-center items-center w-9 h-9 rounded-full border bg-white text-zinc-700 hover:bg-zinc-100 border-zinc-300/60 cursor-pointer;
+  }
+
+  @keyframes enter {
+    from {
+      opacity: 0;
+      transform: scale(0.95) translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @keyframes exit {
+    from {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.95) translateY(-10px);
+    }
+  }
+
+  [data-part="content"] {
+    @apply relative w-max bg-white border border-zinc-300/60 rounded-md shadow-sm text-sm font-medium px-2 py-1 text-zinc-700;
+  }
+
+  [data-part="content"][data-state="open"] {
+    animation: enter 0.1s ease-out;
+  }
+
+  [data-part="content"][data-state="closed"] {
+    animation: exit 0.1s ease-out;
+  }
+
+  [data-part="arrow"] {
+    --arrow-background: white;
+    --arrow-size: 12px;
+  }
+
+  [data-part="arrow-tip"] {
+    @apply border-l border-t border-zinc-300/60;
+  }
+</style>

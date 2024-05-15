@@ -1,0 +1,37 @@
+---
+
+---
+
+<div x-cloak x-data x-toggle-group="{ value: ['bold'], multiple: true }">
+  <button x-toggle-group:item="{ value: 'bold' }">
+    <i class="i-lucide-bold w-5 h-5"></i>
+  </button>
+  <button x-toggle-group:item="{ value: 'italic' }">
+    <i class="i-lucide-italic w-5 h-5"></i>
+  </button>
+  <button x-toggle-group:item="{ value: 'underline' }">
+    <i class="i-lucide-underline w-5 h-5"></i>
+  </button>
+</div>
+
+<style>
+  [data-part="root"] {
+    @apply flex;
+  }
+
+  [data-part="item"] {
+    @apply inline-flex justify-center items-center w-9 h-9 rounded rounded-l-none rounded-r-none border bg-white text-zinc-700 hover:bg-zinc-100 border-zinc-300/60 border-r-0 cursor-pointer;
+  }
+
+  [data-part="item"][data-state="on"] {
+    @apply bg-zinc-100;
+  }
+
+  [data-part="item"]:first-child {
+    @apply rounded-l;
+  }
+
+  [data-part="item"]:last-child {
+    @apply rounded-r border-r;
+  }
+</style>

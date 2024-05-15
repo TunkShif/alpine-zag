@@ -8,9 +8,13 @@ export const plugin: PluginCallback = (Alpine) => {
   Alpine.directive("toggle-group", (el, directive, { evaluate, cleanup }) => {
     switch (directive.value) {
       case "item":
-        return handleComponentPart(el, Alpine, "toggle_group", "getItemProps", {
-          value: evaluate(directive.expression)
-        })
+        return handleComponentPart(
+          el,
+          Alpine,
+          "toggle_group",
+          "getItemProps",
+          evaluate(directive.expression)
+        )
       default:
         return handleRoot(el, Alpine, cleanup, evaluate(directive.expression || "{}"))
     }

@@ -1,5 +1,4 @@
 import * as popover from "@zag-js/popover"
-import * as presence from "@zag-js/presence"
 import type { Alpine, PluginCallback } from "alpinejs"
 import { createComponent, getApi, handleComponentPart } from "src/utils/create-component"
 import { createPresence, handlePresencePart, mergePresenceProps } from "src/utils/create-presence"
