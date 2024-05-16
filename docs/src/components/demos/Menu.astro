@@ -1,0 +1,94 @@
+---
+
+---
+
+<div x-cloak x-data x-menu>
+  <button x-menu:trigger>Browser <i class="i-lucide-chevron-down w-4 h-4 ml-1"></i></button>
+  <template x-teleport="body">
+    <div x-menu:positioner>
+      <div x-menu:content>
+        <ul>
+          <li x-menu:item="{ value: 'back' }">Back</li>
+          <li x-menu:item="{ value: 'forward' }">Forward</li>
+          <li x-menu:item="{ value: 'reload' }">Reload</li>
+          <li x-menu:item="{ value: 'save-as' }">Save As</li>
+          <li x-menu x-menu:trigger-item>
+            <span>Share</span>
+            <i class="i-lucide-chevron-right w-4 h-4 ml-auto"></i>
+            <template x-teleport="body">
+              <div x-menu:positioner>
+                <div x-menu:content>
+                  <ul>
+                    <li x-menu:item="{ value: 'send-via-email' }">Send via Email</li>
+                    <li x-menu:item="{ value: 'send-to-device' }">Send to Device</li>
+                    <li x-menu:item="{ value: 'share-to-twitter' }">Share to Twitter</li>
+                  </ul>
+                </div>
+              </div>
+            </template>
+          </li>
+          <li x-menu:item="{ value: 'print' }">Print</li>
+          <li x-menu:item="{ value: 'help' }">Help</li>
+        </ul>
+      </div>
+    </div>
+  </template>
+</div>
+
+<style>
+  [data-part="trigger"] {
+    @apply inline-flex justify-center items-center gap-2 px-2.5 py-1 min-h-9 rounded border text-sm font-medium bg-white text-zinc-700 hover:bg-zinc-100 border-zinc-300/60 cursor-pointer;
+  }
+
+  [data-part="content"] {
+    @apply relative min-w-40 bg-white border border-zinc-300/60 rounded-md shadow-sm outline-zinc-500/60;
+  }
+
+  [data-part="content"] > ul {
+    @apply p-1.5 flex flex-col;
+  }
+
+  [data-part="item"],
+  [data-part="trigger-item"] {
+    @apply list-none inline-flex items-center p-1.5 text-sm font-medium rounded-md select-none cursor-pointer text-zinc-700;
+  }
+
+  [data-part="item"][data-highlighted],
+  [data-part="trigger-item"][data-highlighted] {
+    @apply bg-gray-50;
+  }
+
+  [data-part="trigger-item"][data-state="open"] {
+    @apply bg-gray-50;
+  }
+
+  @keyframes enter {
+    from {
+      opacity: 0;
+      transform: scale(0.95) translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @keyframes exit {
+    from {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.95) translateY(-10px);
+    }
+  }
+
+  [data-part="content"][data-state="open"] {
+    animation: enter 0.2s ease-out;
+  }
+
+  [data-part="content"][data-state="closed"] {
+    animation: exit 0.2s ease-out;
+  }
+</style>

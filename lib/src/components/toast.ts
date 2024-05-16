@@ -2,21 +2,21 @@ import * as toast from "@zag-js/toast"
 import type { Alpine, PluginCallback } from "alpinejs"
 import { normalizeProps, useActor } from "src/integration"
 import { createComponent, getApi, handleComponentPart } from "src/utils/create-component"
-import { computedShallowRef, type CleanupFn } from "src/utils/reactivity"
+import { type CleanupFn, computedShallowRef } from "src/utils/reactivity"
 
 export const plugin: PluginCallback = (Alpine) => {
   Alpine.directive("toast-group", (el, directive, { evaluate, cleanup }) => {
     const param = evaluate(directive.expression || "{}")
     switch (directive.value) {
       case "group":
-        return handleComponentPart(el, Alpine, "toastGroup", "getGroupProps", param)
+        return handleComponentPart(el, Alpine, "toast_group", "getGroupProps", param)
       default:
         return handleGroupRoot(el, Alpine, cleanup, param)
     }
   }).before("bind")
 
   Alpine.magic("toastGroup", (el) => {
-    return getApi<toast.GroupApi>(el, Alpine, "toastGroup")
+    return getApi<toast.GroupApi>(el, Alpine, "toast_group")
   })
 
   Alpine.directive("toast", (el, directive, { evaluate, cleanup }) => {
@@ -52,13 +52,13 @@ const handleGroupRoot = (el: HTMLElement, Alpine: Alpine, cleanup: CleanupFn, pr
     },
     "x-init"() {
       const ctx = this as any
-      Alpine.store("_toaster_api", ctx._toastGroup_api)
+      Alpine.store("_toaster_api", ctx._toast_group_api)
     },
     "x-data"() {
       return createComponent(
         Alpine,
         cleanup,
-        "toastGroup",
+        "toast_group",
         props,
         ({ $id }) =>
           toast.group.machine({

@@ -10,6 +10,7 @@ import {
   editable,
   fileUpload,
   hoverCard,
+  menu,
   numberInput,
   pinInput,
   popover,
@@ -41,6 +42,7 @@ export default (Alpine: Alpine) => {
   Alpine.plugin(editable)
   Alpine.plugin(fileUpload)
   Alpine.plugin(hoverCard)
+  Alpine.plugin(menu)
   Alpine.plugin(numberInput)
   Alpine.plugin(pinInput)
   Alpine.plugin(popover)

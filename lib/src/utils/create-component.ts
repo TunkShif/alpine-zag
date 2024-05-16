@@ -23,7 +23,7 @@ export const createBind = (
   const binds: Record<string, any> = {}
   for (const key in props) {
     if (key.startsWith("on")) {
-      const event = `@${key.substring(2)}`
+      const event = `@${key.substring(2).toLowerCase()}`
       binds[event] = function (event: any) {
         const handler = param ? accessor(this)(param)[key] : accessor(this)[key]
         handler(event)
@@ -72,11 +72,9 @@ export const createComponent = (
     [apiProp]: null,
     init() {
       this[contextProp] = Alpine.reactive(props)
-      const nextTick = (callback: () => void) => this.$nextTick(callback)
       const [state, send, machine] = useMachine(
         Alpine,
         cleanup,
-        nextTick,
         createMachine({
           $id: (scope) => this.$id(scope),
           $dispatch: (event, details) => this.$dispatch(event, details)
