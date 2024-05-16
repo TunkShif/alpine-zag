@@ -8,8 +8,7 @@
       "DOM"
     ],
     "baseUrl": ".",
-    "outDir": "./dist/",
-    "outFile": "./dist/index.d.ts",
+    "outDir": "./dist/types/",
     "declaration": true,
     "emitDeclarationOnly": true,
     "strict": true,
