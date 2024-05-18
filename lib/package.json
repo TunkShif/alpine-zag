@@ -1,6 +1,6 @@
 {
   "name": "@tunkshif/alpine-zag",
-  "version": "1.0.0-alpha",
+  "version": "1.0.0-alpha.1",
   "description": "Use Zag components with AlpineJS.",
   "author": "Tristan Yang <tunkshif@foxmail.com>",
   "license": "MIT",
@@ -22,6 +22,7 @@
     "dist/"
   ],
   "scripts": {
+    "dev": "tsup --watch",
     "build": "tsup && tsc",
     "format": "biome check --apply --linter-enabled=false ./src"
   },

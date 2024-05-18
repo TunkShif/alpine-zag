@@ -60,7 +60,8 @@ export const createComponent = (
   name: string,
   props: Dict,
   createMachine: CreateMachine,
-  connectMachine: ConnectMachine
+  connectMachine: ConnectMachine,
+  initialState?: (props: Dict) => Dict
 ): Dict => {
   const contextProp = `_${name}_context`
   const machineProp = `_${name}_machine`
@@ -79,7 +80,7 @@ export const createComponent = (
           $id: (scope) => this.$id(scope),
           $dispatch: (event, details) => this.$dispatch(event, details)
         }),
-        { context: this[contextProp] }
+        { context: this[contextProp], state: (initialState?.(props) ?? {}) as any }
       )
 
       this[machineProp] = markRaw(machine)

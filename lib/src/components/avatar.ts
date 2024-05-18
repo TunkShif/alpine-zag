@@ -39,7 +39,8 @@ const handleRoot = (el: HTMLElement, Alpine: Alpine, cleanup: CleanupFn, props: 
               $dispatch("z-status-change", details)
             }
           }),
-        avatar.connect
+        avatar.connect,
+        () => ({ value: "loading" })
       )
     }
   })

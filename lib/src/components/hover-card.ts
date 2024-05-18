@@ -53,7 +53,8 @@ const handleRoot = (el: HTMLElement, Alpine: Alpine, cleanup: CleanupFn, props: 
               $dispatch("z-open-change", details)
             }
           }),
-        hoverCard.connect
+        hoverCard.connect,
+        (props) => ({ value: props.open ? "open" : "closed" })
       )
     },
     ":data-scope"() {

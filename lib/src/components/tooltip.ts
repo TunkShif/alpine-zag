@@ -47,7 +47,8 @@ const handleRoot = (el: HTMLElement, Alpine: Alpine, cleanup: CleanupFn, props: 
               $dispatch("z-open-change", details)
             }
           }),
-        tooltip.connect
+        tooltip.connect,
+        (props) => ({ value: props.open ? "open" : "closed" })
       )
 
       const { init: initPresence, ...presenceContext } = createPresence(

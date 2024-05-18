@@ -63,7 +63,8 @@ const handleRoot = (el: HTMLElement, Alpine: Alpine, cleanup: CleanupFn, props: 
               $dispatch("z-interact-outside", event.detail)
             }
           }),
-        popover.connect
+        popover.connect,
+        (props) => ({ value: props.open ? "open" : "closed" })
       )
 
       const { init: initPresence, ...presenceContext } = createPresence(

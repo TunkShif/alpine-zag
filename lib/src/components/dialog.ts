@@ -58,7 +58,8 @@ const handleRoot = (el: HTMLElement, Alpine: Alpine, cleanup: CleanupFn, props: 
               $dispatch("z-interact-outside", event.detail)
             }
           }),
-        dialog.connect
+        dialog.connect,
+        (props) => ({ value: props.open ? "open" : "closed" })
       )
       const { init: initPresence, ...presenceContext } = createPresence(
         Alpine,

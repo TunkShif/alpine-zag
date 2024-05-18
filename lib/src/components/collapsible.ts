@@ -42,7 +42,8 @@ const handleRoot = (el: HTMLElement, Alpine: Alpine, cleanup: CleanupFn, props: 
               $dispatch("z-exit-complete", undefined)
             }
           }),
-        collapsible.connect
+        collapsible.connect,
+        (props) => ({ value: props.open ? "open" : "closed" })
       )
     }
   })
