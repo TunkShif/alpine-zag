@@ -1,6 +1,6 @@
 {
   "name": "@tunkshif/alpine-zag",
-  "version": "1.0.0-alpha.1",
+  "version": "0.3.3",
   "description": "Use Zag components with AlpineJS.",
   "author": "Tristan Yang <tunkshif@foxmail.com>",
   "license": "MIT",

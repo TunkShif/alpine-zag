@@ -1,0 +1,64 @@
+---
+
+---
+
+<div x-cloak x-data x-slider="{ min: 0, max: 100, value: [50] }">
+  <div class="flex justify-between">
+    <label x-slider:label>Quantity</label>
+    <output x-slider:value-text x-text="$slider.value.at(0)"></output>
+  </div>
+  <div x-slider:control>
+    <div x-slider:track>
+      <div x-slider:range></div>
+    </div>
+    <template x-for="(_, index) in $slider.value" x-key="index">
+      <div x-slider:thumb="{ index }">
+        <input x-slider:hidden-input="{ index }" />
+      </div>
+    </template>
+  </div>
+  <div x-slider:marker-group>
+    <span x-slider:marker="{ value: 25 }">25</span>
+    <span x-slider:marker="{ value: 50 }">50</span>
+    <span x-slider:marker="{ value: 75 }">75</span>
+  </div>
+</div>
+
+<style>
+  [data-part="root"] {
+    @apply flex flex-col gap-1 w-72;
+  }
+
+  [data-part="label"] {
+    @apply font-medium;
+  }
+
+  [data-part="control"] {
+    @apply relative h-4 flex items-center;
+  }
+
+  [data-part="track"] {
+    @apply w-full h-1.5 bg-zinc-300 dark:bg-zinc-700 rounded-full overflow-hidden;
+  }
+
+  [data-part="range"] {
+    @apply h-1.5 bg-zinc-700 dark:bg-zinc-50;
+  }
+
+  [data-part="thumb"] {
+    @apply w-4 h-4 bg-white border-zinc-300/60 border rounded-full shadow-sm z-[1];
+  }
+
+  [data-part="marker"] {
+    @apply text-sm;
+  }
+
+  [data-part="marker-group"] {
+    @apply -mt-1;
+  }
+
+  [data-part="marker"]::before {
+    content: "";
+    @apply inline-block relative w-1 h-1 bg-white rounded-full left-1/2 -translate-x-1/2 -top-5;
+  }
+</style>

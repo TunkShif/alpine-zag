@@ -17,13 +17,31 @@ export const plugin: PluginCallback = (Alpine) => {
       case "range":
         return handleComponentPart(el, Alpine, "slider", "rangeProps")
       case "thumb":
-        return handleComponentPart(el, Alpine, "slider", "getThumbProps", {
-          index: evaluate(directive.expression)
-        })
+        return handleComponentPart(
+          el,
+          Alpine,
+          "slider",
+          "getThumbProps",
+          evaluate(directive.expression)
+        )
       case "hidden-input":
-        return handleComponentPart(el, Alpine, "slider", "getHiddenInputProps", {
-          index: evaluate(directive.expression)
-        })
+        return handleComponentPart(
+          el,
+          Alpine,
+          "slider",
+          "getHiddenInputProps",
+          evaluate(directive.expression)
+        )
+      case "marker-group":
+        return handleComponentPart(el, Alpine, "slider", "markerGroupProps")
+      case "marker":
+        return handleComponentPart(
+          el,
+          Alpine,
+          "slider",
+          "getMarkerProps",
+          evaluate(directive.expression)
+        )
       default:
         return handleRoot(el, Alpine, cleanup, evaluate(directive.expression || "{}"))
     }
